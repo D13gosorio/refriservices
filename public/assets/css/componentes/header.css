@@ -1,0 +1,44 @@
+/* =====================================================
+   HEADER.CSS - Barra superior (contacto y redes)
+   Proyecto: RefriServices
+   ===================================================== */
+
+.barra-superior {
+    background-color: var(--azul-oscuro);
+    color: var(--blanco);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+}
+
+.barra-superior-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contacto-superior {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.redes-superior {
+    display: flex;           
+    align-items: center;
+    gap: 0.8rem;             
+}
+
+.redes-superior img {
+    width: 30px;
+    height: 30px;
+    filter: brightness(0) invert(1);
+}
+
+/* Responsive de la barra superior */
+@media screen and (max-width: 768px) {
+    .barra-superior-contenido {
+        flex-direction: column;
+        gap: 0.3rem;
+        text-align: center;
+    }
+}

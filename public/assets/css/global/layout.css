@@ -1,0 +1,168 @@
+/* =====================================================
+   LAYOUT.CSS - Estilos globales y responsive
+   Proyecto: RefriServices
+   ===================================================== */
+
+/* ----------------------------------------------------
+   VARIABLES GLOBALES (paleta, tipografías, tamaños)
+---------------------------------------------------- */
+:root {
+    /* Paleta de colores del proyecto */
+    --azul-oscuro: #0a2d4a;
+    --azul: #004b87;
+    --azul-claro: #e7f3ff;
+    --gris: #333;
+    --gris-claro: #f5f5f5;
+    --blanco: #fff;
+    --naranja: #ff7b00;
+
+    /* Tipografía base */
+    --fuente-base: Arial, Helvetica, sans-serif;
+
+    /* Layout */
+    --max-width: 1200px;
+    --padding-seccion: 3rem;
+    --padding-seccion-mobile: 2rem;
+
+    /* Sombra estándar para tarjetas */
+    --sombra-suave: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ----------------------------------------------------
+   1. CONFIGURACIÓN GLOBAL
+---------------------------------------------------- */
+body {
+    font-family: var(--fuente-base);
+    background-color: var(--blanco);
+    color: var(--gris);
+}
+
+/* Contenedor principal fluid + responsive */
+.contenedor {
+    width: 90%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+/* Secciones */
+.seccion {
+    padding: var(--padding-seccion) 0;
+}
+
+/* Títulos */
+h1, h2, h3 {
+    color: var(--azul-oscuro);
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Utilidades */
+.texto-centrado {
+    text-align: center;
+}
+
+.margen-superior {
+    margin-top: 2rem;
+}
+
+.margen-inferior {
+    margin-bottom: 2rem;
+}
+
+/* ----------------------------------------------------
+   2. BOTONES GLOBALES
+---------------------------------------------------- */
+.boton-principal {
+    background-color: var(--naranja);
+    color: var(--blanco);
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: bold;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.boton-principal:hover {
+    background-color: #e56c00;
+}
+
+/* Botón secundario */
+.boton-secundario {
+    background-color: var(--azul);
+    color: var(--blanco);
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.boton-secundario:hover {
+    background-color: #003f73;
+}
+
+/* ----------------------------------------------------
+   3. GRID GLOBAL PARA TARJETAS (reutilizable)
+---------------------------------------------------- */
+.grid-3 {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+}
+
+/* En tablets → 2 columnas */
+@media screen and (min-width: 600px) {
+    .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* En desktop → 3 columnas */
+@media screen and (min-width: 900px) {
+    .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ----------------------------------------------------
+   4. TARJETAS (global)
+---------------------------------------------------- */
+.tarjeta {
+    background-color: var(--blanco);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--sombra-suave);
+}
+
+/* ----------------------------------------------------
+   5. IMÁGENES RESPONSIVAS
+---------------------------------------------------- */
+img {
+    border-radius: 6px;
+}
+
+/* ----------------------------------------------------
+   6. RESPONSIVIDAD GLOBAL
+---------------------------------------------------- */
+
+/* Ajustes en pantallas pequeñas */
+@media screen and (max-width: 480px) {
+    :root {
+        --padding-seccion: var(--padding-seccion-mobile);
+    }
+}
+
+/* Títulos más grandes en escritorio */
+@media screen and (min-width: 1024px) {
+    h1 {
+        font-size: 2.4rem;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+}

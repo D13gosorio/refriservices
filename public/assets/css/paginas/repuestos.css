@@ -1,0 +1,86 @@
+/* =====================================================
+   REPUESTOS.CSS - Catálogo de repuestos
+===================================================== */
+
+.seccion-repuestos {
+    padding: 3rem 1rem 1rem 1rem;
+}
+
+.grid-repuestos {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+/* Tarjeta */
+.card-repuesto {
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--sombra-suave);
+    padding: 1rem;
+    text-align: center;
+}
+
+.img-repuesto {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.precio {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--naranja);
+}
+
+.stock {
+    font-size: 0.95rem;
+    color: var(--gris);
+    margin-bottom: 1rem;
+}
+
+.boton-detalle {
+    background-color: var(--azul);
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    display: inline-block;
+    transition: .3s;
+}
+
+.boton-detalle:hover {
+    background-color: #003f73;
+}
+
+/* Select de Ordenamiento */
+.ordenamiento-repuestos {
+    width: 90%;
+    max-width: 1200px;
+    margin: 1rem auto 2rem auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ordenamiento-repuestos select {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+
+    .ordenamiento-repuestos {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.7rem;
+    }
+
+    .ordenamiento-repuestos select {
+        width: 100%;
+    }
+}

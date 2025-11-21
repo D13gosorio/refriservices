@@ -1,0 +1,78 @@
+/* =====================================================
+   MIS_SOLICITUDES.CSS
+   Página de historial de solicitudes
+===================================================== */
+
+.seccion-mis-solicitudes {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.tabla-solicitudes-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto 4rem auto;
+    overflow-x: auto;
+}
+
+.tabla-solicitudes {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra-suave);
+}
+
+.tabla-solicitudes th {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 0.9rem;
+    font-size: 1rem;
+}
+
+.tabla-solicitudes td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #e5e5e5;
+    color: var(--gris);
+}
+
+.tabla-solicitudes tr:hover {
+    background-color: #f6f9ff;
+}
+
+/* Estado */
+.estado {
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.estado.pendiente {
+    background: #fff3cd;
+    color: #b38300;
+}
+
+.estado.aprobado {
+    background: #d4edda;
+    color: #1d6b39;
+}
+
+.estado.finalizado {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.estado.cancelado {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.btn-ver {
+    color: var(--azul);
+    font-weight: bold;
+}
+
+.btn-ver:hover {
+    color: var(--azul-oscuro);
+}

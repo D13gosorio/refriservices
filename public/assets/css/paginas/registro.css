@@ -1,0 +1,99 @@
+/* =====================================================
+   REGISTRO.CSS - Página de registro
+   Proyecto: RefriServices
+===================================================== */
+
+/* Fondo general gris claro */
+body {
+    background-color: var(--gris-claro);
+}
+
+/* Contenedor del formulario */
+.seccion-registro {
+    width: 90%;
+    max-width: 700px;
+    margin: 3.5rem auto;
+    background: var(--blanco);
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Título */
+.seccion-registro .titulo-principal {
+    font-size: 2rem;
+    text-align: center;
+    color: var(--azul-oscuro);
+    margin-bottom: 1rem;
+}
+
+/* Subtítulo */
+.descripcion-subtitulo {
+    text-align: center;
+    color: var(--gris);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* FORMULARIO */
+.formulario-registro label {
+    font-weight: 600;
+    color: var(--azul-oscuro);
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+/* Inputs */
+.formulario-registro input {
+    width: 100%;
+    padding: 0.9rem;
+    border-radius: 6px;
+    border: 2px solid #dcdcdc;
+    margin-bottom: 1.4rem;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+/* Efecto focus */
+.formulario-registro input:focus {
+    border-color: var(--azul);
+    outline: none;
+}
+
+/* Botón crear cuenta */
+.boton-naranja {
+    display: inline-block;
+    background-color: var(--naranja);
+    color: var(--blanco);
+    padding: 0.9rem 2rem;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.boton-naranja:hover {
+    background-color: #e56c00;
+}
+
+/* Enlace a login */
+.enlace-login {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.enlace-login a {
+    color: var(--azul);
+    font-weight: bold;
+}
+
+.enlace-login a:hover {
+    color: var(--azul-oscuro);
+}
+
+/* RESPONSIVE — mayor espacio en pantallas grandes */
+@media screen and (min-width: 900px) {
+    .seccion-registro {
+        padding: 3rem 3rem;
+    }
+}

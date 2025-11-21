@@ -1,0 +1,121 @@
+/* =====================================================
+   NAVBAR.CSS - Navbar superior + principal (responsive)
+   Proyecto: RefriServices
+   ===================================================== */
+
+
+/* ------------------------------
+   NAVBAR PRINCIPAL
+------------------------------ */
+
+.navbar-principal {
+    background-color: var(--blanco);
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar-contenido {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem 0;
+    gap: 3rem; 
+}
+
+.logo img {
+    width: 150px;
+}
+
+/* ------------------------------
+   MENÚ DESKTOP
+------------------------------ */
+
+.menu ul {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.menu ul li a {
+    color: var(--azul-oscuro);
+    font-weight: 600;
+    font-size: 1.5rem;
+    transition: 0.2s;
+}
+
+.menu ul li a:hover {
+    color: var(--azul);
+}
+
+/* BOTÓN LOGIN */
+.boton-login {
+    background-color: var(--naranja);
+    padding: 0.5rem 1rem;
+    color: white !important;
+    border-radius: 6px;
+}
+
+.boton-login:hover {
+    background-color: #e56c00;
+}
+
+/* ------------------------------
+   MENÚ HAMBURGUESA (mobile)
+------------------------------ */
+
+.hamburguesa {
+    width: 30px;
+    cursor: pointer;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hamburguesa span {
+    height: 3px;
+    background-color: var(--azul-oscuro);
+    border-radius: 3px;
+}
+
+/* ------------------------------
+   RESPONSIVE
+------------------------------ */
+
+/* MOBILE FIRST */
+@media screen and (max-width: 768px) {
+
+    /* Barra superior más compacta */
+    .barra-superior-contenido {
+        flex-direction: column;
+        gap: 0.3rem;
+        text-align: center;
+    }
+
+    /* Mostrar ícono hamburguesa */
+    .hamburguesa {
+        display: flex;
+    }
+
+    /* Ocultar menú por defecto */
+    .menu {
+        display: none;
+        position: absolute;
+        top: 140px; /* debajo del navbar */
+        left: 0;
+        width: 100%;
+        background-color: var(--blanco);
+        border-bottom: 1px solid #ddd;
+        padding: 1rem 0;
+    }
+
+    /* Hacer menú vertical */
+    .menu ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    /* Clase que activaremos con JS */
+    .menu.activo {
+        display: block;
+    }
+}

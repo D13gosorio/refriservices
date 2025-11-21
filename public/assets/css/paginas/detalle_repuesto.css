@@ -1,0 +1,44 @@
+/* =====================================================
+   DETALLE REPUESTO
+===================================================== */
+
+.detalle-repuesto {
+    width: 90%;
+    max-width: 1100px;
+    margin: 2rem auto;
+}
+
+.card-detalle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    background: white;
+    box-shadow: var(--sombra-suave);
+    border-radius: 8px;
+}
+
+.img-detalle {
+    width: 350px;
+    border-radius: 8px;
+}
+
+.info-detalle {
+    flex: 1;
+}
+
+.precio {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--naranja);
+}
+
+.descripcion {
+    margin: 1rem 0;
+}
+
+@media screen and (max-width: 768px) {
+    .img-detalle {
+        width: 100%;
+    }
+}

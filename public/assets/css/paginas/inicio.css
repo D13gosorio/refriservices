@@ -1,0 +1,206 @@
+/* =====================================================
+   INICIO.CSS - Página de inicio RefriServices
+===================================================== */
+
+/* ===================== HERO BANNER ===================== */
+
+.banner-hero {
+    background-color: var(--azul);
+    color: var(--blanco);
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.contenedor-texto-banner {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contenedor-texto-banner h1 {
+    color: var(--blanco);
+    font-size: 2rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+.contenedor-texto-banner p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Botón del banner */
+.boton-naranja {
+    background-color: var(--naranja);
+    color: var(--blanco);
+    padding: 0.9rem 1.8rem;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.boton-naranja:hover {
+    background-color: #e56c00;
+}
+
+/* Texto más grande en pantallas medianas y grandes */
+@media screen and (min-width: 768px) {
+    .contenedor-texto-banner h1 {
+        font-size: 2.4rem;
+    }
+    .contenedor-texto-banner p {
+        font-size: 1.1rem;
+    }
+}
+
+/* ===================== SECCIÓN: ¿QUÉ HACEMOS? ===================== */
+
+.seccion-servicios {
+    padding: 3rem 0;
+    background-color: var(--gris-claro);
+    text-align: center;
+}
+
+.titulo-seccion {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: var(--azul-oscuro);
+}
+
+/* Grid de tarjetas */
+.grid-3-tarjetas {
+    width: 90%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr; /* móvil: una columna */
+}
+
+/* Tarjeta individual */
+.tarjeta-servicio {
+    background-color: var(--blanco);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--sombra-suave);
+}
+
+.tarjeta-servicio .icono {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.tarjeta-servicio h3 {
+    margin-bottom: 0.5rem;
+    color: var(--azul-oscuro);
+}
+
+/* En pantallas medianas → 2 columnas */
+@media screen and (min-width: 600px) {
+    .grid-3-tarjetas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* En desktop → 3 columnas */
+@media screen and (min-width: 900px) {
+    .grid-3-tarjetas {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ===================== SECCIÓN: ¿POR QUÉ ELEGIRNOS? ===================== */
+
+.seccion-ventajas {
+    padding: 3rem 0;
+    background-color: var(--blanco);
+    text-align: center;
+}
+
+.grid-3-ventajas {
+    width: 90%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+}
+
+.ventaja {
+    background-color: var(--blanco);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--sombra-suave);
+}
+
+.ventaja h3 {
+    margin-bottom: 0.5rem;
+    color: var(--azul-oscuro);
+}
+
+/* responsive */
+@media screen and (min-width: 600px) {
+    .grid-3-ventajas {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ===================== SECCIÓN NOTICIAS ===================== */
+
+.seccion-noticias {
+    padding: 3rem 0;
+    background-color: var(--gris-claro);
+}
+
+.seccion-noticias .titulo-seccion {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.lista-noticias {
+    width: 90%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+}
+
+.lista-noticias li {
+    background-color: var(--blanco);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--sombra-suave);
+}
+
+.lista-noticias h3 {
+    margin-bottom: 0.5rem;
+    color: var(--azul-oscuro);
+}
+
+.lista-noticias a {
+    display: inline-block;
+    margin-top: 0.8rem;
+    color: var(--azul);
+    font-weight: 600;
+}
+
+.lista-noticias a:hover {
+    text-decoration: underline;
+}
+
+/* Video responsivo */
+.lista-noticias video {
+    width: 100%;
+    max-height: 250px; 
+    margin-top: 0.8rem;
+    border-radius: 6px;
+}
+
+/* En pantallas grandes, dos columnas para las noticias */
+@media screen and (min-width: 900px) {
+    .lista-noticias {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

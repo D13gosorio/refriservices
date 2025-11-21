@@ -1,0 +1,89 @@
+/* =====================================================
+   LOGIN.CSS - Página de inicio de sesión
+   Proyecto: RefriServices
+===================================================== */
+
+/* Fondo gris claro */
+body {
+    background-color: var(--gris-claro);
+}
+
+/* Contenedor general del login */
+.seccion-login {
+    width: 90%;
+    max-width: 600px;
+    margin: 4rem auto;
+    background: var(--blanco);
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Título */
+.seccion-login .titulo-principal {
+    font-size: 2rem;
+    color: var(--azul-oscuro);
+    margin-bottom: 1rem;
+}
+
+/* Subtítulo */
+.descripcion-subtitulo {
+    color: var(--gris);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* FORMULARIO */
+.formulario-login label {
+    font-weight: 600;
+    color: var(--azul-oscuro);
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.formulario-login input {
+    width: 100%;
+    padding: 0.9rem;
+    border-radius: 6px;
+    border: 2px solid #dcdcdc;
+    margin-bottom: 1.4rem;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+/* Input en focus */
+.formulario-login input:focus {
+    border-color: var(--azul);
+    outline: none;
+}
+
+/* Botón */
+.boton-naranja {
+    display: inline-block;
+    background-color: var(--naranja);
+    color: var(--blanco);
+    padding: 0.9rem 2rem;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.boton-naranja:hover {
+    background-color: #e56c00;
+}
+
+/* Enlace a registro */
+.enlace-registro {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+}
+
+.enlace-registro a {
+    color: var(--azul);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.enlace-registro a:hover {
+    color: var(--azul-oscuro);
+}
