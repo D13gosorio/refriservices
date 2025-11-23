@@ -74,7 +74,7 @@
             </p>
         </div>
 
-        <!-- Diego -->
+        <!-- Diego Osorio -->
         <div class="tarjeta-integrante">
             <img src="<?= BASE_URL ?>/assets/img/nosotros/diego.jpg" alt="Foto de Diego">
             <h3>Diego Osorio</h3>
@@ -93,17 +93,20 @@
             <p>Cédula: 8-1014-637</p>
             <p>Carrera: Ingeniería de Software</p>
             <p class="descripcion">
-                Pequeña descripción de Jorge
+                Conocimientos en Java, Python, HTML, CSS y SQL.
+                Trabajo en proyectos académicos orientados a programación y gestión de datos.
+                Participación destacada en hackatones, desarrollando soluciones creativas y funcionales.
         </div>
 
-                        <!-- Jorge Cedeño -->
+                        <!-- Alejandro Mendoza -->
         <div class="tarjeta-integrante">
             <img src="<?= BASE_URL ?>/assets/img/nosotros/mendo.jpg" alt="Foto de Mendo">
             <h3>Alejandro Mendoza</h3>
             <p>Cédula: 8-1005-1104</p>
             <p>Carrera: Ingeniería de Software</p>
             <p class="descripcion">
-                Pequeña descripción de Mendo
+                Experiencia en desarrollo frontend y backend, además de creación de aplicaciones móviles.
+                Conocimiento en Python, JavaScript, SQL y herramientas modernas de desarrollo.
         </div>
 
     </div>
