@@ -1,0 +1,68 @@
+.barra-superior-admin {
+    background-color: #0A3F7A; 
+    height: 50px;              
+    width: 100%;
+}
+/* ------------------ Estilos de tabla  ------------------ */
+/* ====================== Estilos de tabla adaptados ====================== */
+
+.tabla-contenedor {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto 4rem auto;
+    overflow-x: auto;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra-suave);
+}
+
+.tabla-admin th {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 0.9rem;
+    font-size: 1rem;
+}
+
+.tabla-admin td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #e5e5e5;
+    color: var(--gris);
+}
+
+.tabla-admin tr:hover {
+    background-color: #f6f9ff;
+}
+
+/* ------------------ Estilos select y botón ------------------ */
+
+.select-estado {
+    padding: 5px 8px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.select-estado:focus {
+    border-color: #0A3F7A;
+}
+
+.btn-primary {
+    background: #0A3F7A;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #062e57;
+}
+
+

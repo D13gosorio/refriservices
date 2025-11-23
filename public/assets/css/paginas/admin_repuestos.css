@@ -1,0 +1,112 @@
+/* ==========================================================
+   Barra superior exclusiva del panel admin
+   ========================================================== */
+
+.barra-superior-admin {
+    background-color: #0A3F7A; 
+    height: 50px;
+    width: 100%;
+}
+
+
+/* ==========================================================
+   TABLA (estilo reutilizado de solicitudes)
+   ========================================================== */
+
+.tabla-contenedor {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto 4rem auto;
+    overflow-x: auto;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra-suave);
+}
+
+.tabla-admin th {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 0.9rem;
+    font-size: 1rem;
+}
+
+.tabla-admin td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #e5e5e5;
+    color: var(--gris);
+}
+
+.tabla-admin tr:hover {
+    background-color: #f6f9ff;
+}
+
+
+/* ==========================================================
+   Botón "Agregar" (superior derecha)
+   ========================================================== */
+
+.btn-agregar-repuesto {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-agregar-repuesto:hover {
+    background-color: #1e7e34;
+}
+
+
+/* ==========================================================
+   Botones de acciones (Editar / Borrar)
+   ========================================================== */
+
+.btn-editar {
+    background-color: #007bff;
+    color: #fff;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.btn-editar:hover {
+    background-color: #0056b3;
+}
+
+.btn-borrar {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-borrar:hover {
+    background-color: #b0212f;
+}
+
+
+/* ==========================================================
+   Imagen de repuesto dentro de la tabla
+   ========================================================== */
+
+.tabla-admin img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+}
