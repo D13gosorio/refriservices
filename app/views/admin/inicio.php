@@ -7,24 +7,28 @@
 
     <div class="grid-modulos-admin">
         
-        <a href="<?= BASE_URL ?>/index.php?controller=AdminController&method=servicios" class="card-admin">
+        <!-- Gestión de Servicios -->
+        <a href="<?= BASE_URL ?>/?controller=AdminController&method=servicios" class="card-admin">
             <h3>Gestión de Servicios</h3>
-            <p>Crear, editar y administrar actividades y servicios.</p>
+            <p>Crear, editar y administrar servicios.</p>
         </a>
 
-        <a href="<?= BASE_URL ?>/index.php?controller=AdminController&method=repuestos" class="card-admin">
+        <!-- Gestión de Repuestos -->
+        <a href="<?= BASE_URL ?>/?controller=AdminController&method=repuestos" class="card-admin">
             <h3>Gestión de Repuestos</h3>
-            <p>Registrar, actualizar y controlar repuestos disponibles.</p>
+            <p>Agregar, actualizar y controlar repuestos disponibles.</p>
         </a>
 
-        <a href="<?= BASE_URL ?>/index.php?controller=AdminController&method=solicitudes" class="card-admin">
+        <!-- Gestión de Solicitudes -->
+        <a href="<?= BASE_URL ?>/?controller=AdminController&method=solicitudes" class="card-admin">
             <h3>Gestión de Solicitudes</h3>
             <p>Revisar solicitudes de clientes y asignaciones.</p>
         </a>
 
-        <a href="<?= BASE_URL ?>/index.php?controller=AdminController&method=mensajes" class="card-admin">
+        <!-- Mensajes de contacto -->
+        <a href="<?= BASE_URL ?>/?controller=AdminController&method=mensajes" class="card-admin">
             <h3>Mensajes de Contacto</h3>
-            <p>Leer y responder mensajes enviados desde la página pública.</p>
+            <p>Leer mensajes enviados desde la página pública.</p>
         </a>
 
     </div>

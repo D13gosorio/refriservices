@@ -27,21 +27,21 @@
                 $repuestosPrueba = [
                     [
                         "id" => 1,
-                        "imagen" => BASE_URL . "/assets/img/repuestos/motor.png",
+                        "imagen" => BASE_URL . "/assets/img/repuestos/default.jpg",
                         "nombre" => "Motor de ventilador",
                         "precio" => "35.00",
                         "cantidad" => 12
                     ],
                     [
                         "id" => 2,
-                        "imagen" => BASE_URL . "/assets/img/repuestos/filtro.png",
+                        "imagen" => BASE_URL . "/assets/img/repuestos/default.jpg",
                         "nombre" => "Filtro lavable",
                         "precio" => "9.00",
                         "cantidad" => 50
                     ],
                     [
                         "id" => 3,
-                        "imagen" => BASE_URL . "/assets/img/repuestos/capacitor.png",
+                        "imagen" => BASE_URL . "/assets/img/repuestos/default.jpg",
                         "nombre" => "Capacitor 45uF",
                         "precio" => "7.50",
                         "cantidad" => 28

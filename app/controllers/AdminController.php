@@ -7,6 +7,7 @@ class AdminController {
 
         include "../app/views/layout/admin_header.php";
         include "../app/views/admin/inicio.php";
+        include "../app/views/layout/admin_footer.php";
     }
 
     public function servicios() {
@@ -14,6 +15,7 @@ class AdminController {
 
         include "../app/views/layout/admin_header.php";
         include "../app/views/admin/servicios.php";
+        include "../app/views/layout/admin_footer.php";
     }
 
     public function repuestos() {
@@ -21,6 +23,7 @@ class AdminController {
 
         include "../app/views/layout/admin_header.php";
         include "../app/views/admin/repuestos.php";
+        include "../app/views/layout/admin_footer.php";
     }
 
     public function solicitudes() {
@@ -28,6 +31,7 @@ class AdminController {
 
         include "../app/views/layout/admin_header.php";
         include "../app/views/admin/solicitudes.php";
+        include "../app/views/layout/admin_footer.php";
     }
 
     public function mensajes() {
@@ -35,5 +39,6 @@ class AdminController {
 
         include "../app/views/layout/admin_header.php";
         include "../app/views/admin/mensajes.php";
+        include "../app/views/layout/admin_footer.php";
     }
 }
