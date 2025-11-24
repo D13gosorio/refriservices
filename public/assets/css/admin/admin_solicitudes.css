@@ -1,10 +1,17 @@
 .barra-superior-admin {
-    background-color: #0A3F7A; 
-    height: 50px;              
+    background-color: #0A3F7A;
+    height: 50px;
     width: 100%;
 }
-/* ------------------ Estilos de tabla  ------------------ */
-/* ====================== Estilos de tabla adaptados ====================== */
+
+/* =========================== TABLA =========================== */
+
+.titulo-admin {
+    font-size: 32px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+}
 
 .tabla-contenedor {
     width: 90%;
@@ -26,6 +33,7 @@
     color: var(--blanco);
     padding: 0.9rem;
     font-size: 1rem;
+    text-align: center;
 }
 
 .tabla-admin td {
@@ -39,31 +47,52 @@
     background-color: #f6f9ff;
 }
 
-/* ------------------ Estilos select y botón ------------------ */
+/* =========================== SELECT =========================== */
 
 .select-estado {
     padding: 5px 8px;
     font-size: 14px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    outline: none;
 }
 
 .select-estado:focus {
     border-color: #0A3F7A;
 }
 
-.btn-primary {
-    background: #0A3F7A;
-    color: #fff;
-    padding: 6px 10px;
+/* =========================== BOTONES =========================== */
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 14px;
     border-radius: 6px;
-    border: none;
     cursor: pointer;
+    text-decoration: none;
+    border: none;
+    margin: 0 3px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #0A3F7A;
+    color: #fff;
 }
 
 .btn-primary:hover {
-    background: #062e57;
+    background-color: #062e57;
 }
 
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
 
+.btn-danger:hover {
+    background-color: #b0212f;
+}
+
+/* Alinear botones */
+.acciones-col {
+    white-space: nowrap;
+}

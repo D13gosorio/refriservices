@@ -3,7 +3,7 @@
 
     <div class="top-actions">
         <a href="<?= BASE_URL ?>/index.php?controller=ServiciosController&method=create" class="btn-primary">
-            + Crear servicio
+            + Agregar servicio
         </a>
     </div>
 
