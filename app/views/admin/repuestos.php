@@ -3,7 +3,7 @@
 
     <!-- Botón Agregar (arriba a la derecha) -->
     <div style="text-align: right; width: 90%; max-width: 1200px; margin: 1rem auto;">
-        <button class="btn-agregar-repuesto">Agregar</button>
+        <button class="btn-agregar-repuesto">+ Agregar repuesto</button>
     </div>
 
     <!-- Contenedor con el mismo estilo de tabla que solicitudes -->
@@ -63,7 +63,7 @@
 
                     <td>
                         <button class="btn-editar">Editar</button>
-                        <button class="btn-borrar">Borrar</button>
+                        <button class="btn-borrar">Eliminar</button>
                     </td>
                 </tr>
                 <?php endforeach; ?>

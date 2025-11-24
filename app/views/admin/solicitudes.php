@@ -19,7 +19,6 @@
             <tbody>
 
                 <?php
-                // 🔧 DATOS ESTÁTICOS (REEMPLAZAR POR CONSULTA A LA BASE DE DATOS)
                 $solicitudesPrueba = [
                     [
                         "id" => 101,
@@ -57,7 +56,6 @@
                     <td><?= $s["cliente"] ?></td>
                     <td><?= $s["servicio"] ?></td>
 
-                    <!-- SELECT ESTÁTICO PARA ESTADO -->
                     <td>
                         <select class="select-estado">
                             <option value="Pendiente"   <?= $s["estado"] == "Pendiente" ? "selected" : "" ?>>Pendiente</option>
@@ -71,10 +69,9 @@
                     <td><?= $s["fecha_programada"] ?></td>
                     <td><?= $s["cantidad"] ?></td>
 
-                    <td>
-                        <button class="btn-small btn-primary">
-                            Actualizar
-                        </button>
+                    <td class="acciones-col">
+                        <button class="btn-small btn-primary">Actualizar</button>
+                        <button class="btn-small btn-danger">Eliminar</button>
                     </td>
                 </tr>
                 <?php endforeach; ?>

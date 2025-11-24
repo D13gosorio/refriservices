@@ -1,0 +1,107 @@
+.barra-superior-admin {
+    background-color: #0A3F7A; 
+    height: 50px;              
+    width: 100%;
+}
+
+/* ==========================================================
+   ESTILOS DE LA PÁGINA: GESTIÓN DE SERVICIOS (ADMIN)
+   ========================================================== */
+
+/* Título principal */
+.titulo-admin {
+    font-size: 32px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Contenedor del botón superior */
+.top-actions {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 1.5rem auto;
+    text-align: right;
+}
+
+/* Botón Crear servicio */
+.btn-primary {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e56c00;
+}
+
+/* ==========================================================
+   TABLA DE SERVICIOS
+   ========================================================== */
+
+.tabla-contenedor {
+    width: 90%;
+    max-width: 1200px;
+    margin: 1rem auto 3rem auto;
+    overflow-x: auto;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra-suave);
+}
+
+/* Encabezados */
+.tabla-admin th {
+    background-color: var(--azul);
+    color: var(--blanco);
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Celdas */
+.tabla-admin td {
+    padding: 0.9rem;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    color: var(--gris);
+}
+
+/* Hover de filas */
+.tabla-admin tr:hover {
+    background-color: #f6f9ff;
+}
+
+/* ==========================================================
+   BOTONES DE ACCIONES (Editar / Eliminar)
+   ========================================================== */
+
+.btn-small {
+    background-color: #007bff;
+    color: #fff;
+    padding: 7px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 6px;
+    transition: 0.2s;
+}
+
+.btn-small:hover {
+    background-color: #0056b3;
+}
+
+.btn-danger {
+    background-color: #dc3545 !important;
+}
+
+.btn-danger:hover {
+    background-color: #b0212f !important;
+}
