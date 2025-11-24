@@ -32,7 +32,6 @@
                     <td><?= $m["msg"] ?></td>
                     <td><?= $m["fecha"] ?></td>
                     <td>
-                        <a href="#" class="btn-small">Responder</a>
                         <a href="#" class="btn-small btn-danger">Eliminar</a>
                     </td>
                 </tr>

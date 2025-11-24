@@ -1,0 +1,105 @@
+/* ==========================================================
+   Barra superior exclusiva del panel admin
+========================================================== */
+
+.barra-superior-admin {
+    background-color: #0A3F7A;
+    height: 50px;
+    width: 100%;
+}
+
+/* ==========================================================
+   TÍTULO
+========================================================== */
+
+.titulo-admin {
+    font-size: 32px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+    color: var(--azul-oscuro);
+}
+
+/* ==========================================================
+   TABLA DE MENSAJES
+========================================================== */
+
+.tabla-contenedor {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto 4rem auto;
+    overflow-x: auto;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra-suave);
+}
+
+.tabla-admin th {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 0.9rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.tabla-admin td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #e5e5e5;
+    color: var(--gris);
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Hover fila */
+.tabla-admin tr:hover {
+    background-color: #f6f9ff;
+}
+
+/* ==========================================================
+   BOTONES
+========================================================== */
+
+.btn-small {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0 3px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.btn-small:hover {
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #b0212f;
+}
+
+/* Botón responder (estilo azul) */
+.btn-small:not(.btn-danger) {
+    background-color: #0A3F7A;
+    color: white;
+}
+
+.btn-small:not(.btn-danger):hover {
+    background-color: #062e57;
+}
+
+/* Para evitar que los botones se corten */
+td:last-child {
+    white-space: nowrap;
+}
