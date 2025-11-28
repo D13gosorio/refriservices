@@ -3,7 +3,7 @@
     <div class="contenedor navbar-contenido">
 
         <div class="logo">
-            <a href="<?= BASE_URL ?>/"><img src="<?= BASE_URL ?>/assets/img/logo/logo.png"></a>
+            <a href="<?= BASE_URL ?>/"><img src="<?= BASE_URL ?>/assets/img/logo/logo.png" alt="Logo del sitio"></a>
         </div>
 
         <nav class="menu">

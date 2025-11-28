@@ -4,7 +4,7 @@
 
         <div class="logo">
             <a href="<?= BASE_URL ?>/index.php?controller=AdminController&method=index">
-                <img src="<?= BASE_URL ?>/assets/img/logo/logo.png">
+                <img src="<?= BASE_URL ?>/assets/img/logo/logo.png" alt="Logo del sitio">
             </a>
         </div>
 

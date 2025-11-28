@@ -3,7 +3,7 @@
 
     <div class="card-detalle">
 
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" class="img-detalle">
+        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" alt="Logo default" class="img-detalle">
 
         <div class="info-detalle">
             <h2>Nombre del Repuesto (Estático por ahora)</h2>
