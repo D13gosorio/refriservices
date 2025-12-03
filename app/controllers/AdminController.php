@@ -3,10 +3,37 @@ require_once "../app/models/Solicitud.php";
 
 class AdminController {
 
+
+    /* =======================================================
+    Verificar que el usuario sea admin
+    ======================================================= */
+
+    private function verificarAdmin() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Verifica que exista la sesión
+    if (!isset($_SESSION['usuario_id']) || !isset($_SESSION['usuario_rol'])) {
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        exit;
+    }
+
+    // Verifica que tenga rol admin
+    if ($_SESSION['usuario_rol'] !== 'admin') {
+        // Opcional: mandar mensaje de error
+        $_SESSION['error'] = "No tienes permisos para acceder al área de administración.";
+        header("Location: " . BASE_URL);
+        exit;
+    }
+}
+
+
     /* =======================================================
        DASHBOARD
     ======================================================= */
     public function index() {
+        $this->verificarAdmin();
         $cssPagina = "admin_inicio";
 
         include "../app/views/layout/admin_header.php";
@@ -18,6 +45,7 @@ class AdminController {
        GESTIÓN DE SERVICIOS
     ======================================================= */
     public function servicios() {
+        $this->verificarAdmin();
         require_once "../app/models/Servicio.php";
 
         $cssPagina = "admin_servicios";
@@ -29,6 +57,7 @@ class AdminController {
     }
 
     public function crearServicio() {
+        $this->verificarAdmin();
         $cssPagina = "admin_servicio_form";
 
         include "../app/views/layout/admin_header.php";
@@ -37,6 +66,7 @@ class AdminController {
     }
 
     public function guardarServicio() {
+        $this->verificarAdmin();
         require_once "../app/models/Servicio.php";
 
         $data = [
@@ -52,6 +82,7 @@ class AdminController {
     }
 
     public function editarServicio() {
+        $this->verificarAdmin();
         require_once "../app/models/Servicio.php";
 
         $cssPagina = "admin_servicio_form";
@@ -63,6 +94,7 @@ class AdminController {
     }
 
     public function actualizarServicio() {
+        $this->verificarAdmin();
         require_once "../app/models/Servicio.php";
 
         $data = [
@@ -79,6 +111,7 @@ class AdminController {
     }
 
     public function eliminarServicio() {
+        $this->verificarAdmin();
         require_once "../app/models/Servicio.php";
 
         Servicio::eliminar($_GET['id']);
@@ -91,6 +124,7 @@ class AdminController {
        GESTIÓN DE REPUESTOS
     ======================================================= */
     public function repuestos() {
+        $this->verificarAdmin();
         require_once "../app/models/Repuesto.php";
 
         $cssPagina = "admin_repuestos";
@@ -103,6 +137,7 @@ class AdminController {
 
     // Formulario de crear repuestos
     public function crearRepuesto() {
+        $this->verificarAdmin();
     require_once "../app/models/Repuesto.php";
 
     $cssPagina = "admin_repuesto_form";
@@ -115,6 +150,7 @@ class AdminController {
 
     //Guardar repuesto
     public function guardarRepuesto() {
+        $this->verificarAdmin();
     require_once "../app/models/Repuesto.php";
 
     $data = [
@@ -133,6 +169,7 @@ class AdminController {
 
     //Editar repuesto
     public function editarRepuesto() {
+        $this->verificarAdmin();
     require_once "../app/models/Repuesto.php";
 
     $cssPagina = "admin_repuesto_form";
@@ -145,6 +182,7 @@ class AdminController {
 
     // Actualizar repuesto
     public function actualizarRepuesto() {
+        $this->verificarAdmin();
     require_once "../app/models/Repuesto.php";
 
     $data = [
@@ -164,6 +202,7 @@ class AdminController {
 
     // Eliminar repuesto
     public function eliminarRepuesto() {
+        $this->verificarAdmin();
     require_once "../app/models/Repuesto.php";
 
     Repuesto::eliminar($_GET['id']);
@@ -177,6 +216,7 @@ class AdminController {
        GESTIÓN DE SOLICITUDES
     ======================================================= */
     public function solicitudes() {
+        $this->verificarAdmin();
         require_once "../app/models/Solicitud.php";
 
         $cssPagina = "admin_solicitudes";
@@ -188,6 +228,7 @@ class AdminController {
     }
 
     public function actualizarSolicitud() {
+        $this->verificarAdmin();
         require_once "../app/models/Solicitud.php";
 
         $id = $_POST['id'];
@@ -205,6 +246,7 @@ class AdminController {
     }
 
     public function eliminarSolicitud() {
+        $this->verificarAdmin();
         require_once "../app/models/Solicitud.php";
 
         $id = $_GET['id'];
@@ -218,6 +260,7 @@ class AdminController {
        GESTIÓN DE MENSAJES
     ======================================================= */
     public function mensajes() {
+        $this->verificarAdmin();
         require_once "../app/models/Mensaje.php";
 
         $mensajes = Mensaje::obtenerTodos();
@@ -229,6 +272,7 @@ class AdminController {
     }
 
     public function eliminarMensaje() {
+        $this->verificarAdmin();
         require_once "../app/models/Mensaje.php";
 
         $id = $_GET["id"] ?? null;
