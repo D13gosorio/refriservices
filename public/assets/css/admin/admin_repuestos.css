@@ -1,14 +1,14 @@
 /* ==========================================================
-   Barra superior exclusiva del panel admin
+   Barra superior del panel admin
    ========================================================== */
 
 .barra-superior-admin {
-    background-color: #0A3F7A; 
+    background-color: #0A3F7A;
     height: 50px;
     width: 100%;
 }
 
-/* Título principal */
+/* Título */
 .titulo-admin {
     font-size: 32px;
     margin: 20px auto;
@@ -17,7 +17,7 @@
 }
 
 /* ==========================================================
-   TABLA (estilo reutilizado de solicitudes)
+   TABLA
    ========================================================== */
 
 .tabla-contenedor {
@@ -40,6 +40,7 @@
     color: var(--blanco);
     padding: 0.9rem;
     font-size: 1rem;
+    text-align: center;
 }
 
 .tabla-admin td {
@@ -53,12 +54,25 @@
     background-color: #f6f9ff;
 }
 
+/* Mantener botones alineados */
+.tabla-admin td:last-child {
+    white-space: nowrap;
+}
+
+/* Imagen */
+.tabla-admin img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto;
+}
 
 /* ==========================================================
-   Botón "Agregar" 
+   BOTÓN "AGREGAR REPUESTO" 
    ========================================================== */
 
-/* Contenedor del botón superior */
 .admin-top-actions {
     width: 90%;
     max-width: 1200px;
@@ -66,69 +80,52 @@
     text-align: right;
 }
 
-/* Botón Agregar */
 .btn-agregar-repuesto {
-    background-color: #1d7a33;
+    background-color: #1c7932; /* verde */
     color: white;
     padding: 10px 18px;
     border-radius: 6px;
     font-size: 16px;
     text-decoration: none;
     font-weight: bold;
-    transition: 0.2s;
+    transition: 0.2s ease;
 }
 
 .btn-agregar-repuesto:hover {
-    background-color: #1e7e34;
+    background-color: #155d27; /* verde oscuro  */
 }
 
-
 /* ==========================================================
-   Botones de acciones (Editar / Borrar)
+   BOTONES DE ACCIÓN (Editar / Borrar) 
    ========================================================== */
 
 .btn-editar {
     background-color: #0051a8;
-    color: #fff;
+    color: white;
     padding: 7px 12px;
-    border: none;
     border-radius: 6px;
     font-size: 14px;
-    cursor: pointer;
-    margin-right: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 6px;
+    transition: 0.2s ease;
 }
 
 .btn-editar:hover {
-    background-color: #0056b3;
+    background-color: #003f73;
 }
 
 .btn-borrar {
     background-color: #dc3545;
-    color: #fff;
+    color: white;
     padding: 7px 12px;
-    border: none;
     border-radius: 6px;
     font-size: 14px;
-    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.2s ease;
 }
 
 .btn-borrar:hover {
     background-color: #b0212f;
-}
-
-
-/* ==========================================================
-   Imagen de repuesto dentro de la tabla
-   ========================================================== */
-
-.tabla-admin img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
-.tabla-admin td img {
-    display: block;
-    margin: 0 auto;
 }

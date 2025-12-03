@@ -1,5 +1,5 @@
 <section class="admin-module">
-    <h1 class="titulo-admin">
+    <h1 class="titulo-admin form-titulo">
         <?= isset($servicio) ? "Editar Servicio" : "Agregar Nuevo Servicio" ?>
     </h1>
 
@@ -7,7 +7,6 @@
         <form action="<?= BASE_URL ?>/index.php?controller=AdminController&method=<?= isset($servicio) ? 'actualizarServicio' : 'guardarServicio' ?>"
               method="POST">
 
-            <!-- Oculto para edición -->
             <?php if (isset($servicio)): ?>
                 <input type="hidden" name="id" value="<?= $servicio['id'] ?>">
             <?php endif; ?>
@@ -37,12 +36,12 @@
 
             <!-- Botones -->
             <div class="form-acciones">
-                <button type="submit" class="btn-primary">
+                <button type="submit" class="btn-form-guardar">
                     <?= isset($servicio) ? "Actualizar" : "Crear" ?>
                 </button>
 
                 <a href="<?= BASE_URL ?>/index.php?controller=AdminController&method=servicios"
-                   class="btn-cancelar">
+                   class="btn-form-cancelar">
                     Cancelar
                 </a>
             </div>

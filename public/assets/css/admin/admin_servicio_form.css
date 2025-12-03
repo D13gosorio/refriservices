@@ -1,51 +1,93 @@
+/* ================================================
+   FORMULARIOS ADMIN — ESTILO UNIFICADO
+   Coinciden con los de la parte pública
+================================================ */
+
+/* Contenedor general */
 .form-contenedor {
     width: 90%;
     max-width: 700px;
-    margin: 2rem auto;
-    background: #fff;
-    padding: 2rem;
+    margin: 2.5rem auto 3rem auto;
+    background-color: var(--blanco);
+    padding: 2rem 2.5rem;
     border-radius: 10px;
     box-shadow: var(--sombra-suave);
 }
 
+/* Título centrado (usa las mismas clases que inicio admin) */
+.titulo-admin.form-titulo {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--azul-oscuro);
+    margin: 2rem auto 0.5rem auto;
+}
+
+/* Cada grupo del formulario */
 .form-grupo {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.6rem;
 }
 
-label {
+/* Etiquetas */
+.form-grupo label {
     display: block;
+    margin-bottom: 0.4rem;
     font-weight: bold;
-    margin-bottom: 0.5rem;
-    color: var(--gris);
+    color: var(--azul-oscuro);
 }
 
-input, textarea {
+/* Inputs y textarea */
+.form-grupo input,
+.form-grupo textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 0.8rem;
     border-radius: 6px;
-    font-size: 15px;
+    border: 1px solid #cccccc;
+    font-size: 1rem;
+    background-color: #fafafa;
 }
 
-textarea {
-    resize: vertical;
+.form-grupo input:focus,
+.form-grupo textarea:focus {
+    border-color: var(--azul);
+    outline: none;
+    background-color: #fff;
 }
 
+/* Zona de botones */
 .form-acciones {
     margin-top: 2rem;
     display: flex;
     gap: 1rem;
+    justify-content: center;
 }
 
-.btn-cancelar {
-    background: #777;
-    padding: 10px 16px;
+/* Botón GUARDAR / CREAR (azul, como los "Editar") */
+.btn-form-guardar {
+    background-color: #0051a8;
+    color: #fff;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-form-guardar:hover {
+    background-color: #0056b3;
+}
+
+/* Botón CANCELAR (rojo, como los "Eliminar") */
+.btn-form-cancelar {
+    background-color: #dc3545;
+    padding: 0.8rem 2rem;
     border-radius: 6px;
     color: #fff;
     text-decoration: none;
-    transition: 0.2s;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
-.btn-cancelar:hover {
-    background: #555;
+.btn-form-cancelar:hover {
+    background-color: #b0212f;
 }
