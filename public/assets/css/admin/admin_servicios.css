@@ -36,7 +36,7 @@
 }
 
 .btn-primary:hover {
-    background-color: #e56c00;
+    background-color: #155d27; /* Verde más oscuro */
 }
 
 /* ==========================================================
@@ -74,6 +74,11 @@
     color: var(--gris);
 }
 
+/* Evitar que los botones se partan en dos líneas */
+.tabla-admin td:last-child {
+    white-space: nowrap;
+}
+
 /* Hover de filas */
 .tabla-admin tr:hover {
     background-color: #f6f9ff;
@@ -91,11 +96,12 @@
     text-decoration: none;
     font-size: 14px;
     margin-right: 6px;
+    display: inline-block; 
     transition: 0.2s;
 }
 
 .btn-small:hover {
-    background-color: #0056b3;
+    background-color: #003f73;
 }
 
 .btn-danger {

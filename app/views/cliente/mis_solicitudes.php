@@ -1,15 +1,11 @@
-<!-- ===================== TÍTULO ===================== -->
 <section class="seccion-mis-solicitudes">
     <h1 class="titulo-principal texto-centrado">Mis Solicitudes</h1>
-
-    <p class="texto-centrado descripcion-subtitulo">
-        Aquí puedes revisar el historial de solicitudes y el estado actual de cada una.
+    <p class="descripcion-subtitulo texto-centrado">
+        Aquí puedes revisar todas tus solicitudes registradas.
     </p>
 </section>
 
-<!-- ===================== TABLA DE SOLICITUDES ===================== -->
 <section class="tabla-solicitudes-container">
-    
     <table class="tabla-solicitudes">
         <thead>
             <tr>
@@ -24,27 +20,38 @@
         </thead>
 
         <tbody>
-            <!-- 🔹 Ejemplo estático, luego será dinámico -->
-            <tr>
-                <td>001</td>
-                <td>Instalación</td>
-                <td>1</td>
-                <td>2025-01-12</td>
-                <td>2025-01-15</td>
-                <td><span class="estado pendiente">Pendiente</span></td>
-                <td><a href="#" class="btn-ver">Ver</a></td>
-            </tr>
 
+        <?php if (empty($solicitudes)): ?>
             <tr>
-                <td>002</td>
-                <td>Mantenimiento</td>
-                <td>1</td>
-                <td>2025-01-05</td>
-                <td>2025-01-07</td>
-                <td><span class="estado aprobado">Aprobado</span></td>
-                <td><a href="#" class="btn-ver">Ver</a></td>
+                <td colspan="7" style="text-align:center; padding:1rem;">
+                    No tienes solicitudes aún.
+                </td>
             </tr>
+        <?php endif; ?>
+
+        <?php foreach ($solicitudes as $s): ?>
+            <tr>
+                <td><?= $s["id"] ?></td>
+                <td><?= htmlspecialchars($s["servicio"]) ?></td>
+                <td><?= $s["cantidad"] ?></td>
+                <td><?= $s["fecha_solicitada"] ?></td>
+                <td><?= $s["fecha_programada"] ?? "—" ?></td>
+
+                <td>
+                    <span class="estado <?= strtolower($s['estado']) ?>">
+                        <?= $s["estado"] ?>
+                    </span>
+                </td>
+
+                <td>
+                    <a class="btn-ver"
+                       href="<?= BASE_URL ?>/?controller=MisSolicitudesController&method=detalle&id=<?= $s['id'] ?>">
+                       Ver
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
         </tbody>
     </table>
-
 </section>

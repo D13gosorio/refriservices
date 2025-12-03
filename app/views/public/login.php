@@ -1,3 +1,10 @@
+<?php
+// Iniciar sesión si no está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <section class="seccion-login">
 
     <!-- Título -->
@@ -8,11 +15,20 @@
         Accede a tu cuenta para solicitar servicios o gestionar información.
     </p>
 
-    <!-- Mensajes de error -->
-    <?php if (!empty($_GET['error'])): ?>
+    <!-- Mensaje de error -->
+    <?php if (!empty($_SESSION['error'])): ?>
         <div class="alerta-error">
-            <?= htmlspecialchars($_GET['error']) ?>
+            <?= htmlspecialchars($_SESSION['error']) ?>
         </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
+    <!-- Mensaje de éxito -->
+    <?php if (!empty($_SESSION['success'])): ?>
+        <div class="alerta-exito">
+            <?= htmlspecialchars($_SESSION['success']) ?>
+        </div>
+        <?php unset($_SESSION['success']); ?>
     <?php endif; ?>
 
     <!-- FORMULARIO -->
@@ -28,8 +44,7 @@
                    id="email"
                    name="email"
                    required
-                   placeholder="ejemplo@correo.com"
-                   value="<?= isset($_GET['email']) ? htmlspecialchars($_GET['email']) : '' ?>">
+                   placeholder="ejemplo@correo.com">
         </div>
 
         <!-- Contraseña -->

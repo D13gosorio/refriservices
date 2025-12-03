@@ -4,10 +4,10 @@
         Ofrecemos instalación, mantenimiento y reparación profesional para hogares y negocios.
     </p>
 </section>
-
+<!-- Aquí cambiamos esto para que funcionara como quiere imanol, favor revisar -->
 <section class="bloque-mis-solicitudes">
     <p>¿Ya has solicitado un servicio anteriormente?</p>
-    <a href="<?= BASE_URL ?>/?controller=SolicitudController&method=misSolicitudes" class="btn-mis-solicitudes">
+    <a href="<?= BASE_URL ?>/?controller=MisSolicitudesController&method=index" class="btn-mis-solicitudes">
         Ver historial de mis solicitudes
     </a>
 </section>

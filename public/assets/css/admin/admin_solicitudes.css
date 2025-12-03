@@ -11,6 +11,7 @@
     margin: 20px auto;
     width: 90%;
     max-width: 1200px;
+    text-align: center;
 }
 
 .tabla-contenedor {
@@ -31,13 +32,13 @@
 .tabla-admin th {
     background: var(--azul);
     color: var(--blanco);
-    padding: 0.9rem;
+    padding: 1rem;
     font-size: 1rem;
     text-align: center;
 }
 
 .tabla-admin td {
-    padding: 0.8rem;
+    padding: 0.9rem;
     border-bottom: 1px solid #e5e5e5;
     color: var(--gris);
     text-align: center;
@@ -50,7 +51,7 @@
 /* =========================== SELECT =========================== */
 
 .select-estado {
-    padding: 5px 8px;
+    padding: 7px 12px;
     font-size: 14px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -63,7 +64,7 @@
 /* =========================== BOTONES =========================== */
 
 .btn-small {
-    padding: 6px 12px;
+    padding: 7px 12px;    
     font-size: 14px;
     border-radius: 6px;
     cursor: pointer;
@@ -72,17 +73,20 @@
     margin: 0 3px;
     font-weight: 500;
     transition: 0.2s ease;
+    display: inline-block;
 }
 
+/* Azul */
 .btn-primary {
     background-color: #0A3F7A;
     color: #fff;
 }
 
 .btn-primary:hover {
-    background-color: #062e57;
+    background-color: #003f73;
 }
 
+/* Rojo */
 .btn-danger {
     background-color: #dc3545;
     color: #fff;
@@ -92,7 +96,7 @@
     background-color: #b0212f;
 }
 
-/* Alinear botones */
+/* Evitar quiebre de botones */
 .acciones-col {
     white-space: nowrap;
 }

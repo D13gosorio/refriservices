@@ -1,6 +1,5 @@
 /* ================================================
    FORMULARIOS ADMIN — ESTILO UNIFICADO
-   Coinciden con los de la parte pública
 ================================================ */
 
 /* Contenedor general */
@@ -14,7 +13,7 @@
     box-shadow: var(--sombra-suave);
 }
 
-/* Título centrado (usa las mismas clases que inicio admin) */
+/* Título centrado */
 .titulo-admin.form-titulo {
     text-align: center;
     font-size: 2rem;
@@ -22,12 +21,11 @@
     margin: 2rem auto 0.5rem auto;
 }
 
-/* Cada grupo del formulario */
+/* Grupos */
 .form-grupo {
     margin-bottom: 1.6rem;
 }
 
-/* Etiquetas */
 .form-grupo label {
     display: block;
     margin-bottom: 0.4rem;
@@ -35,7 +33,6 @@
     color: var(--azul-oscuro);
 }
 
-/* Inputs y textarea */
 .form-grupo input,
 .form-grupo textarea {
     width: 100%;
@@ -49,11 +46,11 @@
 .form-grupo input:focus,
 .form-grupo textarea:focus {
     border-color: var(--azul);
-    outline: none;
     background-color: #fff;
+    outline: none;
 }
 
-/* Zona de botones */
+/* Contenedor de botones */
 .form-acciones {
     margin-top: 2rem;
     display: flex;
@@ -61,7 +58,7 @@
     justify-content: center;
 }
 
-/* Botón GUARDAR / CREAR (azul, como los "Editar") */
+/* Botón guardar */
 .btn-form-guardar {
     background-color: #0051a8;
     color: #fff;
@@ -77,14 +74,14 @@
     background-color: #0056b3;
 }
 
-/* Botón CANCELAR (rojo, como los "Eliminar") */
+/* Botón cancelar */
 .btn-form-cancelar {
     background-color: #dc3545;
+    color: #fff;
     padding: 0.8rem 2rem;
     border-radius: 6px;
-    color: #fff;
-    text-decoration: none;
     font-weight: bold;
+    text-decoration: none;
     transition: 0.3s;
 }
 
