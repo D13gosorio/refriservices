@@ -1,20 +1,17 @@
 <section class="detalle-repuesto">
-    <h1 class="titulo-principal texto-centrado">Detalle del Repuesto</h1>
+    <h1 class="titulo-principal texto-centrado"><?= $repuesto["nombre"] ?></h1>
 
     <div class="card-detalle">
 
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" alt="Logo default" class="img-detalle">
+        <img src="<?= BASE_URL ?>/assets/img/repuestos/<?= $repuesto['imagen'] ?>" class="img-detalle">
 
         <div class="info-detalle">
-            <h2>Nombre del Repuesto (Estático por ahora)</h2>
+            <h2><?= $repuesto["nombre"] ?></h2>
 
-            <p class="precio">$00.00</p>
-            <p class="stock">Stock: X unidades</p>
+            <p class="precio">$<?= $repuesto["precio"] ?></p>
+            <p class="stock">Stock: <?= $repuesto["stock"] ?> unidades</p>
 
-            <p class="descripcion">
-                Aquí irá la descripción completa del repuesto.
-                Por ahora este texto es de prueba.
-            </p>
+            <p class="descripcion"><?= $repuesto["descripcion"] ?></p>
 
             <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=index"
                class="boton-secundario">
@@ -24,3 +21,4 @@
 
     </div>
 </section>
+

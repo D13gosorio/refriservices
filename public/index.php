@@ -1,6 +1,7 @@
 <?php
 require_once "../config.php";
 require_once "../app/core/Router.php";
+require_once "../app/core/DB.php";
 
 // Capturamos parámetros de la URL
 $controller = $_GET['controller'] ?? "HomeController";

@@ -21,45 +21,19 @@
             </thead>
 
             <tbody>
-
-                <?php
-                // 🔧 DATOS ESTÁTICOS (REEMPLAZAR POR CONSULTA REAL A LA BASE DE DATOS)
-                $repuestosPrueba = [
-                    [
-                        "id" => 1,
-                        "imagen" => BASE_URL . "/assets/img/repuestos/default.jpg",
-                        "nombre" => "Motor de ventilador",
-                        "precio" => "35.00",
-                        "cantidad" => 12
-                    ],
-                    [
-                        "id" => 2,
-                        "imagen" => BASE_URL . "/assets/img/repuestos/default.jpg",
-                        "nombre" => "Filtro lavable",
-                        "precio" => "9.00",
-                        "cantidad" => 50
-                    ],
-                    [
-                        "id" => 3,
-                        "imagen" => BASE_URL . "/assets/img/repuestos/default.jpg",
-                        "nombre" => "Capacitor 45uF",
-                        "precio" => "7.50",
-                        "cantidad" => 28
-                    ],
-                ];
-                ?>
-
-                <?php foreach ($repuestosPrueba as $r): ?>
+                <?php foreach ($repuestos as $r): ?>
                 <tr>
                     <td><?= $r["id"] ?></td>
 
                     <td>
-                        <img src="<?= $r["imagen"] ?>" alt="Imagen repuesto" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
+                        <img src="<?= BASE_URL ?>/assets/img/repuestos/<?= $r["imagen"] ?>" 
+                            alt="Imagen repuesto"
+                            style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                     </td>
 
                     <td><?= $r["nombre"] ?></td>
                     <td>$<?= $r["precio"] ?></td>
-                    <td><?= $r["cantidad"] ?></td>
+                    <td><?= $r["stock"] ?></td>
 
                     <td>
                         <button class="btn-editar">Editar</button>
@@ -67,7 +41,6 @@
                     </td>
                 </tr>
                 <?php endforeach; ?>
-
             </tbody>
 
         </table>

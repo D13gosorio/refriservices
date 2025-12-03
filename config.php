@@ -1,12 +1,9 @@
 <?php
-// config.php
-// Datos globales de configuración del proyecto.
-
-// URL base del proyecto 
+// URL base de la app
 define("BASE_URL", "http://localhost/refriservices/public");
 
-// Datos de la base de datos 
+// Datos de conexión a la BD
 define("DB_HOST", "localhost");
 define("DB_NAME", "refriservices");
 define("DB_USER", "root");
-define("DB_PASS", "");
+define("DB_PASS", ""); // Contraseña

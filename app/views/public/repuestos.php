@@ -23,111 +23,23 @@
 <script src="<?= BASE_URL ?>/assets/js/repuestos.js"></script>
 
 
-<!-- ===================== CATÁLOGO (Simulacion por el momento) ===================== -->
+<!-- ===================== CATÁLOGO  ===================== -->
 <section class="grid-repuestos">
 
-    <!-- Repuesto 1 -->
+<?php foreach ($repuestos as $r): ?>
     <article class="card-repuesto">
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" alt="Repuesto" class="img-repuesto">
+        <img src="<?= BASE_URL ?>/assets/img/repuestos/<?= $r['imagen'] ?>" 
+             alt="Imagen repuesto" class="img-repuesto">
 
-        <h3>Filtro Lavable Universal</h3>
-        <p class="precio">$12.50</p>
-        <p class="stock">Stock: 14 unidades</p>
+        <h3><?= $r["nombre"] ?></h3>
+        <p class="precio">$<?= $r["precio"] ?></p>
+        <p class="stock">Stock: <?= $r["stock"] ?> unidades</p>
 
-        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=1" class="boton-detalle">
+        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=<?= $r['id'] ?>" 
+            class="boton-detalle">
             Ver detalle
         </a>
     </article>
-
-    <!-- Repuesto 2 -->
-    <article class="card-repuesto">
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" alt="Repuesto" class="img-repuesto">
-
-        <h3>Motor Ventilador 1/5 HP</h3>
-        <p class="precio">$45.00</p>
-        <p class="stock">Stock: 6 unidades</p>
-
-        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=2" class="boton-detalle">
-            Ver detalle
-        </a>
-    </article>
-
-    <!-- Repuesto 3 -->
-    <article class="card-repuesto">
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" alt="Repuesto" class="img-repuesto">
-
-        <h3>Control Remoto Universal</h3>
-        <p class="precio">$18.00</p>
-        <p class="stock">Stock: 22 unidades</p>
-
-        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=3" class="boton-detalle">
-            Ver detalle
-        </a>
-    </article>
-
-        <!-- Repuesto 4 -->
-    <article class="card-repuesto">
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" alt="Repuesto" class="img-repuesto">
-
-        <h3>Control Remoto Universal</h3>
-        <p class="precio">$18.00</p>
-        <p class="stock">Stock: 22 unidades</p>
-
-        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=3" class="boton-detalle">
-            Ver detalle
-        </a>
-    </article>
-
-        <!-- Repuesto 5 -->
-    <article class="card-repuesto">
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" alt="Repuesto" class="img-repuesto">
-
-        <h3>Control Remoto Universal</h3>
-        <p class="precio">$18.00</p>
-        <p class="stock">Stock: 22 unidades</p>
-
-        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=3" class="boton-detalle">
-            Ver detalle
-        </a>
-    </article>
-
-        <!-- Repuesto 6 -->
-    <article class="card-repuesto">
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" alt="Repuesto" class="img-repuesto">
-
-        <h3>Control Remoto Universal</h3>
-        <p class="precio">$18.00</p>
-        <p class="stock">Stock: 22 unidades</p>
-
-        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=3" class="boton-detalle">
-            Ver detalle
-        </a>
-    </article>
-
-        <!-- Repuesto 7 -->
-    <article class="card-repuesto">
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" alt="Repuesto" class="img-repuesto">
-
-        <h3>Control Remoto Universal</h3>
-        <p class="precio">$18.00</p>
-        <p class="stock">Stock: 22 unidades</p>
-
-        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=3" class="boton-detalle">
-            Ver detalle
-        </a>
-    </article>
-
-        <!-- Repuesto 8 -->
-    <article class="card-repuesto">
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/default.jpg" alt="Repuesto" class="img-repuesto">
-
-        <h3>Control Remoto Universal</h3>
-        <p class="precio">$18.00</p>
-        <p class="stock">Stock: 22 unidades</p>
-
-        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=3" class="boton-detalle">
-            Ver detalle
-        </a>
-    </article>
+<?php endforeach; ?>
 
 </section>
