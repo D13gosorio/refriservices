@@ -7,6 +7,7 @@ class AuthController {
     // =====================================================
     public function login() {
 
+        session_start();
         // CSS específico de esta vista
         $cssPagina = "login";
 
@@ -16,7 +17,7 @@ class AuthController {
     }
 
     // =====================================================
-    // 2. Procesar login (aún sin backend)
+    // 2. Procesar login 
     // =====================================================
     public function doLogin() {
     session_start();
@@ -50,14 +51,14 @@ class AuthController {
     $usuario = Usuario::buscarPorEmail($email);
 
     if (!$usuario) {
-        $_SESSION['error'] = "El correo o la contraseña ingresados es incorrecto.";
+        $_SESSION['error'] = "El correo o la contraseña ingresados son incorrectos.";
         header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
         exit;
     }
 
     // 6. Validar contraseña con password_verify()
     if (!password_verify($password, $usuario['password'])) {
-        $_SESSION['error'] = "El correo o la contraseña ingresados es incorrecto.";
+        $_SESSION['error'] = "El correo o la contraseña ingresados son incorrectos.";
         header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
         exit;
     }

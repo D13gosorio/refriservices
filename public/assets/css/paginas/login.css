@@ -88,14 +88,39 @@ body {
     color: var(--azul-oscuro);
 }
 
+/* ==============================
+   ALERTAS (error / éxito)
+============================== */
+
+.alerta-error,
+.alerta-exito {
+    width: 90%;
+    max-width: 500px;
+    margin: 1rem auto;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    animation: aparecer 0.3s ease-out;
+}
+
+/* Error */
 .alerta-error {
     background-color: #ffdddd;
-    color: #a30000;
-    border-left: 4px solid #a30000;
-    padding: 10px 15px;
-    margin: 1rem auto;
-    max-width: 600px;
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold;
+    border: 1px solid #e74c3c;
+    color: #c0392b;
+}
+
+/* Éxito */
+.alerta-exito {
+    background-color: #e3ffd9;
+    border: 1px solid #2ecc71;
+    color: #27ae60;
+}
+
+/* Animación */
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
