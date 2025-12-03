@@ -1,5 +1,4 @@
 <section class="detalle-repuesto">
-    <h1 class="titulo-principal texto-centrado"><?= $repuesto["nombre"] ?></h1>
 
     <div class="card-detalle">
 
