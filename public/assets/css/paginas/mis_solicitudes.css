@@ -1,13 +1,16 @@
 /* =====================================================
    MIS_SOLICITUDES.CSS
    Página de historial de solicitudes
+   Proyecto: RefriServices
 ===================================================== */
 
+/* -------------------- TÍTULO -------------------- */
 .seccion-mis-solicitudes {
     margin-top: 2rem;
     text-align: center;
 }
 
+/* -------------------- TABLA -------------------- */
 .tabla-solicitudes-container {
     width: 90%;
     max-width: 1200px;
@@ -23,6 +26,7 @@
     box-shadow: var(--sombra-suave);
 }
 
+/* Cabecera */
 .tabla-solicitudes th {
     background: var(--azul);
     color: var(--blanco);
@@ -30,17 +34,31 @@
     font-size: 1rem;
 }
 
+/* Celdas */
 .tabla-solicitudes td {
     padding: 0.8rem;
     border-bottom: 1px solid #e5e5e5;
     color: var(--gris);
 }
 
+/* Alineación general de columnas */
+.tabla-solicitudes th,
+.tabla-solicitudes td {
+    text-align: center;
+}
+
+/* Servicio a la izquierda para lectura más natural */
+.tabla-solicitudes th:nth-child(2),
+.tabla-solicitudes td:nth-child(2) {
+    text-align: left;
+}
+
+/* Hover filas */
 .tabla-solicitudes tr:hover {
     background-color: #f6f9ff;
 }
 
-/* Estado */
+/* -------------------- ESTADOS -------------------- */
 .estado {
     padding: 0.3rem 0.7rem;
     border-radius: 6px;
@@ -68,11 +86,138 @@
     color: #721c24;
 }
 
-.btn-ver {
-    color: var(--azul);
-    font-weight: bold;
+/* -------------------- BOTÓN "VER" EN TABLA -------------------- */
+.tabla-solicitudes th:last-child,
+.tabla-solicitudes td:last-child {
+    text-align: center;
 }
 
-.btn-ver:hover {
+.tabla-solicitudes .btn-ver {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--azul);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--azul);
+    text-decoration: none;
+    background: transparent;
+    transition: 0.2s;
+}
+
+.tabla-solicitudes .btn-ver:hover {
+    background: var(--azul);
+    color: #fff;
+}
+
+/* =====================================================
+   DETALLE DE SOLICITUD (vista individual)
+===================================================== */
+
+.detalle-solicitud {
+    padding: 1.5rem 1rem 3rem 1rem; /* menos espacio arriba */
+}
+
+/* Card del detalle */
+.tabla-solicitudes-container .tarjeta {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.08);
+    max-width: 650px;
+    margin: 1.5rem auto 3rem auto;
+    padding: 2rem 2.4rem;
+}
+
+/* Título dentro del card ("Servicio: X") */
+.tabla-solicitudes-container .tarjeta h2 {
+    margin-bottom: 1.2rem;
     color: var(--azul-oscuro);
+}
+
+/* Texto general */
+.tabla-solicitudes-container .tarjeta p {
+    margin: 0.4rem 0;
+    color: var(--gris-oscuro);
+}
+
+/* Si usas <dl> para los datos */
+.detalle-solicitud-datos {
+    display: grid;
+    grid-template-columns: minmax(0, 170px) minmax(0, 1fr);
+    column-gap: 1.3rem;
+    row-gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.detalle-solicitud-datos dt {
+    font-weight: 600;
+    color: var(--azul-oscuro);
+}
+
+.detalle-solicitud-datos dd {
+    margin: 0;
+    color: var(--gris-oscuro);
+}
+
+.detalle-solicitud-datos .estado {
+    display: inline-block;
+}
+
+/* Descripción */
+.detalle-solicitud-descripcion {
+    margin-top: 0.4rem;
+    line-height: 1.5;
+}
+
+/* -------------------- ACCIONES EN DETALLE -------------------- */
+/* Volver + Cancelar: ambos usan class="btn-ver" en tu HTML */
+
+.tabla-solicitudes-container .tarjeta .btn-ver {
+    display: inline-block;
+    padding: 0.45rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-top: 0.8rem;
+}
+
+/* Primer botón (Volver): estilo outline azul */
+.tabla-solicitudes-container .tarjeta .btn-ver:first-of-type {
+    border: 1px solid var(--azul);
+    color: var(--azul);
+    background: transparent;
+}
+
+/* Segundo botón (Cancelar): rojo sólido */
+.tabla-solicitudes-container .tarjeta .btn-ver:last-of-type {
+    border: none;
+    background-color: #dc3545;
+    color: #fff;
+    margin-left: 0.6rem;
+}
+
+.tabla-solicitudes-container .tarjeta .btn-ver:last-of-type:hover {
+    background-color: #b0212f;
+}
+
+/* -------------------- RESPONSIVE -------------------- */
+@media screen and (max-width: 768px) {
+
+    .tabla-solicitudes-container .tarjeta {
+        max-width: 100%;
+        padding: 1.6rem 1.3rem;
+        margin: 2rem auto 3rem auto;
+    }
+
+    .detalle-solicitud-datos {
+        grid-template-columns: 1fr;
+    }
+
+    /* botones uno debajo del otro en móvil */
+    .tabla-solicitudes-container .tarjeta .btn-ver {
+        margin-left: 0;
+        margin-right: 0.3rem;
+        margin-bottom: 0.4rem;
+    }
 }
