@@ -25,6 +25,7 @@ class AuthController {
 
     // 1. Verificar que venga por POST
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        $_SESSION['error'] = "Acceso no permitido.";
         header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
         exit;
     }
@@ -67,6 +68,7 @@ class AuthController {
     $_SESSION['usuario_id'] = $usuario['id'];
     $_SESSION['usuario_nombre'] = $usuario['nombre'];
     $_SESSION['usuario_rol'] = $usuario['rol'];
+    session_regenerate_id(true);
 
     // 8. Redirigir según rol
     if ($usuario['rol'] === 'admin') {
