@@ -55,19 +55,27 @@
 
 
 /* ==========================================================
-   Botón "Agregar" (superior derecha)
+   Botón "Agregar" 
    ========================================================== */
 
+/* Contenedor del botón superior */
+.admin-top-actions {
+    width: 90%;
+    max-width: 1200px;
+    margin: 1rem auto;
+    text-align: right;
+}
+
+/* Botón Agregar */
 .btn-agregar-repuesto {
-    background-color: #1c7932;
+    background-color: #1d7a33;
     color: white;
     padding: 10px 18px;
-    border: none;
     border-radius: 6px;
     font-size: 16px;
+    text-decoration: none;
     font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s ease;
+    transition: 0.2s;
 }
 
 .btn-agregar-repuesto:hover {

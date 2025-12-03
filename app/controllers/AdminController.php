@@ -99,7 +99,79 @@ class AdminController {
         include "../app/views/layout/admin_header.php";
         include "../app/views/admin/repuestos.php";
         include "../app/views/layout/admin_footer.php";
+    }   
+
+    // Formulario de crear repuestos
+    public function crearRepuesto() {
+    require_once "../app/models/Repuesto.php";
+
+    $cssPagina = "admin_repuesto_form";
+    $repuesto = null; // formulario vacío
+
+    include "../app/views/layout/admin_header.php";
+    include "../app/views/admin/repuesto_form.php";
+    include "../app/views/layout/admin_footer.php";
     }
+
+    //Guardar repuesto
+    public function guardarRepuesto() {
+    require_once "../app/models/Repuesto.php";
+
+    $data = [
+        ':nombre' => $_POST['nombre'],
+        ':descripcion' => $_POST['descripcion'],
+        ':precio' => $_POST['precio'],
+        ':stock' => $_POST['stock'],
+        ':imagen' => $_POST['imagen'] ?? 'default.jpg'
+    ];
+
+    Repuesto::crear($data);
+
+    header("Location: " . BASE_URL . "/?controller=AdminController&method=repuestos");
+    exit;
+    }
+
+    //Editar repuesto
+    public function editarRepuesto() {
+    require_once "../app/models/Repuesto.php";
+
+    $cssPagina = "admin_repuesto_form";
+    $repuesto = Repuesto::obtenerPorId($_GET['id']);
+
+    include "../app/views/layout/admin_header.php";
+    include "../app/views/admin/repuesto_form.php";
+    include "../app/views/layout/admin_footer.php";
+    }
+
+    // Actualizar repuesto
+    public function actualizarRepuesto() {
+    require_once "../app/models/Repuesto.php";
+
+    $data = [
+        ':id' => $_POST['id'],
+        ':nombre' => $_POST['nombre'],
+        ':descripcion' => $_POST['descripcion'],
+        ':precio' => $_POST['precio'],
+        ':stock' => $_POST['stock'],
+        ':imagen' => $_POST['imagen']
+    ];
+
+    Repuesto::actualizar($data);
+
+    header("Location: " . BASE_URL . "/?controller=AdminController&method=repuestos");
+    exit;
+    }
+
+    // Eliminar repuesto
+    public function eliminarRepuesto() {
+    require_once "../app/models/Repuesto.php";
+
+    Repuesto::eliminar($_GET['id']);
+
+    header("Location: " . BASE_URL . "/?controller=AdminController&method=repuestos");
+    exit;
+    }
+
 
     /* =======================================================
        GESTIÓN DE SOLICITUDES
