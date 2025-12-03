@@ -87,3 +87,15 @@ body {
 .enlace-registro a:hover {
     color: var(--azul-oscuro);
 }
+
+.alerta-error {
+    background-color: #ffdddd;
+    color: #a30000;
+    border-left: 4px solid #a30000;
+    padding: 10px 15px;
+    margin: 1rem auto;
+    max-width: 600px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+}
