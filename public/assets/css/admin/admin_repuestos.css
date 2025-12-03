@@ -129,3 +129,13 @@
 .btn-borrar:hover {
     background-color: #b0212f;
 }
+
+/* Imagen dentro de la tabla */
+.img-repuesto-tabla {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto;
+}

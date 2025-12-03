@@ -2,15 +2,26 @@
 
     <div class="card-detalle">
 
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/<?= $repuesto['imagen'] ?>" class="img-detalle">
+        <?php
+            // Detectar si es URL externa
+            if (preg_match('/^https?:\/\//', $repuesto["imagen"])) {
+                $rutaImagen = $repuesto["imagen"];
+            } else {
+                $rutaImagen = BASE_URL . "/assets/img/repuestos/" . $repuesto["imagen"];
+            }
+        ?>
+
+        <img src="<?= htmlspecialchars($rutaImagen) ?>" 
+             class="img-detalle" 
+             alt="Imagen de <?= htmlspecialchars($repuesto['nombre']) ?>">
 
         <div class="info-detalle">
-            <h2><?= $repuesto["nombre"] ?></h2>
+            <h2><?= htmlspecialchars($repuesto["nombre"]) ?></h2>
 
             <p class="precio">$<?= $repuesto["precio"] ?></p>
             <p class="stock">Stock: <?= $repuesto["stock"] ?> unidades</p>
 
-            <p class="descripcion"><?= $repuesto["descripcion"] ?></p>
+            <p class="descripcion"><?= htmlspecialchars($repuesto["descripcion"]) ?></p>
 
             <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=index"
                class="boton-secundario">
@@ -20,4 +31,3 @@
 
     </div>
 </section>
-

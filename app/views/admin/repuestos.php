@@ -1,15 +1,15 @@
 <section class="admin-module">
     <h1 class="titulo-admin">Gestión de Repuestos</h1>
 
-     <div class="admin-top-actions">
+    <!-- Botón Agregar -->
+    <div class="admin-top-actions">
         <a href="<?= BASE_URL ?>/?controller=AdminController&method=crearRepuesto" 
-            class="btn-agregar-repuesto">
+           class="btn-agregar-repuesto">
             + Agregar repuesto
         </a>
     </div>
 
-
-    <!-- Contenedor con el mismo estilo de tabla que solicitudes -->
+    <!-- Tabla -->
     <div class="tabla-contenedor">
         <table class="tabla-admin">
             <thead>
@@ -25,30 +25,47 @@
 
             <tbody>
                 <?php foreach ($repuestos as $r): ?>
+
+                <?php
+                    // Obtener imagen (puede ser URL completa o nombre local)
+                    $img = $r["imagen"];
+
+                    if (preg_match('/^https?:\/\//', $img)) {
+                        // URL externa
+                        $rutaImagen = $img;
+                    } else {
+                        // Imagen local dentro de /assets/img/repuestos/
+                        $rutaImagen = BASE_URL . "/assets/img/repuestos/" . $img;
+                    }
+                ?>
+
                 <tr>
                     <td><?= $r["id"] ?></td>
 
                     <td>
-                        <img src="<?= BASE_URL ?>/assets/img/repuestos/<?= $r["imagen"] ?>" 
-                            alt="Imagen repuesto"
-                            style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
+                        <img src="<?= htmlspecialchars($rutaImagen) ?>" 
+                             alt="Imagen repuesto"
+                             class="img-repuesto-tabla">
                     </td>
 
-                    <td><?= $r["nombre"] ?></td>
+                    <td><?= htmlspecialchars($r["nombre"]) ?></td>
                     <td>$<?= $r["precio"] ?></td>
                     <td><?= $r["stock"] ?></td>
 
                     <td>
-                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=editarRepuesto&id=<?= $r['id'] ?>" class="btn-editar">
+                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=editarRepuesto&id=<?= $r['id'] ?>" 
+                           class="btn-editar">
                             Editar
                         </a>
 
-                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=eliminarRepuesto&id=<?= $r['id'] ?>" class="btn-borrar"
-                        onclick="return confirm('¿Eliminar repuesto?');">
+                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=eliminarRepuesto&id=<?= $r['id'] ?>" 
+                           class="btn-borrar"
+                           onclick="return confirm('¿Eliminar repuesto?');">
                             Eliminar
                         </a>
                     </td>
                 </tr>
+
                 <?php endforeach; ?>
             </tbody>
 

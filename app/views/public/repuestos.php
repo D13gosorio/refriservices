@@ -27,19 +27,32 @@
 <section class="grid-repuestos">
 
 <?php foreach ($repuestos as $r): ?>
-    <article class="card-repuesto">
-        <img src="<?= BASE_URL ?>/assets/img/repuestos/<?= $r['imagen'] ?>" 
-             alt="Imagen repuesto" class="img-repuesto">
 
-        <h3><?= $r["nombre"] ?></h3>
+    <?php
+        // Detectar si es URL completa
+        if (preg_match('/^https?:\/\//', $r["imagen"])) {
+            $rutaImagen = $r["imagen"]; // URL externa
+        } else {
+            $rutaImagen = BASE_URL . "/assets/img/repuestos/" . $r["imagen"]; // Imagen local
+        }
+    ?>
+
+    <article class="card-repuesto">
+        <img src="<?= htmlspecialchars($rutaImagen) ?>" 
+             alt="Imagen repuesto" 
+             class="img-repuesto">
+
+        <h3><?= htmlspecialchars($r["nombre"]) ?></h3>
+
         <p class="precio">$<?= $r["precio"] ?></p>
         <p class="stock">Stock: <?= $r["stock"] ?> unidades</p>
 
         <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=<?= $r['id'] ?>" 
-            class="boton-detalle">
-            Ver detalle
+           class="boton-detalle">
+           Ver detalle
         </a>
     </article>
+
 <?php endforeach; ?>
 
 </section>

@@ -23,9 +23,9 @@
 
         <div class="footer-col">
             <h3>Síguenos</h3>
-            <p><a href="#" target="_blank">Instagram</a></p>
-            <p><a href="#" target="_blank">WhatsApp</a></p>
-            <p><a href="#" target="_blank">TikTok</a></p>
+            <p><a href="https://www.instagram.com/refriservicesaguadulce/" target="_blank">Instagram</a></p>
+            <p><a href="https://api.whatsapp.com/send/?phone=50760316975" target="_blank">WhatsApp</a></p>
+            <p><a href="https://www.tiktok.com/@refriservices1" target="_blank">TikTok</a></p>
         </div>
 
     </div>
