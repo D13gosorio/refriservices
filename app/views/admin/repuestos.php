@@ -1,10 +1,13 @@
 <section class="admin-module">
     <h1 class="titulo-admin">Gestión de Repuestos</h1>
 
-    <!-- Botón Agregar (arriba a la derecha) -->
-    <div style="text-align: right; width: 90%; max-width: 1200px; margin: 1rem auto;">
-        <button class="btn-agregar-repuesto">+ Agregar repuesto</button>
+     <div class="admin-top-actions">
+        <a href="<?= BASE_URL ?>/?controller=AdminController&method=crearRepuesto" 
+            class="btn-agregar-repuesto">
+            + Agregar repuesto
+        </a>
     </div>
+
 
     <!-- Contenedor con el mismo estilo de tabla que solicitudes -->
     <div class="tabla-contenedor">
@@ -36,8 +39,14 @@
                     <td><?= $r["stock"] ?></td>
 
                     <td>
-                        <button class="btn-editar">Editar</button>
-                        <button class="btn-borrar">Eliminar</button>
+                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=editarRepuesto&id=<?= $r['id'] ?>" class="btn-editar">
+                            Editar
+                        </a>
+
+                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=eliminarRepuesto&id=<?= $r['id'] ?>" class="btn-borrar"
+                        onclick="return confirm('¿Eliminar repuesto?');">
+                            Eliminar
+                        </a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
