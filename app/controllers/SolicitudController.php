@@ -43,7 +43,7 @@ class SolicitudController {
 
         Solicitud::crear($data);
 
-        header("Location: " . BASE_URL . "/?controller=SolicitudController&method=misSolicitudes");
+        header("Location: " . BASE_URL . "/?controller=MisSolicitudesController&method=index");
         exit;
     }
 }
