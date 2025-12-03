@@ -30,7 +30,9 @@ class SolicitudController {
         session_start();
 
         if (!isset($_SESSION["usuario_id"])) {
-            die("Debes iniciar sesión para solicitar un servicio.");
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        exit;
+            
         }
 
         $data = [

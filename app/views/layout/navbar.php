@@ -33,15 +33,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                     </li>
 
                 <?php else: ?>
-                   
-
-                    <!-- 🔹 MIS SOLICITUDES (solo si está logueado) -->
-                   <!--  <li>
-                        <a href="<?= BASE_URL ?>/?controller=MisSolicitudesController&method=index">
-                            Mis Solicitudes
-                        </a>
-                    </li> -->
-
+                    
                     <!-- 🔹 Cerrar sesión -->
                     <li>
                         <a href="<?= BASE_URL ?>/?controller=AuthController&method=logout" class="boton-login">
