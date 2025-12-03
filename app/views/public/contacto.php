@@ -1,4 +1,3 @@
-<!-- ===================== TÍTULO ===================== -->
 <section class="contacto-titulo">
     <h1 class="texto-centrado">Formulario de Contacto</h1>
     <p class="texto-centrado subtitulo">
@@ -6,21 +5,39 @@
     </p>
 </section>
 
-
-<!-- ===================== FORMULARIO ===================== -->
 <section class="seccion-contacto contenedor">
 
-    <form method="POST" action="#" class="formulario-contacto">
+    <form method="POST"
+          action="<?= BASE_URL ?>/?controller=ContactoController&method=enviar"
+          class="formulario-contacto">
+
+        <!-- Nombre -->
+        <div class="grupo-formulario">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+
+        <!-- Correo -->
+        <div class="grupo-formulario">
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" required>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="grupo-formulario">
+            <label for="telefono">Teléfono (opcional):</label>
+            <input type="text" id="telefono" name="telefono">
+        </div>
 
         <!-- Asunto -->
         <div class="grupo-formulario">
             <label for="asunto">Asunto:</label>
             <select id="asunto" name="asunto" required>
-                <option value="">Selecciona una opción</option>
+                <option value="">Selecciona una opción...</option>
                 <option value="Consulta general">Consulta general</option>
                 <option value="Soporte técnico">Soporte técnico</option>
                 <option value="Información de repuestos">Información de repuestos</option>
-                <option value="otro">Otro</option>
+                <option value="Otro">Otro</option>
             </select>
         </div>
 

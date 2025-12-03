@@ -9,3 +9,4 @@ $method     = $_GET['method'] ?? "index";
 
 // Pasamos la solicitud al Router
 Router::route($controller, $method);
+

@@ -8,6 +8,8 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Asunto</th>
                     <th>Mensaje</th>
                     <th>Fecha</th>
                     <th>Opciones</th>
@@ -15,29 +17,28 @@
             </thead>
 
             <tbody>
-                <?php
-                // 🔧 Datos estáticos de prueba — Reemplazar cuando se conecte con la DB
-                $mensajesPrueba = [
-                    ["id" => 1, "nombre" => "Ana García", "correo" => "ana@gmail.com", "msg" => "Tengo una fuga en mi aire.", "fecha" => "2025-01-22"],
-                    ["id" => 2, "nombre" => "Luis Ortega", "correo" => "luis@yahoo.com", "msg" => "Quiero cotizar una instalación.", "fecha" => "2025-01-23"],
-                    ["id" => 3, "nombre" => "Rosa Chen", "correo" => "rosa@hotmail.com", "msg" => "Mi aire no enfría bien.", "fecha" => "2025-01-24"],
-                ];
-                ?>
 
-                <?php foreach ($mensajesPrueba as $m): ?>
+                <?php foreach ($mensajes as $m): ?>
                 <tr>
                     <td><?= $m["id"] ?></td>
-                    <td><?= $m["nombre"] ?></td>
-                    <td><?= $m["correo"] ?></td>
-                    <td><?= $m["msg"] ?></td>
+                    <td><?= htmlspecialchars($m["nombre"]) ?></td>
+                    <td><?= htmlspecialchars($m["correo"]) ?></td>
+                    <td><?= htmlspecialchars($m["telefono"]) ?: "—" ?></td>
+                    <td><?= htmlspecialchars($m["asunto"]) ?></td>
+                    <td><?= htmlspecialchars($m["mensaje"]) ?></td>
                     <td><?= $m["fecha"] ?></td>
+
                     <td>
-                        <a href="#" class="btn-small btn-danger">Eliminar</a>
+                        <a class="btn-small btn-danger"
+                           href="<?= BASE_URL ?>/?controller=AdminController&method=eliminarMensaje&id=<?= $m['id'] ?>"
+                           onclick="return confirm('¿Eliminar este mensaje?');">
+                           Eliminar
+                        </a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
-            </tbody>
 
+            </tbody>
         </table>
     </div>
 </section>
