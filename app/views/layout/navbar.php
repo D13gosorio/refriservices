@@ -33,13 +33,14 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                     </li>
 
                 <?php else: ?>
+                   
 
                     <!-- 🔹 MIS SOLICITUDES (solo si está logueado) -->
-                    <li>
+                   <!--  <li>
                         <a href="<?= BASE_URL ?>/?controller=MisSolicitudesController&method=index">
                             Mis Solicitudes
                         </a>
-                    </li>
+                    </li> -->
 
                     <!-- 🔹 Cerrar sesión -->
                     <li>
@@ -47,7 +48,11 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                             Salir
                         </a>
                     </li>
-
+                    
+                     <!-- 🔹 Texto de bienvenida -->
+                    <li class="texto-bienvenida">
+                        Bienvenido, <?= htmlspecialchars($_SESSION['usuario_nombre']) ?>
+                    </li>
                 <?php endif; ?>
             </ul>
         </nav>

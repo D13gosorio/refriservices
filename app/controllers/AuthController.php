@@ -19,9 +19,62 @@ class AuthController {
     // 2. Procesar login (aún sin backend)
     // =====================================================
     public function doLogin() {
+    session_start();
+    require_once __DIR__ . "/../models/Usuario.php";
 
-        // Más adelante: validar correo/contraseña con BD
-        echo "Procesando login (todavía sin backend)";
+    // 1. Verificar que venga por POST
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        exit;
+    }
+
+    // 2. Recibir campos
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    // 3. Validar campos vacíos
+    if (empty($email) || empty($password)) {
+        $_SESSION['error'] = "El correo y la contraseña son obligatorios.";
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        exit;
+    }
+
+    // 4. Validar formato de email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['error'] = "Correo electrónico no válido.";
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        exit;
+    }
+
+    // 5. Buscar usuario por email
+    $usuario = Usuario::buscarPorEmail($email);
+
+    if (!$usuario) {
+        $_SESSION['error'] = "El correo o la contraseña ingresados es incorrecto.";
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        exit;
+    }
+
+    // 6. Validar contraseña con password_verify()
+    if (!password_verify($password, $usuario['password'])) {
+        $_SESSION['error'] = "El correo o la contraseña ingresados es incorrecto.";
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        exit;
+    }
+
+    // 7. Iniciar sesión
+    $_SESSION['usuario_id'] = $usuario['id'];
+    $_SESSION['usuario_nombre'] = $usuario['nombre'];
+    $_SESSION['usuario_rol'] = $usuario['rol'];
+
+    // 8. Redirigir según rol
+    if ($usuario['rol'] === 'admin') {
+        header("Location: " . BASE_URL . "/?controller=AdminController&method=index");
+    } else {
+        header("Location: " . BASE_URL . "/?controller=HomeController&method=index");
+    }
+
+    exit;
     }
 
     // =====================================================
@@ -109,8 +162,6 @@ class AuthController {
         }
         exit;
     }
-
-    
 
     // =====================================================
     // 5. Cerrar sesión
