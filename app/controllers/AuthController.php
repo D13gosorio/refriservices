@@ -71,15 +71,43 @@ class AuthController {
 
         // 5. Validamos la contraseña
         if ($password !== $password_confirm){
-            
+            $_SESSION['error'] = "Las contraseñas no coinciden.";
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
         }
 
+        // 6. Incluir modelo
+        require_once __DIR__ . "/../models/Usuario.php";
 
+        // 7. Validamos si el email ya está registrado
+        $existe = Usuario::buscarPorEmail($email);
 
+        if($existe){
+            $_SESSION['error'] = "Ese correo ya está registrado.";
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
+            exit;
+        }
 
+        // 8. Hashear la contraseña
+        $hash = password_hash($password, PASSWORD_DEFAULT);
 
+        // 9. Crear usuario
+        $creado = Usuario::crear([
+            'nombre' => $nombre,
+            'email' => $email,
+            'password' => $hash,
+            'telefono' => $telefono,
+            'direccion' => $direccion,
+            'rol' => 'cliente'
+        ]);
 
-
+        if($creado){
+            $_SESSION['success'] = "Tu cuenta se creó correctamente. Ya puedes iniciar sesión.";
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        } else {
+            $_SESSION['error'] = "Hubo un error al crear tu cuenta. Intenta nuevamente.";
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
+        }
+        exit;
     }
 
     
