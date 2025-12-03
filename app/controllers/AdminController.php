@@ -1,20 +1,12 @@
 <?php
+require_once "../app/models/Solicitud.php";
 
 class AdminController {
 
-    /* // MÉTODO DE SEGURIDAD
-    private function protegerAdmin() {
-        session_start();
-
-        if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
-            exit;
-        }
-    }
-*/
+    /* =======================================================
+       DASHBOARD
+    ======================================================= */
     public function index() {
-        // $this->protegerAdmin();
-
         $cssPagina = "admin_inicio";
 
         include "../app/views/layout/admin_header.php";
@@ -25,10 +17,7 @@ class AdminController {
     /* =======================================================
        GESTIÓN DE SERVICIOS
     ======================================================= */
-
     public function servicios() {
-        // $this->protegerAdmin();
-
         require_once "../app/models/Servicio.php";
 
         $cssPagina = "admin_servicios";
@@ -40,8 +29,6 @@ class AdminController {
     }
 
     public function crearServicio() {
-        // $this->protegerAdmin();
-
         $cssPagina = "admin_servicio_form";
 
         include "../app/views/layout/admin_header.php";
@@ -50,8 +37,6 @@ class AdminController {
     }
 
     public function guardarServicio() {
-        // $this->protegerAdmin();
-
         require_once "../app/models/Servicio.php";
 
         $data = [
@@ -67,8 +52,6 @@ class AdminController {
     }
 
     public function editarServicio() {
-        // $this->protegerAdmin();
-
         require_once "../app/models/Servicio.php";
 
         $cssPagina = "admin_servicio_form";
@@ -80,8 +63,6 @@ class AdminController {
     }
 
     public function actualizarServicio() {
-        // $this->protegerAdmin();
-
         require_once "../app/models/Servicio.php";
 
         $data = [
@@ -98,8 +79,6 @@ class AdminController {
     }
 
     public function eliminarServicio() {
-        // $this->protegerAdmin();
-
         require_once "../app/models/Servicio.php";
 
         Servicio::eliminar($_GET['id']);
@@ -111,10 +90,7 @@ class AdminController {
     /* =======================================================
        GESTIÓN DE REPUESTOS
     ======================================================= */
-
     public function repuestos() {
-        // $this->protegerAdmin();
-
         require_once "../app/models/Repuesto.php";
 
         $cssPagina = "admin_repuestos";
@@ -128,28 +104,67 @@ class AdminController {
     /* =======================================================
        GESTIÓN DE SOLICITUDES
     ======================================================= */
-
     public function solicitudes() {
-        // $this->protegerAdmin();
+        require_once "../app/models/Solicitud.php";
 
         $cssPagina = "admin_solicitudes";
+        $solicitudes = Solicitud::obtenerTodas();
 
         include "../app/views/layout/admin_header.php";
         include "../app/views/admin/solicitudes.php";
         include "../app/views/layout/admin_footer.php";
     }
 
+    public function actualizarSolicitud() {
+        require_once "../app/models/Solicitud.php";
+
+        $id = $_POST['id'];
+        $estado = $_POST['estado'];
+        $fecha_programada = $_POST['fecha_programada'] ?? null;
+
+        Solicitud::actualizarEstado($id, $estado);
+
+        if (!empty($fecha_programada)) {
+            Solicitud::actualizarFechaProgramada($id, $fecha_programada);
+        }
+
+        header("Location: " . BASE_URL . "/?controller=AdminController&method=solicitudes");
+        exit;
+    }
+
+    public function eliminarSolicitud() {
+        require_once "../app/models/Solicitud.php";
+
+        $id = $_GET['id'];
+        Solicitud::eliminar($id);
+
+        header("Location: " . BASE_URL . "/?controller=AdminController&method=solicitudes");
+        exit;
+    }
+
     /* =======================================================
        GESTIÓN DE MENSAJES
     ======================================================= */
-
     public function mensajes() {
-        // $this->protegerAdmin();
+        require_once "../app/models/Mensaje.php";
 
+        $mensajes = Mensaje::obtenerTodos();
         $cssPagina = "admin_mensajes";
 
         include "../app/views/layout/admin_header.php";
         include "../app/views/admin/mensajes.php";
         include "../app/views/layout/admin_footer.php";
+    }
+
+    public function eliminarMensaje() {
+        require_once "../app/models/Mensaje.php";
+
+        $id = $_GET["id"] ?? null;
+        if (!$id) die("ID inválido");
+
+        Mensaje::eliminar($id);
+
+        header("Location: " . BASE_URL . "/?controller=AdminController&method=mensajes");
+        exit;
     }
 }

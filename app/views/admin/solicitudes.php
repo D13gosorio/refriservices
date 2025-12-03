@@ -18,63 +18,50 @@
 
             <tbody>
 
-                <?php
-                $solicitudesPrueba = [
-                    [
-                        "id" => 101,
-                        "cliente" => "Carlos López",
-                        "servicio" => "Instalación de aire acondicionado",
-                        "estado" => "Pendiente",
-                        "fecha_solicitada" => "2025-01-20",
-                        "fecha_programada" => "2025-01-25",
-                        "cantidad" => 1
-                    ],
-                    [
-                        "id" => 102,
-                        "cliente" => "María Pérez",
-                        "servicio" => "Mantenimiento general",
-                        "estado" => "En proceso",
-                        "fecha_solicitada" => "2025-01-22",
-                        "fecha_programada" => "2025-01-29",
-                        "cantidad" => 2
-                    ],
-                    [
-                        "id" => 103,
-                        "cliente" => "José Torres",
-                        "servicio" => "Reparación de fuga de gas",
-                        "estado" => "Finalizado",
-                        "fecha_solicitada" => "2025-01-23",
-                        "fecha_programada" => "2025-01-24",
-                        "cantidad" => 1
-                    ],
-                ];
-                ?>
-
-                <?php foreach ($solicitudesPrueba as $s): ?>
+            <?php foreach ($solicitudes as $s): ?>
                 <tr>
                     <td><?= $s["id"] ?></td>
-                    <td><?= $s["cliente"] ?></td>
-                    <td><?= $s["servicio"] ?></td>
+                    <td><?= htmlspecialchars($s["cliente"]) ?></td>
+                    <td><?= htmlspecialchars($s["servicio"]) ?></td>
 
                     <td>
-                        <select class="select-estado">
-                            <option value="Pendiente"   <?= $s["estado"] == "Pendiente" ? "selected" : "" ?>>Pendiente</option>
-                            <option value="En proceso"  <?= $s["estado"] == "En proceso" ? "selected" : "" ?>>En proceso</option>
-                            <option value="Finalizado"  <?= $s["estado"] == "Finalizado" ? "selected" : "" ?>>Finalizado</option>
-                            <option value="Cancelado"   <?= $s["estado"] == "Cancelado" ? "selected" : "" ?>>Cancelado</option>
-                        </select>
+                        <form method="POST" action="<?= BASE_URL ?>/?controller=AdminController&method=actualizarSolicitud">
+                            <input type="hidden" name="id" value="<?= $s['id'] ?>">
+
+                            <select name="estado" class="select-estado">
+                                <option value="Pendiente"   <?= $s["estado"] == "Pendiente" ? "selected" : "" ?>>Pendiente</option>
+                                <option value="En proceso"  <?= $s["estado"] == "En proceso" ? "selected" : "" ?>>En proceso</option>
+                                <option value="Finalizado"  <?= $s["estado"] == "Finalizado" ? "selected" : "" ?>>Finalizado</option>
+                                <option value="Cancelado"   <?= $s["estado"] == "Cancelado" ? "selected" : "" ?>>Cancelado</option>
+                            </select>
                     </td>
 
                     <td><?= $s["fecha_solicitada"] ?></td>
-                    <td><?= $s["fecha_programada"] ?></td>
+
+                    <td>
+                        <input 
+                        type="date" 
+                        name="fecha_programada" 
+                        value="<?= $s['fecha_programada'] ?>"
+                        min="<?= date('Y-m-d') ?>"
+                        >
+
+                    </td>
+
                     <td><?= $s["cantidad"] ?></td>
 
                     <td class="acciones-col">
-                        <button class="btn-small btn-primary">Actualizar</button>
-                        <button class="btn-small btn-danger">Eliminar</button>
+                        <button class="btn-small btn-primary" type="submit">Actualizar</button>
+                        </form>
+
+                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=eliminarSolicitud&id=<?= $s['id'] ?>"
+                           class="btn-small btn-danger"
+                           onclick="return confirm('¿Seguro que deseas eliminar esta solicitud?');">
+                           Eliminar
+                        </a>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
 
             </tbody>
 
