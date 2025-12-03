@@ -2,7 +2,7 @@
 
 class AdminController {
 
-    // MÉTODO DE SEGURIDAD
+    /* // MÉTODO DE SEGURIDAD
     private function protegerAdmin() {
         session_start();
 
@@ -11,9 +11,9 @@ class AdminController {
             exit;
         }
     }
-
+*/
     public function index() {
-        $this->protegerAdmin();
+        // $this->protegerAdmin();
 
         $cssPagina = "admin_inicio";
 
@@ -27,7 +27,7 @@ class AdminController {
     ======================================================= */
 
     public function servicios() {
-        $this->protegerAdmin();
+        // $this->protegerAdmin();
 
         require_once "../app/models/Servicio.php";
 
@@ -40,7 +40,7 @@ class AdminController {
     }
 
     public function crearServicio() {
-        $this->protegerAdmin();
+        // $this->protegerAdmin();
 
         $cssPagina = "admin_servicio_form";
 
@@ -50,7 +50,7 @@ class AdminController {
     }
 
     public function guardarServicio() {
-        $this->protegerAdmin();
+        // $this->protegerAdmin();
 
         require_once "../app/models/Servicio.php";
 
@@ -67,7 +67,7 @@ class AdminController {
     }
 
     public function editarServicio() {
-        $this->protegerAdmin();
+        // $this->protegerAdmin();
 
         require_once "../app/models/Servicio.php";
 
@@ -80,7 +80,7 @@ class AdminController {
     }
 
     public function actualizarServicio() {
-        $this->protegerAdmin();
+        // $this->protegerAdmin();
 
         require_once "../app/models/Servicio.php";
 
@@ -98,7 +98,7 @@ class AdminController {
     }
 
     public function eliminarServicio() {
-        $this->protegerAdmin();
+        // $this->protegerAdmin();
 
         require_once "../app/models/Servicio.php";
 
@@ -113,7 +113,7 @@ class AdminController {
     ======================================================= */
 
     public function repuestos() {
-        $this->protegerAdmin();
+        // $this->protegerAdmin();
 
         require_once "../app/models/Repuesto.php";
 
@@ -130,7 +130,7 @@ class AdminController {
     ======================================================= */
 
     public function solicitudes() {
-        $this->protegerAdmin();
+        // $this->protegerAdmin();
 
         $cssPagina = "admin_solicitudes";
 
@@ -144,7 +144,7 @@ class AdminController {
     ======================================================= */
 
     public function mensajes() {
-        $this->protegerAdmin();
+        // $this->protegerAdmin();
 
         $cssPagina = "admin_mensajes";
 
