@@ -3,7 +3,9 @@
     <div class="contenedor navbar-contenido">
 
         <div class="logo">
-            <a href="<?= BASE_URL ?>/"><img src="<?= BASE_URL ?>/assets/img/logo/logo.png" alt="Logo del sitio"></a>
+            <a href="<?= BASE_URL ?>/">
+                <img src="<?= BASE_URL ?>/assets/img/logo/logo.png" alt="Logo del sitio">
+            </a>
         </div>
 
         <nav class="menu">
@@ -13,7 +15,26 @@
                 <li><a href="<?= BASE_URL ?>/?controller=RepuestoController&method=index">Repuestos</a></li>
                 <li><a href="<?= BASE_URL ?>/?controller=NosotrosController&method=index">Nosotros</a></li>
                 <li><a href="<?= BASE_URL ?>/?controller=ContactoController&method=index">Contacto</a></li>
-                <li><a href="<?= BASE_URL ?>/?controller=AuthController&method=login" class="boton-login">Ingresar</a></li>
+
+                <?php if (!isset($_SESSION)) session_start(); ?>
+
+                <?php if (!isset($_SESSION['usuario'])): ?>
+
+                    <li>
+                        <a href="<?= BASE_URL ?>/?controller=AuthController&method=login" class="boton-login">
+                            Ingresar
+                        </a>
+                    </li>
+
+                <?php else: ?>
+
+                    <li>
+                        <a href="<?= BASE_URL ?>/?controller=AuthController&method=logout" class="boton-login">
+                            Salir
+                        </a>
+                    </li>
+
+                <?php endif; ?>
             </ul>
         </nav>
 
@@ -26,4 +47,3 @@
 
     </div>
 </div>
-

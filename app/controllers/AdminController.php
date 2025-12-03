@@ -2,7 +2,19 @@
 
 class AdminController {
 
+    // MÉTODO DE SEGURIDAD
+    private function protegerAdmin() {
+        session_start();
+
+        if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+            exit;
+        }
+    }
+
     public function index() {
+        $this->protegerAdmin();
+
         $cssPagina = "admin_inicio";
 
         include "../app/views/layout/admin_header.php";
@@ -15,10 +27,11 @@ class AdminController {
     ======================================================= */
 
     public function servicios() {
+        $this->protegerAdmin();
+
         require_once "../app/models/Servicio.php";
 
         $cssPagina = "admin_servicios";
-
         $servicios = Servicio::obtenerTodos();
 
         include "../app/views/layout/admin_header.php";
@@ -26,8 +39,9 @@ class AdminController {
         include "../app/views/layout/admin_footer.php";
     }
 
-    // Mostrar formulario vacío (crear)
     public function crearServicio() {
+        $this->protegerAdmin();
+
         $cssPagina = "admin_servicio_form";
 
         include "../app/views/layout/admin_header.php";
@@ -35,8 +49,9 @@ class AdminController {
         include "../app/views/layout/admin_footer.php";
     }
 
-    // Guardar nuevo servicio
     public function guardarServicio() {
+        $this->protegerAdmin();
+
         require_once "../app/models/Servicio.php";
 
         $data = [
@@ -51,12 +66,12 @@ class AdminController {
         exit;
     }
 
-    // Cargar datos en el formulario (editar)
     public function editarServicio() {
+        $this->protegerAdmin();
+
         require_once "../app/models/Servicio.php";
 
         $cssPagina = "admin_servicio_form";
-
         $servicio = Servicio::obtenerPorId($_GET['id']);
 
         include "../app/views/layout/admin_header.php";
@@ -64,8 +79,9 @@ class AdminController {
         include "../app/views/layout/admin_footer.php";
     }
 
-    // Procesa actualización
     public function actualizarServicio() {
+        $this->protegerAdmin();
+
         require_once "../app/models/Servicio.php";
 
         $data = [
@@ -81,8 +97,9 @@ class AdminController {
         exit;
     }
 
-    // Eliminar servicio
     public function eliminarServicio() {
+        $this->protegerAdmin();
+
         require_once "../app/models/Servicio.php";
 
         Servicio::eliminar($_GET['id']);
@@ -96,10 +113,11 @@ class AdminController {
     ======================================================= */
 
     public function repuestos() {
+        $this->protegerAdmin();
+
         require_once "../app/models/Repuesto.php";
 
         $cssPagina = "admin_repuestos";
-
         $repuestos = Repuesto::obtenerTodos();
 
         include "../app/views/layout/admin_header.php";
@@ -112,6 +130,8 @@ class AdminController {
     ======================================================= */
 
     public function solicitudes() {
+        $this->protegerAdmin();
+
         $cssPagina = "admin_solicitudes";
 
         include "../app/views/layout/admin_header.php";
@@ -124,6 +144,8 @@ class AdminController {
     ======================================================= */
 
     public function mensajes() {
+        $this->protegerAdmin();
+
         $cssPagina = "admin_mensajes";
 
         include "../app/views/layout/admin_header.php";
