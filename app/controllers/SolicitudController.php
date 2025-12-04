@@ -1,6 +1,6 @@
 <?php
-require_once "../app/models/Servicio.php";
-require_once "../app/models/Solicitud.php";
+require_once __DIR__ . "/../models/Servicio.php";
+require_once __DIR__ . "/../models/Solicitud.php";
 
 class SolicitudController {
 
@@ -21,9 +21,9 @@ class SolicitudController {
 
         $cssPagina = "solicitar";
 
-        include "../app/views/layout/header.php";
-        include "../app/views/cliente/solicitar_servicio.php";
-        include "../app/views/layout/footer.php";
+        include __DIR__ . "/../views/layout/header.php";
+        include __DIR__ . "/../views/cliente/solicitar_servicio.php";
+        include __DIR__ . "/../views/layout/footer.php";
     }
 
     public function guardar() {

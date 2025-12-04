@@ -4,7 +4,7 @@ class Router {
 
     public static function route($controller, $method) {
 
-        $controllerFile = "../app/controllers/" . $controller . ".php";
+        $controllerFile = __DIR__ . "/../controllers/" . $controller . ".php";
 
         // Verificamos que el archivo del controlador exista
         if (!file_exists($controllerFile)) {

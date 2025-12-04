@@ -1,15 +1,15 @@
 <?php
 
-require_once "../app/models/Mensaje.php";
+require_once __DIR__ . "/../models/Mensaje.php";
 
 class ContactoController {
 
     public function index() {
         $cssPagina = "contacto";
 
-        include "../app/views/layout/header.php";
-        include "../app/views/public/contacto.php";
-        include "../app/views/layout/footer.php";
+        include __DIR__ . "/../views/layout/header.php";
+        include __DIR__ . "/../views/public/contacto.php";
+        include __DIR__ . "/../views/layout/footer.php";
     }
 
     public function enviar() {
@@ -40,11 +40,11 @@ class ContactoController {
     public function gracias() {
         $cssPagina = "contacto";
 
-        include "../app/views/layout/header.php";
+        include __DIR__ . "/../views/layout/header.php";
         echo "<section class='texto-centrado' style='padding:2rem;'>
                 <h2>¡Mensaje enviado con éxito!</h2>
                 <p>Nos pondremos en contacto contigo pronto.</p>
               </section>";
-        include "../app/views/layout/footer.php";
+        include __DIR__ . "/../views/layout/footer.php";
     }
 }

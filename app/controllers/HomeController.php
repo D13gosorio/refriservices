@@ -6,8 +6,8 @@ class HomeController {
         
         $cssPagina = "inicio";
 
-        include "../app/views/layout/header.php";
-        include "../app/views/public/inicio.php";
-        include "../app/views/layout/footer.php";
+        include __DIR__ . "/../views/layout/header.php";
+        include __DIR__ . "/../views/public/inicio.php";
+        include __DIR__ . "/../views/layout/footer.php";
     }
 }

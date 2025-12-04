@@ -8,17 +8,17 @@
     <title>RefriServices</title>
 
     <!-- CSS GLOBAL -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global/reset.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global/layout.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/reset.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/layout.css">
 
     <!-- COMPONENTES -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/componentes/header.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/componentes/navbar.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/componentes/footer.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/componentes/header.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/componentes/navbar.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/componentes/footer.css">
 
     <!-- CSS de página -->
     <?php if (isset($cssPagina)) : ?>
-        <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/paginas/<?= $cssPagina ?>.css">
+        <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/paginas/<?= $cssPagina ?>.css">
     <?php endif; ?>
 </head>
 

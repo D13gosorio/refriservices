@@ -4,7 +4,7 @@
         <h1>Expertos en refrigeración y aires acondicionados.</h1>
         <p>Servicios profesionales para su hogar y negocio.</p>
 
-        <a href="<?= BASE_URL ?>/?controller=AuthController&method=registro" class="boton-naranja">
+        <a href="/index.php?controller=AuthController&method=registro" class="boton-naranja">
             ¡Regístrate Ahora!
         </a>
     </div>
@@ -89,7 +89,7 @@
             <p>RefriServices: Héroes del clima.</p>
 
             <video controls>
-                <source src="<?= BASE_URL ?>/assets/videos/inicio.mp4" type="video/mp4">
+                <source src="/index.php/assets/videos/inicio.mp4" type="video/mp4">
             </video>
         </li>
 

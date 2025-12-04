@@ -1,6 +1,6 @@
 <?php
 
-require_once "../app/models/Repuesto.php";
+require_once __DIR__ . "/../models/Repuesto.php";
  
 class RepuestoController {
 
@@ -10,9 +10,9 @@ class RepuestoController {
 
         $repuestos = Repuesto::obtenerTodos();
 
-        include "../app/views/layout/header.php";
-        include "../app/views/public/repuestos.php";
-        include "../app/views/layout/footer.php";
+        include __DIR__ . "/../views/layout/header.php";
+        include __DIR__ . "/../views/public/repuestos.php";
+        include __DIR__ . "/../views/layout/footer.php";
     }
 
     public function detalle() {
@@ -30,8 +30,8 @@ class RepuestoController {
             die("Repuesto no encontrado.");
         }
 
-        include "../app/views/layout/header.php";
-        include "../app/views/public/detalle_repuesto.php";
-        include "../app/views/layout/footer.php";
+        include __DIR__ . "/../views/layout/header.php";
+        include __DIR__ . "/../views/public/detalle_repuesto.php";
+        include __DIR__ . "/../views/layout/footer.php";
     }
 }

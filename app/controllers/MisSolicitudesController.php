@@ -1,5 +1,5 @@
 <?php
-require_once "../app/models/Solicitud.php";
+require_once __DIR__ . "/../models/Solicitud.php";
 
 class MisSolicitudesController {
 
@@ -15,9 +15,9 @@ class MisSolicitudesController {
 
         $solicitudes = Solicitud::obtenerPorUsuario($_SESSION["usuario_id"]);
 
-        include "../app/views/layout/header.php";
-        include "../app/views/cliente/mis_solicitudes.php";
-        include "../app/views/layout/footer.php";
+        include __DIR__ . "/../views/layout/header.php";
+        include __DIR__ . "/../views/cliente/mis_solicitudes.php";
+        include __DIR__ . "/../views/layout/footer.php";
     }
 
     public function detalle() {
@@ -38,9 +38,9 @@ class MisSolicitudesController {
 
         $cssPagina = "mis_solicitudes";
 
-        include "../app/views/layout/header.php";
-        include "../app/views/cliente/solicitud_detalle.php";
-        include "../app/views/layout/footer.php";
+        include __DIR__ . "/../views/layout/header.php";
+        include __DIR__ . "/../views/cliente/solicitud_detalle.php";
+        include __DIR__ . "/../views/layout/footer.php";
     }
 
     public function cancelar() {

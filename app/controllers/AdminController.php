@@ -1,5 +1,5 @@
 <?php
-require_once "../app/models/Solicitud.php";
+require_once __DIR__ . "/../models/Servicio.php";
 
 class AdminController {
 
@@ -36,9 +36,9 @@ class AdminController {
         $this->verificarAdmin();
         $cssPagina = "admin_inicio";
 
-        include "../app/views/layout/admin_header.php";
-        include "../app/views/admin/inicio.php";
-        include "../app/views/layout/admin_footer.php";
+        include __DIR__ . "/../views/layout/admin_header.php";
+        include __DIR__ . "/../views/admin/inicio.php";
+        include __DIR__ . "/../views/layout/admin_footer.php";
     }
 
     /* =======================================================
@@ -46,28 +46,28 @@ class AdminController {
     ======================================================= */
     public function servicios() {
         $this->verificarAdmin();
-        require_once "../app/models/Servicio.php";
+        require_once __DIR__ . "/../models/Servicio.php";
 
         $cssPagina = "admin_servicios";
         $servicios = Servicio::obtenerTodos();
 
-        include "../app/views/layout/admin_header.php";
-        include "../app/views/admin/servicios.php";
-        include "../app/views/layout/admin_footer.php";
+        include __DIR__ . "/../views/layout/admin_header.php";
+        include __DIR__ . "/../views/admin/servicios.php";
+        include __DIR__ . "/../views/layout/admin_footer.php";
     }
 
     public function crearServicio() {
         $this->verificarAdmin();
         $cssPagina = "admin_servicio_form";
 
-        include "../app/views/layout/admin_header.php";
-        include "../app/views/admin/servicio_form.php";
-        include "../app/views/layout/admin_footer.php";
+        include __DIR__ . "/../views/layout/admin_header.php";
+        include __DIR__ . "/../views/admin/servicio_form.php";
+        include __DIR__ . "/../views/layout/admin_footer.php";
     }
 
     public function guardarServicio() {
         $this->verificarAdmin();
-        require_once "../app/models/Servicio.php";
+        require_once __DIR__ . "/../models/Servicio.php";
 
         $data = [
             ':nombre' => $_POST['nombre'],
@@ -83,19 +83,19 @@ class AdminController {
 
     public function editarServicio() {
         $this->verificarAdmin();
-        require_once "../app/models/Servicio.php";
+        require_once __DIR__ . "/../models/Servicio.php";
 
         $cssPagina = "admin_servicio_form";
         $servicio = Servicio::obtenerPorId($_GET['id']);
 
-        include "../app/views/layout/admin_header.php";
-        include "../app/views/admin/servicio_form.php";
-        include "../app/views/layout/admin_footer.php";
+        include __DIR__ . "/../views/layout/admin_header.php";
+        include __DIR__ . "/../views/admin/servicio_form.php";
+        include __DIR__ . "/../views/layout/admin_footer.php";
     }
 
     public function actualizarServicio() {
         $this->verificarAdmin();
-        require_once "../app/models/Servicio.php";
+        require_once __DIR__ . "/../models/Servicio.php";
 
         $data = [
             ':id' => $_POST['id'],
@@ -112,7 +112,7 @@ class AdminController {
 
     public function eliminarServicio() {
         $this->verificarAdmin();
-        require_once "../app/models/Servicio.php";
+        require_once __DIR__ . "/../models/Servicio.php";
 
         Servicio::eliminar($_GET['id']);
 
@@ -125,33 +125,33 @@ class AdminController {
     ======================================================= */
     public function repuestos() {
         $this->verificarAdmin();
-        require_once "../app/models/Repuesto.php";
+        require_once __DIR__ . "/../models/Repuesto.php";
 
         $cssPagina = "admin_repuestos";
         $repuestos = Repuesto::obtenerTodos();
 
-        include "../app/views/layout/admin_header.php";
-        include "../app/views/admin/repuestos.php";
-        include "../app/views/layout/admin_footer.php";
+        include __DIR__ . "/../views/layout/admin_header.php";
+        include __DIR__ . "/../views/admin/repuestos.php";
+        include __DIR__ . "/../views/layout/admin_footer.php";
     }   
 
     // Formulario de crear repuestos
     public function crearRepuesto() {
         $this->verificarAdmin();
-    require_once "../app/models/Repuesto.php";
+    require_once __DIR__ . "/../models/Repuesto.php";
 
     $cssPagina = "admin_repuesto_form";
     $repuesto = null; // formulario vacío
 
-    include "../app/views/layout/admin_header.php";
-    include "../app/views/admin/repuesto_form.php";
-    include "../app/views/layout/admin_footer.php";
+    include __DIR__ . "/../views/layout/admin_header.php";
+    include __DIR__ . "/../views/admin/repuesto_form.php";
+    include __DIR__ . "/../views/layout/admin_footer.php";
     }
 
     //Guardar repuesto
     public function guardarRepuesto() {
         $this->verificarAdmin();
-    require_once "../app/models/Repuesto.php";
+    require_once __DIR__ . "/../models/Repuesto.php";
 
     $data = [
         ':nombre' => $_POST['nombre'],
@@ -170,20 +170,20 @@ class AdminController {
     //Editar repuesto
     public function editarRepuesto() {
         $this->verificarAdmin();
-    require_once "../app/models/Repuesto.php";
+    require_once __DIR__ . "/../models/Repuesto.php";
 
     $cssPagina = "admin_repuesto_form";
     $repuesto = Repuesto::obtenerPorId($_GET['id']);
 
-    include "../app/views/layout/admin_header.php";
-    include "../app/views/admin/repuesto_form.php";
-    include "../app/views/layout/admin_footer.php";
+    include __DIR__ . "/../views/layout/admin_header.php";
+    include __DIR__ . "/../views/admin/repuesto_form.php";
+    include __DIR__ . "/../views/layout/admin_footer.php";
     }
 
     // Actualizar repuesto
     public function actualizarRepuesto() {
         $this->verificarAdmin();
-    require_once "../app/models/Repuesto.php";
+    require_once __DIR__ . "/../models/Repuesto.php";
 
     $data = [
         ':id' => $_POST['id'],
@@ -203,7 +203,7 @@ class AdminController {
     // Eliminar repuesto
     public function eliminarRepuesto() {
         $this->verificarAdmin();
-    require_once "../app/models/Repuesto.php";
+    require_once __DIR__ . "/../models/Repuesto.php";
 
     Repuesto::eliminar($_GET['id']);
 
@@ -217,19 +217,19 @@ class AdminController {
     ======================================================= */
     public function solicitudes() {
         $this->verificarAdmin();
-        require_once "../app/models/Solicitud.php";
+        require_once __DIR__ . "/../models/Servicio.php";
 
         $cssPagina = "admin_solicitudes";
         $solicitudes = Solicitud::obtenerTodas();
 
-        include "../app/views/layout/admin_header.php";
-        include "../app/views/admin/solicitudes.php";
-        include "../app/views/layout/admin_footer.php";
+        include __DIR__ . "/../views/layout/admin_header.php";
+        include __DIR__ . "/../views/admin/solicitudes.php";
+        include __DIR__ . "/../views/layout/admin_footer.php";
     }
 
     public function actualizarSolicitud() {
         $this->verificarAdmin();
-        require_once "../app/models/Solicitud.php";
+        require_once __DIR__ . "/../models/Servicio.php";
 
         $id = $_POST['id'];
         $estado = $_POST['estado'];
@@ -247,7 +247,7 @@ class AdminController {
 
     public function eliminarSolicitud() {
         $this->verificarAdmin();
-        require_once "../app/models/Solicitud.php";
+        require_once __DIR__ . "/../models/Servicio.php";
 
         $id = $_GET['id'];
         Solicitud::eliminar($id);
@@ -261,19 +261,19 @@ class AdminController {
     ======================================================= */
     public function mensajes() {
         $this->verificarAdmin();
-        require_once "../app/models/Mensaje.php";
+        require_once __DIR__ . "/../models/Mensaje.php";
 
         $mensajes = Mensaje::obtenerTodos();
         $cssPagina = "admin_mensajes";
 
-        include "../app/views/layout/admin_header.php";
-        include "../app/views/admin/mensajes.php";
-        include "../app/views/layout/admin_footer.php";
+        include __DIR__ . "/../views/layout/admin_header.php";
+        include __DIR__ . "/../views/admin/mensajes.php";
+        include __DIR__ . "/../views/layout/admin_footer.php";
     }
 
     public function eliminarMensaje() {
         $this->verificarAdmin();
-        require_once "../app/models/Mensaje.php";
+        require_once __DIR__ . "/../models/Mensaje.php";
 
         $id = $_GET["id"] ?? null;
         if (!$id) die("ID inválido");

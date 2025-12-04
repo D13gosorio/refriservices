@@ -7,15 +7,15 @@
     <title><?= isset($title) ? $title : "Panel de Administración" ?></title>
 
     <!-- CSS GLOBAL -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global/reset.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global/layout.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/reset.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/global/layout.css">
 
     <!-- CSS EXCLUSIVO DEL PANEL ADMIN -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/admin/admin_navbar.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/admin/admin_navbar.css">
 
     <!-- CSS específico de cada vista -->
     <?php if (isset($cssPagina)) : ?>
-        <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/admin/<?= $cssPagina ?>.css">
+        <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/admin/<?= $cssPagina ?>.css">
     <?php endif; ?>
 </head>
 
