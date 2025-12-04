@@ -42,3 +42,30 @@
         text-align: center;
     }
 }
+
+/* ================================================
+   EXTRA RESPONSIVE — Barra superior en móviles pequeños
+================================================ */
+
+@media screen and (max-width: 480px) {
+
+    .barra-superior {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.5rem;
+        text-align: center;
+    }
+
+    .contacto-superior {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .redes-superior {
+        gap: 0.5rem;
+    }
+
+    .redes-superior img {
+        width: 24px;
+        height: 24px;
+    }
+}

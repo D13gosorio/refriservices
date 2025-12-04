@@ -94,3 +94,40 @@
 .btn-danger:hover {
     background-color: #b0212f !important;
 }
+
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.tabla-admin th, .tabla-admin td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .titulo-admin {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .tabla-admin th, .tabla-admin td {
+        padding: 10px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .btn-small {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
