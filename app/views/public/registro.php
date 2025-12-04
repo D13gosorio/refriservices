@@ -57,6 +57,9 @@
                 Crear Cuenta
             </button>
         </div>
+        <div id="password-error" style="color:red; text-align:center; display:none; margin-bottom:10px;">
+            Las contraseñas no coinciden.
+        </div>
     </form>
 
     <p class="texto-centrado enlace-login">
@@ -64,4 +67,19 @@
         <a href="<?= BASE_URL ?>/?controller=AuthController&method=login"
            class="enlace-azul">Inicia sesión aquí</a>
     </p>
+
+<script>
+document.querySelector(".formulario-registro").addEventListener("submit", function(event) {
+    const pass = document.getElementById("password").value;
+    const passConfirm = document.getElementById("password_confirm").value;
+    const errorDiv = document.getElementById("password-error");
+
+    if (pass !== passConfirm) {
+        event.preventDefault();
+        errorDiv.style.display = "block";
+    } else {
+        errorDiv.style.display = "none";
+    }
+});
+</script>
 </section>
