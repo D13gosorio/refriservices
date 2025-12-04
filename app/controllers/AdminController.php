@@ -217,7 +217,7 @@ class AdminController {
     ======================================================= */
     public function solicitudes() {
         $this->verificarAdmin();
-        require_once __DIR__ . "/../models/Servicio.php";
+        require_once __DIR__ . "/../models/Solicitud.php";
 
         $cssPagina = "admin_solicitudes";
         $solicitudes = Solicitud::obtenerTodas();
