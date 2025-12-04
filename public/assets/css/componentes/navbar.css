@@ -118,4 +118,43 @@
     .menu.activo {
         display: block;
     }
+
+    .navbar-contenido {
+        justify-content: space-between;
+        padding: 0.8rem 1rem;
+    }
+
+    .logo img {
+        width: 120px;
+    }
+
+    .hamburguesa {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
+
+    .menu {
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .logo img {
+        width: 100px;
+    }
+
+    .menu ul li a {
+        font-size: 1.2rem;
+    }
+
+    .navbar-contenido {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .texto-bienvenida {
+        font-size: 0.9rem;
+        text-align: center;
+        padding: 0.5rem 0;
+    }
 }

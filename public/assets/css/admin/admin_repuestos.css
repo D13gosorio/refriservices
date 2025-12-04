@@ -139,3 +139,67 @@
     display: block;
     margin: 0 auto;
 }
+
+/* ============================================
+   RESPONSIVE — TABLA DE REPUESTOS
+============================================ */
+
+@media screen and (max-width: 768px) {
+
+    .titulo-admin {
+        font-size: 26px;
+        text-align: center;
+    }
+
+    .admin-top-actions {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-agregar-repuesto {
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .tabla-contenedor {
+        width: 95%;
+        margin: 1.5rem auto;
+    }
+
+    .tabla-admin th,
+    .tabla-admin td {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+        white-space: nowrap;
+    }
+
+    .tabla-admin {
+        min-width: 700px; /* asegura scroll horizontal */
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .titulo-admin {
+        font-size: 22px;
+    }
+
+    .btn-agregar-repuesto {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .tabla-admin th,
+    .tabla-admin td {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+
+    .img-repuesto-tabla {
+        width: 40px;
+        height: 40px;
+    }
+}

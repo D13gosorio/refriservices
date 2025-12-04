@@ -100,3 +100,68 @@
 .acciones-col {
     white-space: nowrap;
 }
+
+/* ============================================
+   RESPONSIVE — GESTIÓN DE SOLICITUDES
+============================================ */
+
+@media screen and (max-width: 768px) {
+
+    .titulo-admin {
+        font-size: 26px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .tabla-contenedor {
+        width: 95%;
+        margin: 1rem auto 2rem auto;
+        overflow-x: auto;
+    }
+
+    .tabla-admin th,
+    .tabla-admin td {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+        white-space: nowrap;
+    }
+
+    .select-estado,
+    input[type="date"] {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+    }
+
+    .btn-small {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .tabla-admin {
+        min-width: 900px; /* mantiene tabla horizontal scrollable */
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .titulo-admin {
+        font-size: 22px;
+    }
+
+    .tabla-admin th,
+    .tabla-admin td {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+
+    .btn-small {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .select-estado,
+    input[type="date"] {
+        font-size: 0.85rem;
+        padding: 5px 8px;
+    }
+}

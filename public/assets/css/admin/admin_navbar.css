@@ -84,6 +84,8 @@
     /* Mostrar hamburguesa */
     .hamburguesa {
         display: flex;
+        position: absolute;
+        right: 20px;
     }
 
     /* Ocultar menú por defecto */
@@ -97,6 +99,7 @@
         border-bottom: 1px solid #ddd;
         padding: 1rem 0;
         z-index: 999;
+        transition: all 0.3s ease-in-out;
     }
 
     /* Menú vertical */
@@ -109,5 +112,28 @@
     /* Clase activada por JS */
     .menu.activo {
         display: block;
+    }
+
+    .navbar-contenido {
+        justify-content: space-between;
+        padding: 0.8rem 1rem;
+    }
+
+    .logo img {
+        width: 120px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .logo img {
+        width: 100px;
+    }
+
+    .menu ul li a {
+        font-size: 1.1rem;
+    }
+
+    .navbar-contenido {
+        padding: 0.6rem 0.8rem;
     }
 }
