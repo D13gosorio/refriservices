@@ -51,9 +51,9 @@
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password"
                    required placeholder="********"
-                   minlength="8"
-                   pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"
-                   title="La contraseña debe tener mínimo 8 caracteres e incluir letras y números">
+                   minlength="4"
+                   pattern="^(?=.*[A-Za-z])(?=.*\d).{4,}$"
+                   title="La contraseña debe tener mínimo 4 caracteres e incluir letras y números">
         </div>
 
         <!-- Confirmar contraseña -->
@@ -61,8 +61,8 @@
             <label for="password_confirm">Confirmar contraseña:</label>
             <input type="password" id="password_confirm" name="password_confirm"
                    required placeholder="********"
-                   minlength="8"
-                   pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"
+                   minlength="4"
+                   pattern="^(?=.*[A-Za-z])(?=.*\d).{4,}$"
                    title="Debe coincidir con la contraseña anterior">
         </div>
 
