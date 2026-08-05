@@ -147,14 +147,18 @@ class AuthController {
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
         // 9. Crear usuario
-        $creado = Usuario::crear([
-            'nombre' => $nombre,
-            'email' => $email,
-            'password' => $hash,
-            'telefono' => $telefono,
-            'direccion' => $direccion,
-            'rol' => 'cliente'
-        ]);
+        try {
+            $creado = Usuario::crear([
+                'nombre' => $nombre,
+                'email' => $email,
+                'password' => $hash,
+                'telefono' => $telefono,
+                'direccion' => $direccion,
+                'rol' => 'cliente'
+            ]);
+        } catch (PDOException $e) {
+            $creado = false;
+        }
 
         if($creado){
             $_SESSION['success'] = "Tu cuenta se creó correctamente. Ya puedes iniciar sesión.";
