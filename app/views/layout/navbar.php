@@ -1,9 +1,4 @@
 <!-- ===================== BARRA PRINCIPAL ===================== -->
-<?php 
-// Iniciar sesión si aún no ha iniciado
-if (session_status() === PHP_SESSION_NONE) session_start(); 
-?>
-
 <div class="navbar-principal">
     <div class="contenedor navbar-contenido">
 

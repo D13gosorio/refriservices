@@ -1,8 +1,5 @@
 <?php
-// Iniciar sesión si no está iniciada
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// La sesión ya se inicia en config.php antes de renderizar cualquier vista.
 ?>
 
 <section class="seccion-login">
