@@ -5,6 +5,13 @@
         Regístrate para solicitar servicios, acceder a tu historial y enviar mensajes de contacto.
     </p>
 
+    <?php if (!empty($_SESSION['error'])): ?>
+        <div class="alerta-error">
+            <?= htmlspecialchars($_SESSION['error']) ?>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
     <form method="POST"
           action="<?= BASE_URL ?>/?controller=AuthController&method=doRegistro"
           class="formulario-registro">
