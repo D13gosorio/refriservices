@@ -1,0 +1,167 @@
+.barra-superior-admin {
+    background-color: #0A3F7A;
+    height: 50px;
+    width: 100%;
+}
+
+/* =========================== TABLA =========================== */
+
+.titulo-admin {
+    font-size: 32px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.tabla-contenedor {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto 4rem auto;
+    overflow-x: auto;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra-suave);
+}
+
+.tabla-admin th {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.tabla-admin td {
+    padding: 0.9rem;
+    border-bottom: 1px solid #e5e5e5;
+    color: var(--gris);
+    text-align: center;
+}
+
+.tabla-admin tr:hover {
+    background-color: #f6f9ff;
+}
+
+/* =========================== SELECT =========================== */
+
+.select-estado {
+    padding: 7px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.select-estado:focus {
+    border-color: #0A3F7A;
+}
+
+/* =========================== BOTONES =========================== */
+
+.btn-small {
+    padding: 7px 12px;    
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    margin: 0 3px;
+    font-weight: 500;
+    transition: 0.2s ease;
+    display: inline-block;
+}
+
+/* Azul */
+.btn-primary {
+    background-color: #0A3F7A;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #003f73;
+}
+
+/* Rojo */
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #b0212f;
+}
+
+/* Evitar quiebre de botones */
+.acciones-col {
+    white-space: nowrap;
+}
+
+/* ============================================
+   RESPONSIVE — GESTIÓN DE SOLICITUDES
+============================================ */
+
+@media screen and (max-width: 768px) {
+
+    .titulo-admin {
+        font-size: 26px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .tabla-contenedor {
+        width: 95%;
+        margin: 1rem auto 2rem auto;
+        overflow-x: auto;
+    }
+
+    .tabla-admin th,
+    .tabla-admin td {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+        white-space: nowrap;
+    }
+
+    .select-estado,
+    input[type="date"] {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+    }
+
+    .btn-small {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .tabla-admin {
+        min-width: 900px; /* mantiene tabla horizontal scrollable */
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .titulo-admin {
+        font-size: 22px;
+    }
+
+    .tabla-admin th,
+    .tabla-admin td {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+
+    .btn-small {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .select-estado,
+    input[type="date"] {
+        font-size: 0.85rem;
+        padding: 5px 8px;
+    }
+}

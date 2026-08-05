@@ -1,0 +1,133 @@
+/* ==========================================================
+   Barra superior exclusiva del panel admin
+========================================================== */
+
+.barra-superior-admin {
+    background-color: #0A3F7A;
+    height: 50px;
+    width: 100%;
+}
+
+/* ==========================================================
+   TÍTULO
+========================================================== */
+
+.titulo-admin {
+    font-size: 32px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+    color: var(--azul-oscuro);
+    text-align: center;
+}
+
+/* ==========================================================
+   TABLA DE MENSAJES
+========================================================== */
+
+.tabla-contenedor {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto 4rem auto;
+    overflow-x: auto;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra-suave);
+}
+
+.tabla-admin th {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.tabla-admin td {
+    padding: 0.9rem;
+    border-bottom: 1px solid #e5e5e5;
+    color: var(--gris);
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Hover fila */
+.tabla-admin tr:hover {
+    background-color: #f6f9ff;
+}
+
+/* Evitar que los botones se corten */
+.tabla-admin td:last-child {
+    white-space: nowrap;
+}
+
+/* ==========================================================
+   BOTONES — UNIFICADOS CON SERVICIOS Y REPUESTOS
+========================================================== */
+
+.btn-small {
+    background-color: #0051a8;
+    color: #fff;
+    padding: 7px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 6px;
+    display: inline-block;
+    transition: 0.2s;
+}
+
+.btn-small:hover {
+    background-color: #003f73;
+}
+
+/* Botón rojo eliminar */
+.btn-danger {
+    background-color: #dc3545 !important;
+}
+
+.btn-danger:hover {
+    background-color: #b0212f !important;
+}
+
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.tabla-admin th, .tabla-admin td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .titulo-admin {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .tabla-admin th, .tabla-admin td {
+        padding: 10px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .btn-small {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}

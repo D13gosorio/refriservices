@@ -1,0 +1,140 @@
+/* =====================================================
+   SERVICIOS.CSS - Página de listado de servicios
+   Proyecto: RefriServices
+===================================================== */
+
+/* ===================== SECCIÓN TÍTULO ===================== */
+
+.seccion-servicios-principal {
+    text-align: center;
+    padding: 3rem 1rem 2rem 1rem;
+}
+
+.seccion-servicios-principal .titulo-principal {
+    font-size: 2rem;
+    color: var(--azul-oscuro);
+    margin-bottom: 0.5rem;
+}
+
+.seccion-servicios-principal .descripcion-subtitulo {
+    font-size: 1rem;
+    color: var(--gris-oscuro);
+}
+
+
+/* ===================== LISTA DE SERVICIOS ===================== */
+
+.lista-servicios {
+    width: 90%;
+    max-width: var(--max-width);
+    margin: 0 auto 3rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+/* Cada tarjeta/servicio */
+.item-servicio {
+    background-color: var(--blanco);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--sombra-suave);
+    gap: 1rem;
+}
+
+
+/* Contenido (nombre, texto, precio) */
+.contenido-servicio h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+    color: var(--azul-oscuro);
+}
+
+.contenido-servicio p {
+    margin-bottom: 0.4rem;
+    color: var(--gris-oscuro);
+}
+
+.precio-servicio {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--naranja);
+}
+
+/* ===================== Mis Solicitudes ===================== */
+
+.bloque-mis-solicitudes {
+    margin: 1.5rem 0 2rem 0;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    background-color: #f5f7fb;
+    border: 1px solid #dde3f0;
+    text-align: center;
+}
+
+.bloque-mis-solicitudes p {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--azul-oscuro);
+}
+
+.btn-mis-solicitudes {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+
+    /* 🔹 Botón azul */
+    background-color: var(--azul);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.btn-mis-solicitudes:hover {
+    background-color: var(--azul-oscuro);
+}
+
+
+
+/* ===================== BOTÓN ===================== */
+
+.boton-servicio {
+    text-align: right;
+}
+
+.boton-accion {
+    background-color: var(--naranja);
+    color: var(--blanco);
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.boton-accion:hover {
+    background-color: #e56c00;
+}
+
+
+/* ===================== RESPONSIVE ===================== */
+
+/* Versión móvil: bloques verticales */
+@media screen and (max-width: 768px) {
+
+    .item-servicio {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .boton-servicio {
+        text-align: center;
+        width: 100%;
+    }
+}

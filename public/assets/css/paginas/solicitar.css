@@ -1,0 +1,129 @@
+/* =====================================================
+   SOLICITAR.CSS - Página para solicitar un servicio
+   Proyecto: RefriServices
+===================================================== */
+
+/* ===================== SECCIÓN TÍTULO ===================== */
+.seccion-solicitud {
+    padding: 3rem 1rem 1rem 1rem;
+}
+
+.seccion-solicitud .titulo-principal {
+    font-size: 2rem;
+    color: var(--azul-oscuro);
+    margin-bottom: 0.5rem;
+}
+
+.seccion-solicitud .descripcion-subtitulo {
+    font-size: 1rem;
+    color: var(--gris-oscuro);
+    margin-top: -0.5rem;
+}
+
+
+/* ===================== RESUMEN DEL SERVICIO ===================== */
+.resumen-servicio {
+    width: 90%;
+    max-width: 600px;
+    margin: 1.5rem auto;
+    background-color: var(--blanco);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--sombra-suave);
+    text-align: center;
+}
+
+.resumen-servicio .nombre-servicio {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    margin-bottom: 0.5rem;
+}
+
+.resumen-servicio .precio-servicio {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--naranja);
+    margin-bottom: 0.2rem;
+}
+
+.resumen-servicio .texto-pequeno {
+    font-size: 0.9rem;
+    color: var(--gris);
+}
+
+
+/* ===================== FORMULARIO ===================== */
+.formulario-solicitud {
+    width: 90%;
+    max-width: 600px;
+    margin: 2rem auto 3rem auto;
+    background-color: var(--blanco);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--sombra-suave);
+}
+
+.grupo-formulario {
+    margin-bottom: 1.5rem;
+}
+
+.grupo-formulario label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+}
+
+.grupo-formulario input,
+.grupo-formulario textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #fafafa;
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario textarea:focus {
+    border-color: var(--azul);
+    outline: none;
+    background-color: #fff;
+}
+
+
+/* ===================== BOTÓN ===================== */
+.boton-naranja {
+    background-color: var(--naranja);
+    color: var(--blanco);
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.boton-naranja:hover {
+    background-color: #e56c00;
+}
+
+
+/* ===================== RESPONSIVE ===================== */
+@media screen and (max-width: 768px) {
+    
+    .formulario-solicitud {
+        padding: 1.5rem;
+    }
+
+    .resumen-servicio {
+        padding: 1.3rem;
+    }
+
+    .boton-naranja {
+        width: 100%;
+        text-align: center;
+    }
+}

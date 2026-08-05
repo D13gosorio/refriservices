@@ -1,0 +1,97 @@
+/* =====================================================
+   CONTACTO.CSS - Página de contacto
+===================================================== */
+
+/* ------------------ TÍTULO ------------------ */
+.contacto-titulo {
+    padding: 3rem 1rem 1rem 1rem;
+}
+
+.contacto-titulo h1 {
+    font-size: 2rem;
+    color: var(--azul-oscuro);
+}
+
+.contacto-titulo .subtitulo {
+    color: var(--gris);
+    margin-top: 0.3rem;
+}
+
+
+/* ------------------ CONTENEDOR ------------------ */
+.seccion-contacto {
+    padding: 2rem 0 4rem 0;
+}
+
+.formulario-contacto {
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--blanco);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--sombra-suave);
+}
+
+
+/* ------------------ CAMPOS ------------------ */
+.grupo-formulario {
+    margin-bottom: 1.5rem;
+}
+
+.grupo-formulario label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--azul-oscuro);
+}
+
+.grupo-formulario input,
+.grupo-formulario select,
+.grupo-formulario textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #fafafa;
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario select:focus,
+.grupo-formulario textarea:focus {
+    border-color: var(--azul);
+    outline: none;
+    background-color: #fff;
+}
+
+
+/* ------------------ BOTÓN ------------------ */
+.boton-naranja {
+    background-color: var(--naranja);
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.boton-naranja:hover {
+    background-color: #e56c00;
+}
+
+
+/* ------------------ RESPONSIVE ------------------ */
+@media screen and (max-width: 768px) {
+
+    .formulario-contacto {
+        padding: 1.5rem;
+    }
+
+    .boton-naranja {
+        width: 100%;
+        text-align: center;
+    }
+}
