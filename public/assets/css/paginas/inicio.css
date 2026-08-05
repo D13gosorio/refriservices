@@ -44,6 +44,29 @@
     background-color: #e56c00;
 }
 
+/* Botón fantasma (outline) para acciones secundarias sobre el hero */
+.boton-outline {
+    background-color: transparent;
+    color: var(--blanco);
+    border: 2px solid var(--blanco);
+    padding: 0.8rem 1.6rem;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.boton-outline:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.botones-banner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
 /* Texto más grande en pantallas medianas y grandes */
 @media screen and (min-width: 768px) {
     .contenedor-texto-banner h1 {
@@ -146,61 +169,154 @@
     }
 }
 
-/* ===================== SECCIÓN NOTICIAS ===================== */
+/* ===================== SECCIÓN: DESTACADOS (servicios / repuestos) ===================== */
 
-.seccion-noticias {
+.seccion-destacados {
     padding: 3rem 0;
+    text-align: center;
+}
+
+.seccion-destacados-alterna {
     background-color: var(--gris-claro);
 }
 
-.seccion-noticias .titulo-seccion {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.lista-noticias {
+.grid-destacados {
     width: 90%;
     max-width: var(--max-width);
     margin: 0 auto;
     display: grid;
     gap: 1.5rem;
     grid-template-columns: 1fr;
+    text-align: left;
 }
 
-.lista-noticias li {
+.tarjeta-destacado {
     background-color: var(--blanco);
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: var(--sombra-suave);
+    display: flex;
+    flex-direction: column;
 }
 
-.lista-noticias h3 {
-    margin-bottom: 0.5rem;
+.tarjeta-destacado h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
     color: var(--azul-oscuro);
 }
 
-.lista-noticias a {
-    display: inline-block;
-    margin-top: 0.8rem;
+.tarjeta-destacado p {
+    color: var(--gris);
+}
+
+.precio-destacado {
+    font-weight: bold;
+    font-size: 1.15rem;
+    color: var(--naranja);
+    margin-top: auto;
+}
+
+.tarjeta-destacado .boton-secundario {
+    align-self: flex-start;
+    margin-top: 1rem;
+}
+
+.tarjeta-repuesto-destacado {
+    text-align: center;
+    align-items: center;
+}
+
+.tarjeta-repuesto-destacado img {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    background-color: var(--blanco);
+    margin-bottom: 1rem;
+}
+
+.tarjeta-repuesto-destacado .boton-secundario {
+    align-self: center;
+}
+
+.ver-todo {
+    margin-top: 2rem;
+}
+
+.ver-todo a {
     color: var(--azul);
     font-weight: 600;
 }
 
-.lista-noticias a:hover {
+.ver-todo a:hover {
     text-decoration: underline;
 }
 
-/* Video responsivo */
-.lista-noticias video {
-    width: 100%;
-    max-height: 250px; 
-    margin-top: 0.8rem;
-    border-radius: 6px;
+@media screen and (min-width: 600px) {
+    .grid-destacados {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-/* En pantallas grandes, dos columnas para las noticias */
 @media screen and (min-width: 900px) {
-    .lista-noticias {
-        grid-template-columns: repeat(2, 1fr);
+    .grid-destacados {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-destacados-repuestos {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ===================== SECCIÓN VIDEO + CTA FINAL ===================== */
+
+.seccion-cta-final {
+    padding: 3rem 0;
+    background-color: var(--azul-oscuro);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.cta-final-video,
+.cta-final-texto {
+    width: 90%;
+    max-width: 600px;
+}
+
+.cta-final-video video {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: var(--sombra-suave);
+}
+
+.cta-final-texto {
+    text-align: center;
+    color: var(--blanco);
+}
+
+.cta-final-texto h2 {
+    color: var(--blanco);
+    font-size: 1.6rem;
+}
+
+.boton-outline-oscuro {
+    color: var(--blanco);
+    border-color: var(--blanco);
+}
+
+@media screen and (min-width: 900px) {
+    .seccion-cta-final {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cta-final-texto {
+        text-align: left;
+    }
+
+    .cta-final-texto .botones-banner {
+        justify-content: flex-start;
     }
 }

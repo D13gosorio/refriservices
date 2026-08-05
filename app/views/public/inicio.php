@@ -1,12 +1,17 @@
 <!-- ===================== HERO BANNER ===================== -->
 <section class="banner-hero">
     <div class="contenedor-texto-banner">
-        <h1>Expertos en refrigeración y aires acondicionados.</h1>
-        <p>Servicios profesionales para su hogar y negocio.</p>
+        <h1>Expertos en refrigeración y aire acondicionado en Aguadulce</h1>
+        <p>Instalación, mantenimiento y reparación con técnicos certificados. Solicita tu servicio en minutos.</p>
 
-        <a href="<?= BASE_URL ?>/?controller=AuthController&method=registro" class="boton-naranja">
-            ¡Regístrate Ahora!
-        </a>
+        <div class="botones-banner">
+            <a href="<?= BASE_URL ?>/?controller=ServicioController&method=index" class="boton-naranja">
+                Ver servicios
+            </a>
+            <a href="<?= BASE_URL ?>/?controller=AuthController&method=registro" class="boton-outline">
+                Crear cuenta gratis
+            </a>
+        </div>
     </div>
 </section>
 
@@ -37,6 +42,65 @@
 </section>
 
 
+<!-- ===================== SECCIÓN: SERVICIOS DESTACADOS (dinámico) ===================== -->
+<?php if (!empty($serviciosDestacados)): ?>
+<section class="seccion-destacados">
+    <h2 class="titulo-seccion">Servicios más solicitados</h2>
+
+    <div class="grid-destacados">
+        <?php foreach ($serviciosDestacados as $servicio): ?>
+            <article class="tarjeta-destacado">
+                <h3><?= htmlspecialchars($servicio['nombre']) ?></h3>
+                <p><?= htmlspecialchars($servicio['descripcion']) ?></p>
+                <p class="precio-destacado">$<?= number_format($servicio['precio'], 2) ?></p>
+
+                <a href="<?= BASE_URL ?>/?controller=SolicitudController&method=formulario&id_servicio=<?= $servicio['id'] ?>"
+                   class="boton-secundario">
+                    Solicitar
+                </a>
+            </article>
+        <?php endforeach; ?>
+    </div>
+
+    <p class="texto-centrado ver-todo">
+        <a href="<?= BASE_URL ?>/?controller=ServicioController&method=index">Ver todos los servicios →</a>
+    </p>
+</section>
+<?php endif; ?>
+
+
+<!-- ===================== SECCIÓN: REPUESTOS DESTACADOS (dinámico) ===================== -->
+<?php if (!empty($repuestosDestacados)): ?>
+<section class="seccion-destacados seccion-destacados-alterna">
+    <h2 class="titulo-seccion">Catálogo de repuestos</h2>
+
+    <div class="grid-destacados grid-destacados-repuestos">
+        <?php foreach ($repuestosDestacados as $r): ?>
+            <?php
+                $rutaImagen = preg_match('/^https?:\/\//', $r["imagen"])
+                    ? $r["imagen"]
+                    : BASE_URL . "/assets/img/repuestos/" . $r["imagen"];
+            ?>
+            <article class="tarjeta-destacado tarjeta-repuesto-destacado">
+                <img src="<?= htmlspecialchars($rutaImagen) ?>" alt="Imagen de <?= htmlspecialchars($r['nombre']) ?>">
+                <h3><?= htmlspecialchars($r['nombre']) ?></h3>
+                <p class="precio-destacado">$<?= number_format($r['precio'], 2) ?></p>
+
+                <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=<?= $r['id'] ?>"
+                   class="boton-secundario">
+                    Ver detalle
+                </a>
+            </article>
+        <?php endforeach; ?>
+    </div>
+
+    <p class="texto-centrado ver-todo">
+        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=index">Ver catálogo completo →</a>
+    </p>
+</section>
+<?php endif; ?>
+
+
 <!-- ===================== SECCIÓN: ¿POR QUÉ ELEGIRNOS? ===================== -->
 <section class="seccion-ventajas">
     <h2 class="titulo-seccion">¿Por qué elegirnos?</h2>
@@ -60,38 +124,25 @@
 </section>
 
 
-<!-- ===================== SECCIÓN NOTICIAS ===================== -->
-<section class="seccion-noticias">
-    <h2 class="titulo-seccion">Noticias y Consejos</h2>
+<!-- ===================== SECCIÓN VIDEO + CTA FINAL ===================== -->
+<section class="seccion-cta-final">
+    <div class="cta-final-video">
+        <video controls poster="<?= BASE_URL ?>/assets/img/logo/logo.png">
+            <source src="<?= BASE_URL ?>/assets/videos/inicio.mp4" type="video/mp4">
+        </video>
+    </div>
 
-    <ul class="lista-noticias">
+    <div class="cta-final-texto">
+        <h2>¿Calor insoportable? Ya vamos en camino.</h2>
+        <p>Regístrate y solicita tu servicio en minutos, o escríbenos si tienes alguna duda.</p>
 
-        <li>
-            <h3>Trucos para reducir la factura del aire acondicionado</h3>
-            <p>Consejos para usar el aire acondicionado de forma eficiente.</p>
-
-            <a href="https://www.20minutos.es/tecnologia/moviles-dispositivos/trucos-reducir-la-factura-aire-acondicionado-5016707/" target="_blank">
-                Leer artículo completo
+        <div class="botones-banner">
+            <a href="<?= BASE_URL ?>/?controller=AuthController&method=registro" class="boton-naranja">
+                ¡Regístrate ahora!
             </a>
-        </li>
-
-        <li>
-            <h3>¿Cada cuánto hacer mantenimiento?</h3>
-            <p>Descubre la frecuencia recomendada según expertos.</p>
-
-            <a href="https://dudasytextos.com/cuanto-tiempo/cada-cuanto-tiempo-hay-que-hacer-mantenimiento-al-aire-acondicionado/" target="_blank">
-                Leer artículo completo
+            <a href="<?= BASE_URL ?>/?controller=ContactoController&method=index" class="boton-outline boton-outline-oscuro">
+                Contáctanos
             </a>
-        </li>
-
-        <li>
-            <h3>¿Calor insoportable? Ya vamos en camino.</h3>
-            <p>RefriServices: Héroes del clima.</p>
-
-            <video controls>
-                <source src="<?= BASE_URL ?>/assets/videos/inicio.mp4" type="video/mp4">
-            </video>
-        </li>
-
-    </ul>
+        </div>
+    </div>
 </section>
