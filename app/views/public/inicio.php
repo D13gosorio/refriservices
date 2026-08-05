@@ -32,7 +32,7 @@
             <span class="dato-texto">Tiempo de respuesta</span>
         </div>
         <div class="dato-confianza">
-            <span class="dato-numero">Coclé</span>
+            <span class="dato-numero">📍</span>
             <span class="dato-texto">Aguadulce y alrededores</span>
         </div>
     </div>
@@ -157,35 +157,14 @@
     <div class="cobertura-contenido">
         <h2 class="titulo-seccion">Zona de cobertura</h2>
         <p>
-            Atendemos Aguadulce y sus alrededores en la provincia de Coclé, con visitas
+            Atendemos Aguadulce y sus alrededores, con visitas
             programadas a domicilios, comercios, escuelas y oficinas.
         </p>
 
         <ul class="lista-cobertura">
-            <li>📍 Aguadulce</li>
-            <li>📍 Natá</li>
-            <li>📍 Antón</li>
-            <li>📍 Penonomé</li>
+            <li>📍 Aguadulce y alrededores</li>
         </ul>
 
         <p class="texto-pequeno">¿No ves tu zona en la lista? Escríbenos y confirmamos disponibilidad.</p>
-    </div>
-</section>
-
-
-<!-- ===================== CTA FINAL ===================== -->
-<section class="seccion-cta-final">
-    <div class="cta-final-texto">
-        <h2>¿Listo para resolver tu problema de climatización?</h2>
-        <p>Regístrate y solicita tu servicio en minutos, o escríbenos si tienes alguna duda.</p>
-
-        <div class="botones-banner">
-            <a href="<?= BASE_URL ?>/?controller=AuthController&method=registro" class="boton-naranja">
-                ¡Regístrate ahora!
-            </a>
-            <a href="<?= BASE_URL ?>/?controller=ContactoController&method=index" class="boton-outline boton-outline-oscuro">
-                Contáctanos
-            </a>
-        </div>
     </div>
 </section>
