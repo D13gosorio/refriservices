@@ -25,7 +25,7 @@
 <body>
 
 <header>
-    <?php include "barra_superior.php"; ?>
-    <?php include "navbar.php"; ?>
+    <?php include __DIR__ . "/barra_superior.php"; ?>
+    <?php include __DIR__ . "/navbar.php"; ?>
 </header>
 

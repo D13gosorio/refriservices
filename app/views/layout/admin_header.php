@@ -25,4 +25,4 @@
     <div class="barra-superior-admin"></div>
 
     <!-- Navbar del panel de administración -->
-    <?php include "admin_navbar.php"; ?>
+    <?php include __DIR__ . "/admin_navbar.php"; ?>

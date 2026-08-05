@@ -6,8 +6,8 @@ class NosotrosController {
         
         $cssPagina = "nosotros";
 
-        include "../app/views/layout/header.php";
-        include "../app/views/public/nosotros.php";
-        include "../app/views/layout/footer.php";
+        include ROOT_PATH . "/app/views/layout/header.php";
+        include ROOT_PATH . "/app/views/public/nosotros.php";
+        include ROOT_PATH . "/app/views/layout/footer.php";
     }
 }

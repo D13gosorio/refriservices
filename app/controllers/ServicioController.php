@@ -1,6 +1,6 @@
 <?php
 
-require_once "../app/models/Servicio.php";
+require_once ROOT_PATH . "/app/models/Servicio.php";
 
 class ServicioController {
 
@@ -12,9 +12,9 @@ class ServicioController {
         $servicios = Servicio::obtenerTodos();
 
         // Cargar layout y vista
-        include "../app/views/layout/header.php";
-        include "../app/views/public/servicios.php";
-        include "../app/views/layout/footer.php";
+        include ROOT_PATH . "/app/views/layout/header.php";
+        include ROOT_PATH . "/app/views/public/servicios.php";
+        include ROOT_PATH . "/app/views/layout/footer.php";
     }
 }
 
