@@ -1,0 +1,178 @@
+.barra-superior-admin {
+    background-color: #0A3F7A; 
+    height: 50px;              
+    width: 100%;
+}
+
+/* ==========================================================
+   ESTILOS DE LA PÁGINA: GESTIÓN DE SERVICIOS (ADMIN)
+   ========================================================== */
+
+/* Título principal */
+.titulo-admin {
+    font-size: 32px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Contenedor del botón superior */
+.top-actions {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 1.5rem auto;
+    text-align: right;
+}
+
+/* Botón Crear servicio */
+.btn-primary {
+    background-color: #1c7932;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #155d27; /* Verde más oscuro */
+}
+
+/* ==========================================================
+   TABLA DE SERVICIOS
+   ========================================================== */
+
+.tabla-contenedor {
+    width: 90%;
+    max-width: 1200px;
+    margin: 1rem auto 3rem auto;
+    overflow-x: auto;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra-suave);
+}
+
+/* Encabezados */
+.tabla-admin th {
+    background-color: var(--azul);
+    color: var(--blanco);
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Celdas */
+.tabla-admin td {
+    padding: 0.9rem;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    color: var(--gris);
+}
+
+/* Evitar que los botones se partan en dos líneas */
+.tabla-admin td:last-child {
+    white-space: nowrap;
+}
+
+/* Hover de filas */
+.tabla-admin tr:hover {
+    background-color: #f6f9ff;
+}
+
+/* ==========================================================
+   BOTONES DE ACCIONES (Editar / Eliminar)
+   ========================================================== */
+
+.btn-small {
+    background-color: #0051a8;
+    color: #fff;
+    padding: 7px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 6px;
+    display: inline-block; 
+    transition: 0.2s;
+}
+
+.btn-small:hover {
+    background-color: #003f73;
+}
+
+.btn-danger {
+    background-color: #dc3545 !important;
+}
+
+.btn-danger:hover {
+    background-color: #b0212f !important;
+}
+
+/* ============================================
+   RESPONSIVE — GESTIÓN DE SERVICIOS
+============================================ */
+
+@media screen and (max-width: 768px) {
+
+    .titulo-admin {
+        font-size: 26px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .top-actions {
+        text-align: center;
+        width: 95%;
+        margin: 1rem auto;
+    }
+
+    .btn-primary {
+        width: 100%;
+        display: inline-block;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .tabla-contenedor {
+        width: 95%;
+        margin: 1rem auto 2rem auto;
+    }
+
+    .tabla-admin th,
+    .tabla-admin td {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+        white-space: nowrap;
+    }
+
+    .tabla-admin {
+        min-width: 700px; /* permite scroll horizontal */
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .titulo-admin {
+        font-size: 22px;
+    }
+
+    .btn-primary {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .tabla-admin th,
+    .tabla-admin td {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+
+    .btn-small {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
