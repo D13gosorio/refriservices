@@ -7,37 +7,39 @@
         <form action="<?= BASE_URL ?>/index.php?controller=AdminController&method=<?= isset($repuesto) ? 'actualizarRepuesto' : 'guardarRepuesto' ?>"
               method="POST">
 
+            <?= Csrf::field() ?>
+
             <?php if (isset($repuesto)): ?>
-                <input type="hidden" name="id" value="<?= $repuesto['id'] ?>">
+                <input type="hidden" name="id" value="<?= (int) $repuesto['id'] ?>">
             <?php endif; ?>
 
             <div class="form-grupo">
                 <label for="nombre">Nombre del repuesto:</label>
                 <input type="text" id="nombre" name="nombre"
-                       value="<?= $repuesto['nombre'] ?? '' ?>" required>
+                       value="<?= htmlspecialchars($repuesto['nombre'] ?? '') ?>" required>
             </div>
 
             <div class="form-grupo">
                 <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" rows="4" required><?= $repuesto['descripcion'] ?? '' ?></textarea>
+                <textarea id="descripcion" name="descripcion" rows="4" required><?= htmlspecialchars($repuesto['descripcion'] ?? '') ?></textarea>
             </div>
 
             <div class="form-grupo">
                 <label for="precio">Precio (USD):</label>
                 <input type="number" id="precio" name="precio" step="0.01" min="0"
-                       value="<?= $repuesto['precio'] ?? '' ?>" required>
+                       value="<?= htmlspecialchars($repuesto['precio'] ?? '') ?>" required>
             </div>
 
             <div class="form-grupo">
                 <label for="stock">Cantidad en stock:</label>
                 <input type="number" id="stock" name="stock" min="0"
-                       value="<?= $repuesto['stock'] ?? '' ?>" required>
+                       value="<?= htmlspecialchars($repuesto['stock'] ?? '') ?>" required>
             </div>
 
             <div class="form-grupo">
                 <label for="imagen">Nombre de imagen:</label>
                 <input type="text" id="imagen" name="imagen"
-                       value="<?= $repuesto['imagen'] ?? '' ?>">
+                       value="<?= htmlspecialchars($repuesto['imagen'] ?? '') ?>">
             </div>
 
             <div class="form-acciones">

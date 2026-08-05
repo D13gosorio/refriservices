@@ -16,6 +16,8 @@
           action="<?= BASE_URL ?>/?controller=AuthController&method=doRegistro"
           class="formulario-registro">
 
+        <?= Csrf::field() ?>
+
         <!-- Nombre -->
         <div class="grupo-formulario">
             <label for="nombre">Nombre completo:</label>
@@ -58,9 +60,9 @@
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password"
                    required placeholder="********"
-                   minlength="4"
-                   pattern="^(?=.*[A-Za-z])(?=.*\d).{4,}$"
-                   title="La contraseña debe tener mínimo 4 caracteres e incluir letras y números">
+                   minlength="8"
+                   pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"
+                   title="La contraseña debe tener mínimo 8 caracteres e incluir letras y números">
         </div>
 
         <!-- Confirmar contraseña -->
@@ -68,8 +70,8 @@
             <label for="password_confirm">Confirmar contraseña:</label>
             <input type="password" id="password_confirm" name="password_confirm"
                    required placeholder="********"
-                   minlength="4"
-                   pattern="^(?=.*[A-Za-z])(?=.*\d).{4,}$"
+                   minlength="8"
+                   pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"
                    title="Debe coincidir con la contraseña anterior">
         </div>
 
@@ -78,7 +80,7 @@
                 Crear Cuenta
             </button>
         </div>
-        <div id="password-error" style="color:red; text-align:center; display:none; margin-bottom:10px;">
+        <div id="password-error" class="error-confirmacion-password">
             Las contraseñas no coinciden.
         </div>
     </form>
@@ -89,22 +91,5 @@
            class="enlace-azul">Inicia sesión aquí</a>
     </p>
 
-<script>
-document.querySelector(".formulario-registro").addEventListener("submit", function(event) {
-    const pass = document.getElementById("password").value;
-    const passConfirm = document.getElementById("password_confirm").value;
-    const errorDiv = document.getElementById("password-error");
-
-    if (pass !== passConfirm) {
-        event.preventDefault();
-        errorDiv.style.display = "block";
-    } else {
-        errorDiv.style.display = "none";
-    }
-});
-const telefono = document.getElementById("telefono");
-telefono.addEventListener("input", () => {
-    telefono.value = telefono.value.replace(/[^0-9-]/g, "");
-});
-</script>
+    <script src="<?= BASE_URL ?>/assets/js/registro.js"></script>
 </section>

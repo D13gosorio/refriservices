@@ -28,6 +28,8 @@ class AuthController {
         exit;
     }
 
+    Csrf::verificarOMorir();
+
     // 2. Recibir campos
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -46,29 +48,40 @@ class AuthController {
         exit;
     }
 
-    // 5. Buscar usuario por email
+    // 5. Verificar que no haya demasiados intentos fallidos recientes
+    //    para esta combinación de IP + correo (protección anti fuerza bruta)
+    if (LoginThrottle::bloqueado($email)) {
+        $_SESSION['error'] = "Demasiados intentos fallidos. Espera unos minutos e inténtalo de nuevo.";
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        exit;
+    }
+
+    // 6. Buscar usuario por email
     $usuario = Usuario::buscarPorEmail($email);
 
     if (!$usuario) {
+        LoginThrottle::registrarFallo($email);
         $_SESSION['error'] = "El correo o la contraseña ingresados son incorrectos.";
         header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
         exit;
     }
 
-    // 6. Validar contraseña con password_verify()
+    // 7. Validar contraseña con password_verify()
     if (!password_verify($password, $usuario['password'])) {
+        LoginThrottle::registrarFallo($email);
         $_SESSION['error'] = "El correo o la contraseña ingresados son incorrectos.";
         header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
         exit;
     }
 
-    // 7. Iniciar sesión
+    // 8. Iniciar sesión
+    LoginThrottle::limpiar($email);
     $_SESSION['usuario_id'] = $usuario['id'];
     $_SESSION['usuario_nombre'] = $usuario['nombre'];
     $_SESSION['usuario_rol'] = $usuario['rol'];
     session_regenerate_id(true);
 
-    // 8. Redirigir según rol
+    // 9. Redirigir según rol
     if ($usuario['rol'] === 'admin') {
         header("Location: " . BASE_URL . "/?controller=AdminController&method=index");
     } else {
@@ -102,6 +115,8 @@ class AuthController {
             exit;
         }
 
+        Csrf::verificarOMorir();
+
         // 2. Recibir los campos
         $nombre = trim($_POST['nombre'] ?? '');
         $telefono = trim($_POST['telefono'] ?? '');
@@ -127,6 +142,14 @@ class AuthController {
         // 5. Validamos la contraseña
         if ($password !== $password_confirm){
             $_SESSION['error'] = "Las contraseñas no coinciden.";
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
+            exit;
+        }
+
+        // La validación del formulario (minlength/pattern) es solo del lado
+        // del cliente y se puede saltar fácilmente; se repite aquí.
+        if (strlen($password) < 8 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/\d/', $password)) {
+            $_SESSION['error'] = "La contraseña debe tener al menos 8 caracteres e incluir letras y números.";
             header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
             exit;
         }

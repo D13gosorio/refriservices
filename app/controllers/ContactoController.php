@@ -18,6 +18,8 @@ class ContactoController {
             die("Método no permitido.");
         }
 
+        Csrf::verificarOMorir();
+
         // Validar campos
         $data = [
             ":nombre"   => $_POST["nombre"] ?? "",
@@ -41,10 +43,7 @@ class ContactoController {
         $cssPagina = "contacto";
 
         include ROOT_PATH . "/app/views/layout/header.php";
-        echo "<section class='texto-centrado' style='padding:2rem;'>
-                <h2>¡Mensaje enviado con éxito!</h2>
-                <p>Nos pondremos en contacto contigo pronto.</p>
-              </section>";
+        include ROOT_PATH . "/app/views/public/contacto_gracias.php";
         include ROOT_PATH . "/app/views/layout/footer.php";
     }
 }

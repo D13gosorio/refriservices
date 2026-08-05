@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="boton-servicio">
-                    <a href="<?= BASE_URL ?>/?controller=SolicitudController&method=formulario&id_servicio=<?= $servicio['id'] ?>"
+                    <a href="<?= BASE_URL ?>/?controller=SolicitudController&method=formulario&id_servicio=<?= (int) $servicio['id'] ?>"
                        class="boton-accion">
                         Solicitar
                     </a>

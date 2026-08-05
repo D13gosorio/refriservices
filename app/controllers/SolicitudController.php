@@ -30,15 +30,37 @@ class SolicitudController {
 
         if (!isset($_SESSION["usuario_id"])) {
             header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
-        exit;
-            
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: " . BASE_URL . "/?controller=ServicioController&method=index");
+            exit;
+        }
+
+        Csrf::verificarOMorir();
+
+        // El servicio debe existir realmente (evita ids inventados/manipulados).
+        $servicio = Servicio::obtenerPorId($_POST['id_servicio'] ?? null);
+        if (!$servicio) {
+            die("Servicio no encontrado.");
+        }
+
+        $cantidad = filter_var($_POST['cantidad'] ?? null, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        if ($cantidad === false) {
+            die("Cantidad inválida.");
+        }
+
+        $fecha = $_POST['fecha_servicio'] ?? '';
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha)) {
+            die("Fecha inválida.");
         }
 
         $data = [
             ':id_usuario' => $_SESSION["usuario_id"],
-            ':id_servicio' => $_POST['id_servicio'],
-            ':cantidad' => $_POST['cantidad'],
-            ':fecha_solicitada' => $_POST['fecha_servicio'],
+            ':id_servicio' => $servicio['id'],
+            ':cantidad' => $cantidad,
+            ':fecha_solicitada' => $fecha,
             ':descripcion' => $_POST['descripcion'] ?? null
         ];
 

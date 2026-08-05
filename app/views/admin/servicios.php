@@ -22,21 +22,23 @@
             <tbody>
                 <?php foreach ($servicios as $s): ?>
                 <tr>
-                    <td><?= $s["id"] ?></td>
-                    <td><?= $s["nombre"] ?></td>
-                    <td><?= $s["descripcion"] ?></td>
-                    <td>$<?= $s["precio"] ?></td>
+                    <td><?= (int) $s["id"] ?></td>
+                    <td><?= htmlspecialchars($s["nombre"]) ?></td>
+                    <td><?= htmlspecialchars($s["descripcion"]) ?></td>
+                    <td>$<?= htmlspecialchars($s["precio"]) ?></td>
 
                     <td>
-                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=editarServicio&id=<?= $s['id'] ?>" class="btn-small">
+                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=editarServicio&id=<?= (int) $s['id'] ?>" class="btn-small">
                             Editar
                         </a>
 
-                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=eliminarServicio&id=<?= $s['id'] ?>"
-                           class="btn-small btn-danger"
-                           onclick="return confirm('¿Seguro que deseas eliminar este servicio?');">
-                           Eliminar
-                        </a>
+                        <form method="POST" action="<?= BASE_URL ?>/?controller=AdminController&method=eliminarServicio"
+                              class="form-inline-eliminar"
+                              data-confirm="¿Seguro que deseas eliminar este servicio?">
+                            <?= Csrf::field() ?>
+                            <input type="hidden" name="id" value="<?= (int) $s['id'] ?>">
+                            <button type="submit" class="btn-small btn-danger">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
                 <?php endforeach; ?>

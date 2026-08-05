@@ -75,6 +75,14 @@ body {
     background-color: #e56c00;
 }
 
+/* Aviso de contraseñas no coincidentes (oculto hasta que registro.js lo active) */
+.error-confirmacion-password {
+    display: none;
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 /* Enlace a login */
 .enlace-login {
     margin-top: 1.5rem;

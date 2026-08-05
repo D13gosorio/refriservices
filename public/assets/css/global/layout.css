@@ -72,6 +72,19 @@ p {
     margin-bottom: 2rem;
 }
 
+/* Formularios de una sola acción (ej. "Eliminar") embebidos en listas o
+   tablas, para que se comporten visualmente como el enlace que reemplazan */
+.form-inline-eliminar {
+    display: inline-block;
+    margin: 0;
+}
+
+.form-inline-eliminar button {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+}
+
 /* ----------------------------------------------------
    2. BOTONES GLOBALES
 ---------------------------------------------------- */

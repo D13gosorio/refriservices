@@ -201,6 +201,37 @@
     background-color: #b0212f;
 }
 
+/* Botón "Cancelar solicitud": va dentro de un <form>, ya no es un <a>
+   hermano directo, así que se estiliza aparte en vez de con :last-of-type */
+.btn-cancelar-solicitud {
+    background-color: #dc3545;
+    color: #fff;
+    margin-left: 0.6rem;
+}
+
+.btn-cancelar-solicitud:hover {
+    background-color: #b0212f;
+}
+
+/* Contenedor del detalle de una solicitud */
+.contenedor-detalle-solicitud {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.acciones-detalle-solicitud {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Fila "no tienes solicitudes aún" en la tabla */
+.celda-vacia {
+    text-align: center;
+    padding: 1rem;
+}
+
 /* -------------------- RESPONSIVE -------------------- */
 @media screen and (max-width: 768px) {
 
