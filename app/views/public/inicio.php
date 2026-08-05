@@ -16,89 +16,108 @@
 </section>
 
 
+<!-- ===================== BARRA DE CONFIANZA ===================== -->
+<section class="barra-confianza">
+    <div class="grid-confianza">
+        <div class="dato-confianza">
+            <span class="dato-numero">+10</span>
+            <span class="dato-texto">Años de experiencia</span>
+        </div>
+        <div class="dato-confianza">
+            <span class="dato-numero">100%</span>
+            <span class="dato-texto">Técnicos certificados</span>
+        </div>
+        <div class="dato-confianza">
+            <span class="dato-numero">24-48h</span>
+            <span class="dato-texto">Tiempo de respuesta</span>
+        </div>
+        <div class="dato-confianza">
+            <span class="dato-numero">Coclé</span>
+            <span class="dato-texto">Aguadulce y alrededores</span>
+        </div>
+    </div>
+</section>
+
+
 <!-- ===================== SECCIÓN: ¿QUÉ HACEMOS? ===================== -->
 <section class="seccion-servicios">
     <h2 class="titulo-seccion">¿Qué hacemos?</h2>
+    <p class="subtitulo-seccion texto-centrado">
+        Soluciones completas de climatización, desde la primera instalación hasta el mantenimiento periódico.
+    </p>
 
     <div class="grid-3-tarjetas">
         <article class="tarjeta-servicio">
             <div class="icono">🛠️</div>
             <h3>Instalación</h3>
-            <p>Instalación profesional de sistemas de aire acondicionado y refrigeración.</p>
+            <p>Instalación profesional de sistemas de aire acondicionado y refrigeración, residencial y comercial.</p>
         </article>
 
         <article class="tarjeta-servicio">
             <div class="icono">🔧</div>
             <h3>Reparación</h3>
-            <p>Reparación de equipos domésticos y comerciales para un funcionamiento óptimo.</p>
+            <p>Diagnóstico y reparación de fallas eléctricas y mecánicas en equipos domésticos y comerciales.</p>
         </article>
 
         <article class="tarjeta-servicio">
             <div class="icono">⚙️</div>
             <h3>Mantenimiento</h3>
-            <p>Mantenimiento preventivo y correctivo para alargar la vida útil de los sistemas.</p>
+            <p>Mantenimiento preventivo y correctivo para alargar la vida útil de tus sistemas y bajar el consumo eléctrico.</p>
         </article>
     </div>
 </section>
 
 
-<!-- ===================== SECCIÓN: SERVICIOS DESTACADOS (dinámico) ===================== -->
-<?php if (!empty($serviciosDestacados)): ?>
-<section class="seccion-destacados">
-    <h2 class="titulo-seccion">Servicios más solicitados</h2>
-
-    <div class="grid-destacados">
-        <?php foreach ($serviciosDestacados as $servicio): ?>
-            <article class="tarjeta-destacado">
-                <h3><?= htmlspecialchars($servicio['nombre']) ?></h3>
-                <p><?= htmlspecialchars($servicio['descripcion']) ?></p>
-                <p class="precio-destacado">$<?= number_format($servicio['precio'], 2) ?></p>
-
-                <a href="<?= BASE_URL ?>/?controller=SolicitudController&method=formulario&id_servicio=<?= $servicio['id'] ?>"
-                   class="boton-secundario">
-                    Solicitar
-                </a>
-            </article>
-        <?php endforeach; ?>
-    </div>
-
-    <p class="texto-centrado ver-todo">
-        <a href="<?= BASE_URL ?>/?controller=ServicioController&method=index">Ver todos los servicios →</a>
+<!-- ===================== SECCIÓN: CÓMO TRABAJAMOS ===================== -->
+<section class="seccion-proceso">
+    <h2 class="titulo-seccion">¿Cómo funciona?</h2>
+    <p class="subtitulo-seccion texto-centrado">
+        De la solicitud al servicio completado, en cuatro pasos simples.
     </p>
-</section>
-<?php endif; ?>
 
+    <div class="grid-proceso">
+        <div class="paso-proceso">
+            <span class="paso-numero">1</span>
+            <h3>Solicita tu servicio</h3>
+            <p>Crea tu cuenta y elige el servicio que necesitas desde el catálogo.</p>
+        </div>
 
-<!-- ===================== SECCIÓN: REPUESTOS DESTACADOS (dinámico) ===================== -->
-<?php if (!empty($repuestosDestacados)): ?>
-<section class="seccion-destacados seccion-destacados-alterna">
-    <h2 class="titulo-seccion">Catálogo de repuestos</h2>
+        <div class="paso-proceso">
+            <span class="paso-numero">2</span>
+            <h3>Confirmamos la cita</h3>
+            <p>Nuestro equipo revisa tu solicitud y coordina la fecha de visita contigo.</p>
+        </div>
 
-    <div class="grid-destacados grid-destacados-repuestos">
-        <?php foreach ($repuestosDestacados as $r): ?>
-            <?php
-                $rutaImagen = preg_match('/^https?:\/\//', $r["imagen"])
-                    ? $r["imagen"]
-                    : BASE_URL . "/assets/img/repuestos/" . $r["imagen"];
-            ?>
-            <article class="tarjeta-destacado tarjeta-repuesto-destacado">
-                <img src="<?= htmlspecialchars($rutaImagen) ?>" alt="Imagen de <?= htmlspecialchars($r['nombre']) ?>">
-                <h3><?= htmlspecialchars($r['nombre']) ?></h3>
-                <p class="precio-destacado">$<?= number_format($r['precio'], 2) ?></p>
+        <div class="paso-proceso">
+            <span class="paso-numero">3</span>
+            <h3>Visita del técnico</h3>
+            <p>Un técnico certificado llega a tu domicilio o negocio con el equipo necesario.</p>
+        </div>
 
-                <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=<?= $r['id'] ?>"
-                   class="boton-secundario">
-                    Ver detalle
-                </a>
-            </article>
-        <?php endforeach; ?>
+        <div class="paso-proceso">
+            <span class="paso-numero">4</span>
+            <h3>Servicio completado</h3>
+            <p>Revisas el estado de tu solicitud en todo momento desde "Mis solicitudes".</p>
+        </div>
     </div>
-
-    <p class="texto-centrado ver-todo">
-        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=index">Ver catálogo completo →</a>
-    </p>
 </section>
-<?php endif; ?>
+
+
+<!-- ===================== SECCIÓN VIDEO ===================== -->
+<section class="seccion-video">
+    <div class="contenedor-video">
+        <h2 class="titulo-seccion">Conócenos en acción</h2>
+        <p class="subtitulo-seccion texto-centrado">
+            Así trabajamos: rápido, ordenado y con equipo profesional.
+        </p>
+
+        <div class="video-wrapper">
+            <video controls preload="metadata">
+                <source src="<?= BASE_URL ?>/assets/videos/inicio.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</section>
 
 
 <!-- ===================== SECCIÓN: ¿POR QUÉ ELEGIRNOS? ===================== -->
@@ -107,33 +126,57 @@
 
     <div class="grid-3-ventajas">
         <div class="ventaja">
+            <div class="icono">🎓</div>
             <h3>Técnicos Certificados</h3>
             <p>Personal capacitado en las últimas tecnologías de refrigeración.</p>
         </div>
 
         <div class="ventaja">
+            <div class="icono">🤝</div>
             <h3>Atención Personalizada</h3>
             <p>Soluciones adaptadas a cada cliente con un trato profesional.</p>
         </div>
 
         <div class="ventaja">
+            <div class="icono">⚡</div>
             <h3>Respuesta Rápida</h3>
             <p>Atención ágil a solicitudes dentro del horario establecido.</p>
+        </div>
+
+        <div class="ventaja">
+            <div class="icono">✅</div>
+            <h3>Garantía en el Servicio</h3>
+            <p>Respaldamos cada instalación y reparación que realizamos.</p>
         </div>
     </div>
 </section>
 
 
-<!-- ===================== SECCIÓN VIDEO + CTA FINAL ===================== -->
-<section class="seccion-cta-final">
-    <div class="cta-final-video">
-        <video controls poster="<?= BASE_URL ?>/assets/img/logo/logo.png">
-            <source src="<?= BASE_URL ?>/assets/videos/inicio.mp4" type="video/mp4">
-        </video>
-    </div>
+<!-- ===================== SECCIÓN: ZONA DE COBERTURA ===================== -->
+<section class="seccion-cobertura">
+    <div class="cobertura-contenido">
+        <h2 class="titulo-seccion">Zona de cobertura</h2>
+        <p>
+            Atendemos Aguadulce y sus alrededores en la provincia de Coclé, con visitas
+            programadas a domicilios, comercios, escuelas y oficinas.
+        </p>
 
+        <ul class="lista-cobertura">
+            <li>📍 Aguadulce</li>
+            <li>📍 Natá</li>
+            <li>📍 Antón</li>
+            <li>📍 Penonomé</li>
+        </ul>
+
+        <p class="texto-pequeno">¿No ves tu zona en la lista? Escríbenos y confirmamos disponibilidad.</p>
+    </div>
+</section>
+
+
+<!-- ===================== CTA FINAL ===================== -->
+<section class="seccion-cta-final">
     <div class="cta-final-texto">
-        <h2>¿Calor insoportable? Ya vamos en camino.</h2>
+        <h2>¿Listo para resolver tu problema de climatización?</h2>
         <p>Regístrate y solicita tu servicio en minutos, o escríbenos si tienes alguna duda.</p>
 
         <div class="botones-banner">
