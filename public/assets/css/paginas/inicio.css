@@ -352,28 +352,3 @@
     color: var(--gris);
     margin-bottom: 0;
 }
-
-/* ===================== CTA FINAL ===================== */
-
-.seccion-cta-final {
-    padding: 3.5rem 0;
-    background-color: var(--azul-oscuro);
-    text-align: center;
-}
-
-.cta-final-texto {
-    width: 90%;
-    max-width: 640px;
-    margin: 0 auto;
-    color: var(--blanco);
-}
-
-.cta-final-texto h2 {
-    color: var(--blanco);
-    font-size: 1.7rem;
-}
-
-.boton-outline-oscuro {
-    color: var(--blanco);
-    border-color: var(--blanco);
-}
