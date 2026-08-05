@@ -9,10 +9,6 @@ class AdminController {
     ======================================================= */
 
     private function verificarAdmin() {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
     // Verifica que exista la sesión
     if (!isset($_SESSION['usuario_id']) || !isset($_SESSION['usuario_rol'])) {
         header("Location: " . BASE_URL . "/?controller=AuthController&method=login");

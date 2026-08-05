@@ -7,7 +7,6 @@ class AuthController {
     // =====================================================
     public function login() {
 
-        session_start();
         // CSS específico de esta vista
         $cssPagina = "login";
 
@@ -20,7 +19,6 @@ class AuthController {
     // 2. Procesar login 
     // =====================================================
     public function doLogin() {
-    session_start();
     require_once __DIR__ . "/../models/Usuario.php";
 
     // 1. Verificar que venga por POST
@@ -97,7 +95,6 @@ class AuthController {
     // 4. Procesar registro 
     // =====================================================
     public function doRegistro(){
-        session_start();
 
         // 1. Validamos que venga por el metodo POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
@@ -174,7 +171,6 @@ class AuthController {
     // =====================================================
     public function logout() {
 
-        session_start();
         session_destroy();
 
         header("Location: " . BASE_URL . "/");

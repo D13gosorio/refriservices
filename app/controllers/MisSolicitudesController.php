@@ -4,7 +4,6 @@ require_once ROOT_PATH . "/app/models/Solicitud.php";
 class MisSolicitudesController {
 
     public function index() {
-        session_start();
 
         if (!isset($_SESSION["usuario_id"])) {
             header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
@@ -21,7 +20,6 @@ class MisSolicitudesController {
     }
 
     public function detalle() {
-        session_start();
 
         if (!isset($_SESSION["usuario_id"])) {
             die("Debes iniciar sesión.");
@@ -44,7 +42,6 @@ class MisSolicitudesController {
     }
 
     public function cancelar() {
-        session_start();
 
         if (!isset($_SESSION["usuario_id"])) die("Debes iniciar sesión.");
 

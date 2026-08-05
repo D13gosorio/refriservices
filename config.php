@@ -24,3 +24,10 @@ define("DB_SSLMODE", getenv("DB_SSLMODE") ?: "require");
 require_once ROOT_PATH . "/app/core/DB.php";
 require_once ROOT_PATH . "/app/core/DbSessionHandler.php";
 session_set_save_handler(new DbSessionHandler(), true);
+
+// La sesión se inicia aquí, antes de que cualquier vista imprima HTML.
+// (session_start() debe llamarse antes de enviar cualquier salida; el
+// runtime de PHP en Vercel no usa buffering de salida por defecto como
+// sí ocurre típicamente en XAMPP/Apache, así que iniciarla más tarde,
+// dentro de un controlador o vista, falla en producción).
+session_start();
