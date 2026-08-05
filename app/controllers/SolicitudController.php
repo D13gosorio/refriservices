@@ -1,6 +1,6 @@
 <?php
-require_once "../app/models/Servicio.php";
-require_once "../app/models/Solicitud.php";
+require_once ROOT_PATH . "/app/models/Servicio.php";
+require_once ROOT_PATH . "/app/models/Solicitud.php";
 
 class SolicitudController {
 
@@ -21,9 +21,9 @@ class SolicitudController {
 
         $cssPagina = "solicitar";
 
-        include "../app/views/layout/header.php";
-        include "../app/views/cliente/solicitar_servicio.php";
-        include "../app/views/layout/footer.php";
+        include ROOT_PATH . "/app/views/layout/header.php";
+        include ROOT_PATH . "/app/views/cliente/solicitar_servicio.php";
+        include ROOT_PATH . "/app/views/layout/footer.php";
     }
 
     public function guardar() {

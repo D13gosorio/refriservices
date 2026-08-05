@@ -11,9 +11,9 @@ class AuthController {
         // CSS específico de esta vista
         $cssPagina = "login";
 
-        include "../app/views/layout/header.php";
-        include "../app/views/public/login.php";
-        include "../app/views/layout/footer.php";
+        include ROOT_PATH . "/app/views/layout/header.php";
+        include ROOT_PATH . "/app/views/public/login.php";
+        include ROOT_PATH . "/app/views/layout/footer.php";
     }
 
     // =====================================================
@@ -88,9 +88,9 @@ class AuthController {
         // CSS específico de esta vista
         $cssPagina = "registro";
 
-        include "../app/views/layout/header.php";
-        include "../app/views/public/registro.php";
-        include "../app/views/layout/footer.php";
+        include ROOT_PATH . "/app/views/layout/header.php";
+        include ROOT_PATH . "/app/views/public/registro.php";
+        include ROOT_PATH . "/app/views/layout/footer.php";
     }
 
 // =====================================================
