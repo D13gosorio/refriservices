@@ -40,29 +40,31 @@
                 ?>
 
                 <tr>
-                    <td><?= $r["id"] ?></td>
+                    <td><?= (int) $r["id"] ?></td>
 
                     <td>
-                        <img src="<?= htmlspecialchars($rutaImagen) ?>" 
+                        <img src="<?= htmlspecialchars($rutaImagen) ?>"
                              alt="Imagen repuesto"
                              class="img-repuesto-tabla">
                     </td>
 
                     <td><?= htmlspecialchars($r["nombre"]) ?></td>
-                    <td>$<?= $r["precio"] ?></td>
-                    <td><?= $r["stock"] ?></td>
+                    <td>$<?= htmlspecialchars($r["precio"]) ?></td>
+                    <td><?= (int) $r["stock"] ?></td>
 
                     <td>
-                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=editarRepuesto&id=<?= $r['id'] ?>" 
+                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=editarRepuesto&id=<?= (int) $r['id'] ?>"
                            class="btn-editar">
                             Editar
                         </a>
 
-                        <a href="<?= BASE_URL ?>/?controller=AdminController&method=eliminarRepuesto&id=<?= $r['id'] ?>" 
-                           class="btn-borrar"
-                           onclick="return confirm('¿Eliminar repuesto?');">
-                            Eliminar
-                        </a>
+                        <form method="POST" action="<?= BASE_URL ?>/?controller=AdminController&method=eliminarRepuesto"
+                              class="form-inline-eliminar"
+                              data-confirm="¿Eliminar repuesto?">
+                            <?= Csrf::field() ?>
+                            <input type="hidden" name="id" value="<?= (int) $r['id'] ?>">
+                            <button type="submit" class="btn-borrar">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
 

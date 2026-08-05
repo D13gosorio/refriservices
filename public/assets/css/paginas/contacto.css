@@ -7,6 +7,11 @@
     padding: 3rem 1rem 1rem 1rem;
 }
 
+/* ------------------ CONFIRMACIÓN DE ENVÍO ------------------ */
+.seccion-gracias {
+    padding: 2rem;
+}
+
 .contacto-titulo h1 {
     font-size: 2rem;
     color: var(--azul-oscuro);

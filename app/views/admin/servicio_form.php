@@ -7,8 +7,10 @@
         <form action="<?= BASE_URL ?>/index.php?controller=AdminController&method=<?= isset($servicio) ? 'actualizarServicio' : 'guardarServicio' ?>"
               method="POST">
 
+            <?= Csrf::field() ?>
+
             <?php if (isset($servicio)): ?>
-                <input type="hidden" name="id" value="<?= $servicio['id'] ?>">
+                <input type="hidden" name="id" value="<?= (int) $servicio['id'] ?>">
             <?php endif; ?>
 
             <!-- Nombre -->
@@ -30,7 +32,7 @@
                 <label for="precio">Precio (USD):</label>
                 <input type="number" step="0.01" min="0"
                        id="precio" name="precio"
-                       value="<?= isset($servicio) ? $servicio['precio'] : '' ?>"
+                       value="<?= isset($servicio) ? htmlspecialchars($servicio['precio']) : '' ?>"
                        required>
             </div>
 

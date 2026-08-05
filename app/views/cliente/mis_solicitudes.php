@@ -23,7 +23,7 @@
 
         <?php if (empty($solicitudes)): ?>
             <tr>
-                <td colspan="7" style="text-align:center; padding:1rem;">
+                <td colspan="7" class="celda-vacia">
                     No tienes solicitudes aún.
                 </td>
             </tr>
@@ -31,21 +31,21 @@
 
         <?php foreach ($solicitudes as $s): ?>
             <tr>
-                <td><?= $s["id"] ?></td>
+                <td><?= (int) $s["id"] ?></td>
                 <td><?= htmlspecialchars($s["servicio"]) ?></td>
-                <td><?= $s["cantidad"] ?></td>
-                <td><?= $s["fecha_solicitada"] ?></td>
-                <td><?= $s["fecha_programada"] ?? "—" ?></td>
+                <td><?= (int) $s["cantidad"] ?></td>
+                <td><?= htmlspecialchars($s["fecha_solicitada"]) ?></td>
+                <td><?= htmlspecialchars($s["fecha_programada"] ?? "—") ?></td>
 
                 <td>
                     <span class="estado <?= str_replace(' ', '-', strtolower($s['estado'])) ?>">
-                        <?= $s["estado"] ?>
+                        <?= htmlspecialchars($s["estado"]) ?>
                     </span>
                 </td>
 
                 <td>
                     <a class="btn-ver"
-                       href="<?= BASE_URL ?>/?controller=MisSolicitudesController&method=detalle&id=<?= $s['id'] ?>">
+                       href="<?= BASE_URL ?>/?controller=MisSolicitudesController&method=detalle&id=<?= (int) $s['id'] ?>">
                        Ver
                     </a>
                 </td>

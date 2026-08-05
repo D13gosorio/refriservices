@@ -4,28 +4,44 @@ class Router {
 
     public static function route($controller, $method) {
 
+        // $controller y $method llegan directo de $_GET. Se exige que sean
+        // identificadores "sanos" (letras/números/guion bajo) ANTES de
+        // usarlos para construir una ruta de archivo o instanciar una clase:
+        // sin esto, un valor como "../../../../algo" podría hacer que
+        // file_exists()/require_once() lean archivos fuera de app/controllers
+        // (inclusión de archivos locales), y reflejar el valor crudo en un
+        // mensaje de error habilitaría XSS reflejado.
+        if (!is_string($controller) || !preg_match('/^[A-Za-z0-9_]+$/', $controller)) {
+            self::noEncontrado();
+        }
+
+        if (!is_string($method) || !preg_match('/^[A-Za-z0-9_]+$/', $method)) {
+            self::noEncontrado();
+        }
+
         $controllerFile = ROOT_PATH . "/app/controllers/" . $controller . ".php";
 
-        // Verificamos que el archivo del controlador exista
         if (!file_exists($controllerFile)) {
-            die("El controlador $controller no existe.");
+            self::noEncontrado();
         }
 
         require_once $controllerFile;
 
-        // Creamos una instancia del controlador
-        if (!class_exists($controller)) {
-            die("La clase $controller no fue encontrada.");
+        if (!class_exists($controller, false)) {
+            self::noEncontrado();
         }
 
         $obj = new $controller();
 
-        // Verificamos que el método exista
         if (!method_exists($obj, $method)) {
-            die("El método $method no existe en el controlador $controller.");
+            self::noEncontrado();
         }
 
-        // Ejecutamos el método
         $obj->$method();
+    }
+
+    private static function noEncontrado(): void {
+        http_response_code(404);
+        die("Página no encontrada.");
     }
 }

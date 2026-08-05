@@ -18,8 +18,8 @@
         <div class="info-detalle">
             <h2><?= htmlspecialchars($repuesto["nombre"]) ?></h2>
 
-            <p class="precio">$<?= $repuesto["precio"] ?></p>
-            <p class="stock">Stock: <?= $repuesto["stock"] ?> unidades</p>
+            <p class="precio">$<?= htmlspecialchars($repuesto["precio"]) ?></p>
+            <p class="stock">Stock: <?= (int) $repuesto["stock"] ?> unidades</p>
 
             <p class="descripcion"><?= htmlspecialchars($repuesto["descripcion"]) ?></p>
 

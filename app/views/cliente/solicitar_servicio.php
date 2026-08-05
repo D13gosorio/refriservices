@@ -7,14 +7,16 @@
 
 <section class="resumen-servicio">
     <h2 class="nombre-servicio"><?= htmlspecialchars($servicio['nombre']) ?></h2>
-    <p class="precio-servicio">$<?= $servicio['precio'] ?></p>
+    <p class="precio-servicio">$<?= htmlspecialchars($servicio['precio']) ?></p>
     <p class="texto-pequeno">Precio por unidad de servicio</p>
 </section>
 
 <section class="formulario-solicitud">
     <form method="POST" action="<?= BASE_URL ?>/?controller=SolicitudController&method=guardar">
 
-        <input type="hidden" name="id_servicio" value="<?= $servicio['id'] ?>">
+        <?= Csrf::field() ?>
+
+        <input type="hidden" name="id_servicio" value="<?= (int) $servicio['id'] ?>">
 
         <div class="grupo-formulario">
             <label for="cantidad">Cantidad:</label>

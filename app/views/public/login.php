@@ -33,6 +33,8 @@
           action="<?= BASE_URL ?>/?controller=AuthController&method=doLogin"
           class="formulario-login">
 
+        <?= Csrf::field() ?>
+
         <!-- Email -->
         <div class="grupo-formulario">
             <label for="email">Correo electrónico:</label>

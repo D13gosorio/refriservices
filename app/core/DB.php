@@ -19,7 +19,14 @@ class DB {
                     PDO::ATTR_EMULATE_PREPARES   => true,
                 ]);
             } catch (PDOException $e) {
-                die("Error de conexión a la base de datos: " . $e->getMessage());
+                // No se expone el detalle de la excepción (puede incluir host,
+                // usuario u otros datos de conexión): se registra en el log
+                // del servidor y se muestra un mensaje genérico al visitante.
+                error_log('[DB] Error de conexión: ' . $e->getMessage());
+                http_response_code(503);
+                die(defined('APP_DEBUG') && APP_DEBUG
+                    ? "Error de conexión a la base de datos: " . $e->getMessage()
+                    : "El servicio no está disponible en este momento. Intenta de nuevo más tarde.");
             }
         }
 

@@ -20,20 +20,22 @@
 
                 <?php foreach ($mensajes as $m): ?>
                 <tr>
-                    <td><?= $m["id"] ?></td>
+                    <td><?= (int) $m["id"] ?></td>
                     <td><?= htmlspecialchars($m["nombre"]) ?></td>
                     <td><?= htmlspecialchars($m["correo"]) ?></td>
                     <td><?= htmlspecialchars($m["telefono"]) ?: "—" ?></td>
                     <td><?= htmlspecialchars($m["asunto"]) ?></td>
                     <td><?= htmlspecialchars($m["mensaje"]) ?></td>
-                    <td><?= $m["fecha"] ?></td>
+                    <td><?= htmlspecialchars($m["fecha"]) ?></td>
 
                     <td>
-                        <a class="btn-small btn-danger"
-                           href="<?= BASE_URL ?>/?controller=AdminController&method=eliminarMensaje&id=<?= $m['id'] ?>"
-                           onclick="return confirm('¿Eliminar este mensaje?');">
-                           Eliminar
-                        </a>
+                        <form method="POST" action="<?= BASE_URL ?>/?controller=AdminController&method=eliminarMensaje"
+                              class="form-inline-eliminar"
+                              data-confirm="¿Eliminar este mensaje?">
+                            <?= Csrf::field() ?>
+                            <input type="hidden" name="id" value="<?= (int) $m['id'] ?>">
+                            <button type="submit" class="btn-small btn-danger">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
                 <?php endforeach; ?>

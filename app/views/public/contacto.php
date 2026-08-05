@@ -11,6 +11,8 @@
           action="<?= BASE_URL ?>/?controller=ContactoController&method=enviar"
           class="formulario-contacto">
 
+        <?= Csrf::field() ?>
+
         <!-- Nombre -->
         <div class="grupo-formulario">
             <label for="nombre">Nombre:</label>

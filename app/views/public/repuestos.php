@@ -44,10 +44,10 @@
 
         <h3><?= htmlspecialchars($r["nombre"]) ?></h3>
 
-        <p class="precio">$<?= $r["precio"] ?></p>
-        <p class="stock">Stock: <?= $r["stock"] ?> unidades</p>
+        <p class="precio">$<?= htmlspecialchars($r["precio"]) ?></p>
+        <p class="stock">Stock: <?= (int) $r["stock"] ?> unidades</p>
 
-        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=<?= $r['id'] ?>" 
+        <a href="<?= BASE_URL ?>/?controller=RepuestoController&method=detalle&id=<?= (int) $r['id'] ?>"
            class="boton-detalle">
            Ver detalle
         </a>
