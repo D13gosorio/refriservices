@@ -1,8 +1,9 @@
 name: Seguridad
 
 on:
+  # En todas las ramas, no solo en master: una credencial hay que detectarla
+  # en la rama donde se escribió, no cuando ya se ha integrado.
   push:
-    branches: [master]
   pull_request:
   schedule:
     # Lunes a las 06:00 UTC: hay hallazgos que aparecen porque cambian las
