@@ -1,146 +1,146 @@
 # RefriServices Aguadulce
 
-Sitio web de RefriServices Aguadulce (servicios de refrigeración y aire
-acondicionado): catálogo de servicios y repuestos, solicitudes de clientes,
-formulario de contacto y panel de administración.
+[![Seguridad](https://github.com/D13gosorio/refriservices/actions/workflows/seguridad.yml/badge.svg)](https://github.com/D13gosorio/refriservices/actions/workflows/seguridad.yml)
+
+Sitio web de RefriServices Aguadulce, empresa de refrigeración y aire
+acondicionado. Incluye catálogo de servicios y repuestos, solicitudes de
+servicio para clientes registrados, formulario de contacto y panel de
+administración.
+
+## Funcionalidades
+
+**Público**
+
+- Catálogo de servicios con precios
+- Catálogo de repuestos con detalle, existencias y ordenamiento
+- Página institucional y formulario de contacto
+
+**Clientes registrados**
+
+- Registro e inicio de sesión
+- Solicitud de un servicio indicando cantidad y fecha deseada
+- Seguimiento y cancelación de sus solicitudes
+
+**Administración**
+
+- Alta, edición y baja de servicios y repuestos
+- Gestión de solicitudes: cambio de estado y asignación de fecha programada
+- Bandeja de mensajes recibidos por el formulario de contacto
 
 ## Stack
 
-- PHP 8 (MVC simple, sin framework)
-- PostgreSQL (Supabase)
-- Despliegue en Vercel usando el runtime [`vercel-php`](https://github.com/vercel-community/php)
+- PHP 8, patrón MVC sin framework
+- PostgreSQL alojado en Supabase, acceso mediante PDO
+- Despliegue en Vercel con el runtime [`vercel-php`](https://github.com/vercel-community/php)
 
 ## Estructura
 
 ```
-api/index.php        Punto de entrada para Vercel (serverless)
-public/index.php     Punto de entrada para desarrollo local (Apache/XAMPP)
-public/assets/        CSS, JS, imágenes y video (estáticos)
-app/controllers/      Controladores
-app/models/           Acceso a datos (PDO)
-app/views/            Vistas
-app/core/              Router, conexión a BD y manejador de sesiones
-config.php            Configuración vía variables de entorno
+api/index.php       Punto de entrada en Vercel (serverless)
+public/index.php    Punto de entrada en desarrollo local (Apache/XAMPP)
+public/assets/      CSS, JS, imágenes y video
+app/controllers/    Controladores
+app/models/         Acceso a datos (PDO)
+app/views/          Vistas
+app/core/           Router, conexión a BD, sesiones y utilidades de seguridad
+config.php          Configuración y arranque
+db/seguridad.sql    Endurecimiento de la base de datos
 ```
 
-Ambos puntos de entrada (`api/index.php` y `public/index.php`) usan el mismo
-`Router` y los mismos controladores — no hay lógica duplicada.
+Los dos puntos de entrada comparten `Router` y controladores, así que no hay
+lógica duplicada entre local y producción.
 
-## Variables de entorno
+## Requisitos
 
-| Variable     | Descripción                                              |
-|--------------|-----------------------------------------------------------|
-| `DB_HOST`    | Host de PostgreSQL (usar el *pooler* en Vercel, ver abajo) |
-| `DB_PORT`    | Puerto (`6543` con el pooler en modo transacción)          |
-| `DB_NAME`    | Nombre de la base de datos (`postgres` en Supabase)         |
-| `DB_USER`    | Usuario de la base de datos                                |
-| `DB_PASS`    | Contraseña                                                  |
-| `DB_SSLMODE` | `require` (recomendado)                                     |
-| `BASE_URL`   | Vacío en Vercel. En XAMPP local: `http://localhost/refriservices/public` |
-| `APP_ORIGENES` | Opcional. Lista separada por comas de los orígenes desde los que se aceptan formularios, p. ej. `https://refriservices.com,https://www.refriservices.com`. Si se deja sin definir se acepta solo el origen de la propia petición |
-| `APP_DEBUG`  | Opcional. `1` muestra los errores en pantalla. **Solo en local**, nunca en Vercel |
+- PHP 8.0 o superior con las extensiones `pdo_pgsql` y `session`
+  (`mbstring` es recomendable; si falta, se usa un sustituto)
+- PostgreSQL 9.5 o superior; el proyecto se ejecuta sobre Supabase
+- Cuenta de Vercel y de Supabase para el despliegue
 
-Ninguna de estas variables se guarda en el repositorio: `.env*` está en
-`.gitignore` y en Vercel se configuran en Settings → Environment Variables.
+## Configuración
 
-En Vercel, Supabase solo es alcanzable por el *connection pooler* (Supavisor,
-modo transacción, puerto `6543`) porque Vercel es IPv4-only y la conexión
-directa de Supabase es IPv6. El usuario de conexión en el pooler tiene el
-formato `usuario.referencia_proyecto`.
+Todos los parámetros se leen de variables de entorno. No hay credenciales en
+el código: `.env*`, `.vercel/` y `hash.php` están en `.gitignore`, y en Vercel
+se definen en Settings → Environment Variables.
+
+| Variable       | Requerida | Descripción                                                        |
+|----------------|-----------|--------------------------------------------------------------------|
+| `DB_HOST`      | Sí        | Host de PostgreSQL                                                 |
+| `DB_PORT`      | Sí        | Puerto; `6543` con el pooler de Supabase en modo transacción       |
+| `DB_NAME`      | Sí        | Nombre de la base de datos (`postgres` en Supabase)                |
+| `DB_USER`      | Sí        | Usuario de la base de datos                                        |
+| `DB_PASS`      | Sí        | Contraseña                                                         |
+| `DB_SSLMODE`   | Sí        | `require`                                                          |
+| `BASE_URL`     | Sí        | Vacía en Vercel. En local, la URL raíz: `http://localhost:8000`    |
+| `APP_ORIGENES` | No        | Orígenes autorizados para enviar formularios, separados por comas. Si se omite se acepta solo el origen de la petición |
+| `APP_DEBUG`    | No        | `1` muestra los errores en pantalla. Solo para uso local           |
+
+> En Vercel hay que conectar a Supabase por el *connection pooler* (Supavisor,
+> modo transacción, puerto `6543`): Vercel solo tiene IPv4 y la conexión
+> directa de Supabase es IPv6. El usuario del pooler tiene el formato
+> `usuario.referencia_proyecto`.
 
 ## Desarrollo local
 
-Requiere PHP 8+ con las extensiones `pdo_pgsql` y `session`, y acceso a una
-base de datos PostgreSQL (se puede usar el mismo proyecto de Supabase).
+```bash
+cd public
+php -S localhost:8000
+```
 
-1. Configura las variables de entorno de la tabla anterior (por ejemplo, con
-   `SetEnv` en la configuración de Apache/XAMPP, o exportándolas antes de
-   levantar el servidor embebido de PHP).
-2. Document root: `public/`.
-3. Con el servidor embebido de PHP, desde la carpeta `public/`:
-   ```
-   php -S localhost:8000
-   ```
-   y define `BASE_URL=http://localhost:8000`.
+Con `BASE_URL=http://localhost:8000` y las variables de conexión definidas en
+el entorno. Con Apache o XAMPP, el *document root* debe ser `public/`.
 
 ## Base de datos
 
-El esquema completo (tablas, relaciones y datos de prueba) vive en Supabase.
-Incluye:
+El esquema vive en Supabase y consta de estas tablas:
 
-- `usuarios`, `servicios`, `repuestos`, `solicitudes`, `mensajes_contacto`
-- `sesiones`: respaldo de las sesiones PHP en base de datos (necesario en
-  Vercel, donde no hay filesystem persistente entre invocaciones)
-- `intentos_login`: contador de intentos por ventana de tiempo, usado para
-  limitar login, registro y envíos del formulario de contacto
+| Tabla               | Contenido                                                  |
+|---------------------|------------------------------------------------------------|
+| `usuarios`          | Cuentas de clientes y administradores                      |
+| `servicios`         | Catálogo de servicios                                      |
+| `repuestos`         | Catálogo de repuestos                                      |
+| `solicitudes`       | Solicitudes de servicio y su estado                        |
+| `mensajes_contacto` | Envíos del formulario de contacto                          |
+| `sesiones`          | Sesiones PHP; en Vercel no hay disco persistente           |
+| `intentos_login`    | Contador para los límites de login, registro y contacto    |
 
-Las credenciales de las cuentas de prueba no se publican aquí: este
-repositorio es público y cualquiera podría entrar con ellas. Créalas o
-cámbialas directamente en la base de datos.
+Tras crear el esquema hay que ejecutar `db/seguridad.sql`, que activa Row Level
+Security y ajusta permisos e índices. El propio script incluye una
+comprobación previa y explica cada paso.
 
-Tras aplicar el esquema, ejecuta `db/seguridad.sql` (ver *Seguridad*).
+Las credenciales de las cuentas de prueba no se documentan aquí porque el
+repositorio es público. Se crean y se cambian directamente en la base de datos.
 
-## Despliegue en Vercel
+## Despliegue
 
-El proyecto incluye `vercel.json` con el runtime PHP y el enrutamiento:
-todo el tráfico (excepto `/assets/*`, servido como estático desde
-`public/assets`) pasa por `api/index.php`.
+`vercel.json` define el runtime de PHP y el enrutamiento: todo el tráfico pasa
+por `api/index.php`, salvo `/assets/*`, que se sirve como estático.
 
-1. Importa el repositorio en Vercel.
-2. Configura las variables de entorno de la tabla anterior en el proyecto de
-   Vercel (Settings → Environment Variables).
-3. Despliega.
+1. Importar el repositorio en Vercel.
+2. Definir las variables de entorno de la tabla anterior.
+3. Desplegar.
 
 ## Seguridad
 
-Resumen de las medidas activas y de dónde vive cada una.
-
-**Credenciales.** No hay ninguna en el código: todo sale de variables de
-entorno (`config.php`), y `.env*`, `.vercel/` y `hash.php` están en
-`.gitignore`. El workflow `.github/workflows/seguridad.yml` pasa *gitleaks*
-en cada push y cada pull request, ahí solo sobre los commits de ese evento.
-El repaso del historial completo es el que corre los lunes, y se puede lanzar
-a mano desde Actions → Seguridad → Run workflow.
-
-**Acceso a la base de datos.** `db/seguridad.sql` activa Row Level Security en
-todas las tablas y retira los permisos a los roles `anon` y `authenticated`.
-Sin eso, la API REST que Supabase publica junto a la base de datos deja leer
-las tablas —incluidos los hashes de contraseña— sin pasar por la aplicación.
-La conexión va siempre con `sslmode=require`.
-
-**Sesiones** (`app/core/Sesion.php`). Se guardan en Postgres, no en disco.
-Cookie `HttpOnly`, `Secure` y `SameSite=Lax`; `session.use_strict_mode`
-activo (con `validateId()` en `DbSessionHandler`, que es lo que lo hace
-efectivo); el id se renueva al iniciar sesión; caducan a los 30 minutos de
-inactividad y a las 8 horas en todo caso. Cerrar sesión es un POST con token
-CSRF y borra los datos, el registro en la base y la cookie.
-
-**Peticiones que modifican datos.** Token CSRF por sesión (`app/core/Csrf.php`)
-más comprobación de origen (`app/core/Origen.php`): se exige que `Origin` o
-`Referer` coincidan con `APP_ORIGENES`, o con el propio dominio si esa variable
-no está definida. No se envía `Access-Control-Allow-Origin` a nadie, así que
-ninguna página ajena puede leer las respuestas.
-
-**Autenticación y abuso.** Contraseñas con `password_hash()`. El login se
-limita por IP+correo (5 intentos / 15 min) y por IP a secas (20 / 15 min, para
-frenar el *password spraying*); el registro, a 5 cuentas por hora y conexión; y
-el formulario de contacto, a 5 mensajes por hora. Todo en `app/core/Limite.php`.
-
-**Autorización.** El rol de administrador se vuelve a leer de la base de datos
-en cada petición al panel, no se da por bueno lo que quedó en la sesión. Las
-solicitudes se comprueban por propietario, y una solicitud ajena responde 404
-igual que una inexistente, para no revelar cuáles existen.
-
-**Entrada y salida.** Todas las consultas son preparadas con parámetros
-(`app/models/`), las vistas escapan con `htmlspecialchars()`, y los modelos
-piden columnas explícitas en vez de `SELECT *` (el hash de contraseña solo se
-lee en el login). Cada campo tiene validación de formato y tope de longitud.
-Las subidas de archivos están desactivadas en `api/php.ini` porque la
-aplicación no recibe ninguna.
-
-**Transporte y cabeceras.** `config.php` redirige a HTTPS cualquier petición en
-claro. `vercel.json` añade HSTS, una CSP sin `unsafe-inline`, `nosniff`,
-`X-Frame-Options: DENY`, `Referrer-Policy` y `Permissions-Policy`.
-
-**Errores.** Nunca se muestran al visitante salvo que se defina `APP_DEBUG=1`;
-se registran con `error_log` (`config.php`, `api/php.ini`).
+- **Credenciales**: solo por variables de entorno. *gitleaks* revisa cada push
+  y cada pull request; el repaso del historial completo corre semanalmente y
+  puede lanzarse desde Actions → Seguridad → Run workflow.
+- **Base de datos**: Row Level Security activo en todas las tablas y permisos
+  retirados a los roles `anon` y `authenticated`, para que la API REST de
+  Supabase no exponga los datos. Conexión con `sslmode=require`.
+- **Sesiones** (`app/core/Sesion.php`): almacenadas en PostgreSQL, cookie
+  `HttpOnly`/`Secure`/`SameSite=Lax`, modo estricto de identificadores,
+  renovación al iniciar sesión y caducidad por inactividad.
+- **Formularios**: token CSRF por sesión (`app/core/Csrf.php`) y validación del
+  origen de la petición (`app/core/Origen.php`).
+- **Autenticación**: contraseñas con `password_hash()` y límites de intentos
+  por IP y por cuenta en login, registro y contacto (`app/core/Limite.php`).
+- **Autorización**: el rol se comprueba contra la base de datos en cada
+  petición al panel, y cada solicitud se valida contra su propietario.
+- **Entrada y salida**: consultas preparadas, escapado con
+  `htmlspecialchars()`, columnas explícitas en los modelos, validación de
+  formato y longitud en todos los campos, y subida de archivos desactivada.
+- **Transporte**: redirección a HTTPS, HSTS y cabeceras de seguridad
+  (CSP sin `unsafe-inline`, `nosniff`, `X-Frame-Options`, `Referrer-Policy`,
+  `Permissions-Policy`) definidas en `vercel.json`.
+- **Errores**: nunca se muestran al visitante; se registran con `error_log`.
