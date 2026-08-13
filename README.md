@@ -98,8 +98,9 @@ Resumen de las medidas activas y de dónde vive cada una.
 **Credenciales.** No hay ninguna en el código: todo sale de variables de
 entorno (`config.php`), y `.env*`, `.vercel/` y `hash.php` están en
 `.gitignore`. El workflow `.github/workflows/seguridad.yml` pasa *gitleaks*
-sobre el historial completo en cada push, para que no se cuele una por
-descuido.
+en cada push y cada pull request, ahí solo sobre los commits de ese evento.
+El repaso del historial completo es el que corre los lunes, y se puede lanzar
+a mano desde Actions → Seguridad → Run workflow.
 
 **Acceso a la base de datos.** `db/seguridad.sql` activa Row Level Security en
 todas las tablas y retira los permisos a los roles `anon` y `authenticated`.

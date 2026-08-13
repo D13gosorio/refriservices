@@ -5,10 +5,14 @@ on:
   # en la rama donde se escribió, no cuando ya se ha integrado.
   push:
   pull_request:
+
+  # En push y en pull_request, gitleaks solo mira los commits de ese evento.
+  # El repaso del historial entero ocurre en estos dos disparadores, que es
+  # cuando la acción escanea todo el repositorio: el lunes de forma automática
+  # y a mano cuando haga falta comprobarlo.
   schedule:
-    # Lunes a las 06:00 UTC: hay hallazgos que aparecen porque cambian las
-    # reglas de detección, no porque haya cambiado el código.
     - cron: "0 6 * * 1"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -20,8 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          # gitleaks revisa también el historial, no solo los archivos actuales:
-          # una credencial borrada en un commit posterior sigue estando ahí.
+          # Historial completo: es lo que necesita el escaneo del lunes para
+          # poder mirar más atrás del último commit. Una credencial borrada en
+          # un commit posterior sigue estando en el historial.
           fetch-depth: 0
 
       - name: gitleaks
