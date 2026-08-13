@@ -1,0 +1,11 @@
+version: 2
+
+updates:
+  # Las acciones que se usan en los workflows también son código de terceros
+  # que se ejecuta con acceso al repositorio: conviene mantenerlas al día.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "ci"

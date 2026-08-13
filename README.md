@@ -37,6 +37,11 @@ Ambos puntos de entrada (`api/index.php` y `public/index.php`) usan el mismo
 | `DB_PASS`    | Contraseña                                                  |
 | `DB_SSLMODE` | `require` (recomendado)                                     |
 | `BASE_URL`   | Vacío en Vercel. En XAMPP local: `http://localhost/refriservices/public` |
+| `APP_ORIGENES` | Opcional. Lista separada por comas de los orígenes desde los que se aceptan formularios, p. ej. `https://refriservices.com,https://www.refriservices.com`. Si se deja sin definir se acepta solo el origen de la propia petición |
+| `APP_DEBUG`  | Opcional. `1` muestra los errores en pantalla. **Solo en local**, nunca en Vercel |
+
+Ninguna de estas variables se guarda en el repositorio: `.env*` está en
+`.gitignore` y en Vercel se configuran en Settings → Environment Variables.
 
 En Vercel, Supabase solo es alcanzable por el *connection pooler* (Supavisor,
 modo transacción, puerto `6543`) porque Vercel es IPv4-only y la conexión
@@ -66,9 +71,14 @@ Incluye:
 - `usuarios`, `servicios`, `repuestos`, `solicitudes`, `mensajes_contacto`
 - `sesiones`: respaldo de las sesiones PHP en base de datos (necesario en
   Vercel, donde no hay filesystem persistente entre invocaciones)
+- `intentos_login`: contador de intentos por ventana de tiempo, usado para
+  limitar login, registro y envíos del formulario de contacto
 
-Usuario administrador de prueba: `admin@refriservices.com` / `admin10`
-Usuario cliente de prueba: `cliente@correo.com` / `cliente123`
+Las credenciales de las cuentas de prueba no se publican aquí: este
+repositorio es público y cualquiera podría entrar con ellas. Créalas o
+cámbialas directamente en la base de datos.
+
+Tras aplicar el esquema, ejecuta `db/seguridad.sql` (ver *Seguridad*).
 
 ## Despliegue en Vercel
 
@@ -80,3 +90,56 @@ todo el tráfico (excepto `/assets/*`, servido como estático desde
 2. Configura las variables de entorno de la tabla anterior en el proyecto de
    Vercel (Settings → Environment Variables).
 3. Despliega.
+
+## Seguridad
+
+Resumen de las medidas activas y de dónde vive cada una.
+
+**Credenciales.** No hay ninguna en el código: todo sale de variables de
+entorno (`config.php`), y `.env*`, `.vercel/` y `hash.php` están en
+`.gitignore`. El workflow `.github/workflows/seguridad.yml` pasa *gitleaks*
+sobre el historial completo en cada push, para que no se cuele una por
+descuido.
+
+**Acceso a la base de datos.** `db/seguridad.sql` activa Row Level Security en
+todas las tablas y retira los permisos a los roles `anon` y `authenticated`.
+Sin eso, la API REST que Supabase publica junto a la base de datos deja leer
+las tablas —incluidos los hashes de contraseña— sin pasar por la aplicación.
+La conexión va siempre con `sslmode=require`.
+
+**Sesiones** (`app/core/Sesion.php`). Se guardan en Postgres, no en disco.
+Cookie `HttpOnly`, `Secure` y `SameSite=Lax`; `session.use_strict_mode`
+activo (con `validateId()` en `DbSessionHandler`, que es lo que lo hace
+efectivo); el id se renueva al iniciar sesión; caducan a los 30 minutos de
+inactividad y a las 8 horas en todo caso. Cerrar sesión es un POST con token
+CSRF y borra los datos, el registro en la base y la cookie.
+
+**Peticiones que modifican datos.** Token CSRF por sesión (`app/core/Csrf.php`)
+más comprobación de origen (`app/core/Origen.php`): se exige que `Origin` o
+`Referer` coincidan con `APP_ORIGENES`, o con el propio dominio si esa variable
+no está definida. No se envía `Access-Control-Allow-Origin` a nadie, así que
+ninguna página ajena puede leer las respuestas.
+
+**Autenticación y abuso.** Contraseñas con `password_hash()`. El login se
+limita por IP+correo (5 intentos / 15 min) y por IP a secas (20 / 15 min, para
+frenar el *password spraying*); el registro, a 5 cuentas por hora y conexión; y
+el formulario de contacto, a 5 mensajes por hora. Todo en `app/core/Limite.php`.
+
+**Autorización.** El rol de administrador se vuelve a leer de la base de datos
+en cada petición al panel, no se da por bueno lo que quedó en la sesión. Las
+solicitudes se comprueban por propietario, y una solicitud ajena responde 404
+igual que una inexistente, para no revelar cuáles existen.
+
+**Entrada y salida.** Todas las consultas son preparadas con parámetros
+(`app/models/`), las vistas escapan con `htmlspecialchars()`, y los modelos
+piden columnas explícitas en vez de `SELECT *` (el hash de contraseña solo se
+lee en el login). Cada campo tiene validación de formato y tope de longitud.
+Las subidas de archivos están desactivadas en `api/php.ini` porque la
+aplicación no recibe ninguna.
+
+**Transporte y cabeceras.** `config.php` redirige a HTTPS cualquier petición en
+claro. `vercel.json` añade HSTS, una CSP sin `unsafe-inline`, `nosniff`,
+`X-Frame-Options: DENY`, `Referrer-Policy` y `Permissions-Policy`.
+
+**Errores.** Nunca se muestran al visitante salvo que se defina `APP_DEBUG=1`;
+se registran con `error_log` (`config.php`, `api/php.ini`).
