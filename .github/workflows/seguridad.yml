@@ -18,7 +18,7 @@ jobs:
     name: Búsqueda de secretos
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # gitleaks revisa también el historial, no solo los archivos actuales:
           # una credencial borrada en un commit posterior sigue estando ahí.
@@ -33,7 +33,7 @@ jobs:
     name: Sintaxis PHP
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: shivammathur/setup-php@v2
         with:
@@ -49,7 +49,7 @@ jobs:
     name: Dependencias
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # El proyecto no usa Composer ni npm: no hay paquetes de terceros que
       # auditar. Si algún día se añaden, este paso deja de pasar de largo en
