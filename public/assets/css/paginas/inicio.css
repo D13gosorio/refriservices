@@ -209,7 +209,10 @@
     color: #cfe0f0;
 }
 
-@media screen and (min-width: 700px) {
+/* Se pasa a cuatro columnas más tarde que el resto de rejillas: el dato más
+   ancho ya no es "24-48h" sino "Aguadulce", y entre 700 y 820 px las cuatro
+   columnas quedan más estrechas que esa palabra. Hasta ahí se mantienen dos. */
+@media screen and (min-width: 820px) {
     .grid-confianza {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -309,12 +312,7 @@
     object-fit: cover;
 }
 
-/* ===================== SECCIÓN: ¿POR QUÉ ELEGIRNOS? (icono) ===================== */
-
-.seccion-ventajas .icono {
-    font-size: 1.8rem;
-    margin-bottom: 0.6rem;
-}
+/* ===================== SECCIÓN: ¿POR QUÉ ELEGIRNOS? (responsive) ===================== */
 
 @media screen and (min-width: 900px) {
     .grid-3-ventajas {

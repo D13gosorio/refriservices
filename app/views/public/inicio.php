@@ -32,8 +32,8 @@
             <span class="dato-texto">Tiempo de respuesta</span>
         </div>
         <div class="dato-confianza">
-            <span class="dato-numero">📍</span>
-            <span class="dato-texto">Aguadulce y alrededores</span>
+            <span class="dato-numero">Aguadulce</span>
+            <span class="dato-texto">y alrededores</span>
         </div>
     </div>
 </section>
@@ -126,25 +126,21 @@
 
     <div class="grid-3-ventajas">
         <div class="ventaja">
-            <div class="icono">🎓</div>
             <h3>Técnicos Certificados</h3>
             <p>Personal capacitado en las últimas tecnologías de refrigeración.</p>
         </div>
 
         <div class="ventaja">
-            <div class="icono">🤝</div>
             <h3>Atención Personalizada</h3>
             <p>Soluciones adaptadas a cada cliente con un trato profesional.</p>
         </div>
 
         <div class="ventaja">
-            <div class="icono">⚡</div>
             <h3>Respuesta Rápida</h3>
             <p>Atención ágil a solicitudes dentro del horario establecido.</p>
         </div>
 
         <div class="ventaja">
-            <div class="icono">✅</div>
             <h3>Garantía en el Servicio</h3>
             <p>Respaldamos cada instalación y reparación que realizamos.</p>
         </div>
