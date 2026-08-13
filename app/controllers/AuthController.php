@@ -76,10 +76,18 @@ class AuthController {
 
     // 8. Iniciar sesión
     LoginThrottle::limpiar($email);
+
+    // El id se renueva ANTES de guardar nada: si alguien consiguió que la
+    // víctima usara un id conocido, ese id queda descartado y nunca llega a
+    // estar asociado a una sesión autenticada (session fixation).
+    session_regenerate_id(true);
+
     $_SESSION['usuario_id'] = $usuario['id'];
     $_SESSION['usuario_nombre'] = $usuario['nombre'];
     $_SESSION['usuario_rol'] = $usuario['rol'];
-    session_regenerate_id(true);
+
+    // Arranca aquí el reloj de la duración máxima de sesión.
+    $_SESSION['_creada_en'] = time();
 
     // 9. Redirigir según rol
     if ($usuario['rol'] === 'admin') {
@@ -117,6 +125,16 @@ class AuthController {
 
         Csrf::verificarOMorir();
 
+        // 1.1 Tope de cuentas creadas desde una misma conexión, para que nadie
+        // llene la tabla de usuarios con registros automatizados.
+        $claveRegistro = 'registro:' . Limite::ip();
+
+        if (Limite::excedido($claveRegistro, 5, 60)) {
+            $_SESSION['error'] = "Se alcanzó el límite de cuentas nuevas desde esta conexión. Inténtalo más tarde.";
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
+            exit;
+        }
+
         // 2. Recibir los campos
         $nombre = trim($_POST['nombre'] ?? '');
         $telefono = trim($_POST['telefono'] ?? '');
@@ -135,6 +153,29 @@ class AuthController {
         // 4. Validamos el formato del email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $_SESSION['error'] = "El correo electrónico no es válido.";
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
+            exit;
+        }
+
+        // 4.1 Topes de longitud y formato. Los atributos del formulario HTML
+        // se saltan con cualquier cliente que no sea un navegador, así que sin
+        // esto se pueden enviar campos de megabytes (llenan la tabla) o
+        // contraseñas enormes (cada intento cuesta memoria y CPU al hashear).
+        if (mb_strlen($nombre) > 100 || mb_strlen($email) > 255 ||
+            mb_strlen($telefono) > 30 || mb_strlen($direccion) > 255) {
+            $_SESSION['error'] = "Alguno de los datos ingresados es demasiado largo.";
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
+            exit;
+        }
+
+        if (strlen($password) > 72) {
+            $_SESSION['error'] = "La contraseña no puede tener más de 72 caracteres.";
+            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
+            exit;
+        }
+
+        if (!preg_match('/^[0-9+()\s.-]{6,30}$/', $telefono)) {
+            $_SESSION['error'] = "El teléfono solo puede tener números, espacios y los signos + - ( ) .";
             header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
             exit;
         }
@@ -184,6 +225,7 @@ class AuthController {
         }
 
         if($creado){
+            Limite::registrar($claveRegistro);
             $_SESSION['success'] = "Tu cuenta se creó correctamente. Ya puedes iniciar sesión.";
             header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
         } else {
@@ -196,9 +238,19 @@ class AuthController {
     // =====================================================
     // 5. Cerrar sesión
     // =====================================================
+    // Solo por POST y con token CSRF: si fuera un enlace GET, cualquier página
+    // ajena (o el prefetch del propio navegador) podría cerrar la sesión del
+    // usuario con solo cargar una imagen apuntando a esta URL.
     public function logout() {
 
-        session_destroy();
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            die("Método no permitido.");
+        }
+
+        Csrf::verificarOMorir();
+
+        Sesion::cerrar();
 
         header("Location: " . BASE_URL . "/");
         exit;

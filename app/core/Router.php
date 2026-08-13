@@ -33,7 +33,11 @@ class Router {
 
         $obj = new $controller();
 
-        if (!method_exists($obj, $method)) {
+        // method_exists() no mira la visibilidad: sin la comprobación de
+        // ReflectionMethod, pedir ?method=verificarAdmin pasaría el filtro y la
+        // llamada reventaría con un error 500. Además de ser una respuesta
+        // equivocada, ese 500 delata qué métodos internos existen y cuáles no.
+        if (!method_exists($obj, $method) || !(new ReflectionMethod($obj, $method))->isPublic()) {
             self::noEncontrado();
         }
 

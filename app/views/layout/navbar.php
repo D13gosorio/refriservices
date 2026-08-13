@@ -29,11 +29,14 @@
 
                 <?php else: ?>
                     
-                    <!-- 🔹 Cerrar sesión -->
+                    <!-- 🔹 Cerrar sesión (POST: ver nota en navbar.css) -->
                     <li>
-                        <a href="<?= BASE_URL ?>/?controller=AuthController&method=logout" class="boton-login">
-                            Salir
-                        </a>
+                        <form method="POST"
+                              action="<?= BASE_URL ?>/?controller=AuthController&method=logout"
+                              class="form-salir">
+                            <?= Csrf::field() ?>
+                            <button type="submit" class="boton-login">Salir</button>
+                        </form>
                     </li>
                     
                      <!-- 🔹 Texto de bienvenida -->

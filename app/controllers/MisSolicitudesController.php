@@ -22,17 +22,26 @@ class MisSolicitudesController {
     public function detalle() {
 
         if (!isset($_SESSION["usuario_id"])) {
+            http_response_code(401);
             die("Debes iniciar sesión.");
         }
 
         $id = filter_var($_GET["id"] ?? null, FILTER_VALIDATE_INT);
 
-        if (!$id) die("Solicitud no encontrada.");
+        if (!$id) {
+            http_response_code(404);
+            die("Solicitud no encontrada.");
+        }
 
         $solicitud = Solicitud::obtenerPorId($id);
 
-        if (!$solicitud) die("Solicitud no encontrada.");
-        if ($solicitud["id_usuario"] != $_SESSION["usuario_id"]) die("Acceso denegado.");
+        // Se responde lo mismo tanto si la solicitud no existe como si es de
+        // otro cliente: distinguir ambos casos permitiría recorrer los ids y
+        // averiguar cuántas solicitudes hay y cuáles existen.
+        if (!$solicitud || (int) $solicitud["id_usuario"] !== (int) $_SESSION["usuario_id"]) {
+            http_response_code(404);
+            die("Solicitud no encontrada.");
+        }
 
         $cssPagina = "mis_solicitudes";
 
@@ -43,7 +52,10 @@ class MisSolicitudesController {
 
     public function cancelar() {
 
-        if (!isset($_SESSION["usuario_id"])) die("Debes iniciar sesión.");
+        if (!isset($_SESSION["usuario_id"])) {
+            http_response_code(401);
+            die("Debes iniciar sesión.");
+        }
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
@@ -53,12 +65,17 @@ class MisSolicitudesController {
         Csrf::verificarOMorir();
 
         $id = filter_var($_POST["id"] ?? null, FILTER_VALIDATE_INT);
-        if (!$id) die("Solicitud no encontrada.");
+
+        if (!$id) {
+            http_response_code(404);
+            die("Solicitud no encontrada.");
+        }
 
         $solicitud = Solicitud::obtenerPorId($id);
 
-        if (!$solicitud || $solicitud["id_usuario"] != $_SESSION["usuario_id"]) {
-            die("Acceso denegado.");
+        if (!$solicitud || (int) $solicitud["id_usuario"] !== (int) $_SESSION["usuario_id"]) {
+            http_response_code(404);
+            die("Solicitud no encontrada.");
         }
 
         Solicitud::actualizarEstado($id, "Cancelado");

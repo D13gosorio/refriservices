@@ -68,35 +68,65 @@ define("DB_USER", getenv("DB_USER") ?: "postgres");
 define("DB_PASS", getenv("DB_PASS") ?: "");
 define("DB_SSLMODE", getenv("DB_SSLMODE") ?: "require");
 
-// Conexión a BD y manejo de sesiones persistentes en la base de datos.
-// Esto es obligatorio en entornos serverless (Vercel), donde no hay disco
-// compartido entre invocaciones para guardar sesiones en archivos.
+// Conexión a BD, sesiones persistentes en la base de datos y utilidades de
+// seguridad. Las sesiones en BD son obligatorias en entornos serverless
+// (Vercel), donde no hay disco compartido entre invocaciones.
 require_once ROOT_PATH . "/app/core/DB.php";
 require_once ROOT_PATH . "/app/core/DbSessionHandler.php";
+require_once ROOT_PATH . "/app/core/Sesion.php";
+require_once ROOT_PATH . "/app/core/Origen.php";
 require_once ROOT_PATH . "/app/core/Csrf.php";
+require_once ROOT_PATH . "/app/core/Limite.php";
 require_once ROOT_PATH . "/app/core/LoginThrottle.php";
-session_set_save_handler(new DbSessionHandler(), true);
 
-// Cookie de sesión endurecida:
-// - HttpOnly: inaccesible desde JavaScript (mitiga robo de sesión vía XSS)
-// - Secure: solo se envía por HTTPS (se desactiva automáticamente en http local)
-// - SameSite=Lax: no se envía en peticiones cross-site que cambian estado
-$httpsActivo = (
-    (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
-    (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
-);
+// mbstring viene de serie en el runtime de Vercel y en XAMPP, pero sigue siendo
+// una extensión opcional. Si faltara, las comprobaciones de longitud del
+// registro y del formulario de contacto provocarían un error fatal. Con esto
+// pasan a contar bytes, que para un tope máximo cumple igual de bien.
+if (!function_exists('mb_strlen')) {
+    function mb_strlen($cadena, $codificacion = null) {
+        return strlen((string) $cadena);
+    }
+}
 
-session_set_cookie_params([
-    'lifetime' => 0,
-    'path'     => '/',
-    'secure'   => $httpsActivo,
-    'httponly' => true,
-    'samesite' => 'Lax',
-]);
+// Todo el sitio va por HTTPS: si llega una petición en claro se redirige antes
+// de tocar la sesión o la base de datos, para que la cookie de sesión no llegue
+// a viajar sin cifrar. En local (http://localhost) no se redirige.
+//
+// Solo se redirige cuando hay constancia de que la petición vino en claro:
+//
+//   - el proxy lo dice explícitamente (X-Forwarded-Proto: http), o
+//   - no hay ningún proxy delante y PHP confirma que no hay TLS.
+//
+// Si hay un proxy delante pero no dice qué protocolo usó, no se redirige. Esa
+// prudencia es a propósito: dar por supuesto que vino en claro cuando en
+// realidad venía cifrado deja el sitio dando vueltas en un bucle infinito de
+// redirecciones, y eso es peor que la falta que se pretendía corregir.
+// (En Vercel esto es solo una red de seguridad: la plataforma ya redirige a
+// HTTPS en el borde.)
+$hostPeticion   = preg_replace('/[^A-Za-z0-9.\-:\[\]]/', '', $_SERVER['HTTP_HOST'] ?? '');
+$protoReenviado = strtolower(trim($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? ''));
+$esLocal        = preg_match('/^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/i', $hostPeticion) === 1;
+
+$hayProxyDelante = isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+    || isset($_SERVER['HTTP_X_FORWARDED_HOST'])
+    || isset($_SERVER['HTTP_X_FORWARDED_PROTO']);
+
+$vinoEnClaro = $protoReenviado === 'http'
+    || (!$hayProxyDelante && !Sesion::httpsActivo());
+
+// 302 y no 301: un redirect permanente se queda cacheado en el navegador, y si
+// alguien entra al XAMPP por la IP de la red local (que no cuenta como local
+// según el patrón de arriba) se quedaría clavado apuntando a un https que ahí
+// no existe, hasta que limpiara la caché.
+if ($vinoEnClaro && !$esLocal && $hostPeticion !== '') {
+    header("Location: https://" . $hostPeticion . ($_SERVER['REQUEST_URI'] ?? '/'), true, 302);
+    exit;
+}
 
 // La sesión se inicia aquí, antes de que cualquier vista imprima HTML.
 // (session_start() debe llamarse antes de enviar cualquier salida; el
 // runtime de PHP en Vercel no usa buffering de salida por defecto como
 // sí ocurre típicamente en XAMPP/Apache, así que iniciarla más tarde,
 // dentro de un controlador o vista, falla en producción).
-session_start();
+Sesion::iniciar();

@@ -41,9 +41,12 @@
                 </li>
 
                 <li>
-                    <a href="<?= BASE_URL ?>/index.php?controller=AuthController&method=logout" class="boton-login">
-                        Salir
-                    </a>
+                    <form method="POST"
+                          action="<?= BASE_URL ?>/index.php?controller=AuthController&method=logout"
+                          class="form-salir">
+                        <?= Csrf::field() ?>
+                        <button type="submit" class="boton-login">Salir</button>
+                    </form>
                 </li>
             </ul>
         </nav>

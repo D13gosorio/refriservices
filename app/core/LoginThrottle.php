@@ -1,60 +1,44 @@
 <?php
 
-// Limita los intentos de login por combinación de IP + correo, para
-// dificultar ataques de fuerza bruta / credential stuffing.
+// Limita los intentos de login para dificultar fuerza bruta y credential
+// stuffing. Se cuenta en dos niveles:
+//
+//   - por IP + correo: frena el ataque contra una cuenta concreta.
+//   - por IP a secas:  frena el "password spraying", donde se prueba una
+//                      misma contraseña contra muchísimos correos distintos
+//                      y el contador por cuenta nunca llegaría al límite.
+//
+// Nota: las claves llevan prefijo ("login:", "login-ip:"), así que los
+// contadores que hubiera de antes del cambio simplemente dejan de contar.
 class LoginThrottle {
 
-    private const MAX_INTENTOS = 5;
+    private const MAX_POR_CUENTA  = 5;
+    private const MAX_POR_IP      = 20;
     private const VENTANA_MINUTOS = 15;
 
-    private static function identidad(string $email): string {
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? 'desconocida';
-        // X-Forwarded-For puede traer una lista "cliente, proxy1, proxy2"
-        $ip = trim(explode(',', $ip)[0]);
-
-        return $ip . '|' . strtolower($email);
+    private static function claveCuenta(string $email): string {
+        return 'login:' . Limite::ip() . '|' . strtolower($email);
     }
 
-    // true si ya se superó el límite de intentos recientes.
-    public static function bloqueado(string $email): bool {
-        $db = DB::getConnection();
-        $stmt = $db->prepare(
-            "SELECT COUNT(*) FROM intentos_login
-             WHERE identidad = :identidad AND creado_en > NOW() - MAKE_INTERVAL(mins => :minutos)"
-        );
-        $stmt->execute([
-            ':identidad' => self::identidad($email),
-            ':minutos' => self::VENTANA_MINUTOS,
-        ]);
+    private static function claveIp(): string {
+        return 'login-ip:' . Limite::ip();
+    }
 
-        return (int) $stmt->fetchColumn() >= self::MAX_INTENTOS;
+    // true si ya se superó alguno de los dos límites.
+    public static function bloqueado(string $email): bool {
+        return Limite::excedido(self::claveCuenta($email), self::MAX_POR_CUENTA, self::VENTANA_MINUTOS)
+            || Limite::excedido(self::claveIp(), self::MAX_POR_IP, self::VENTANA_MINUTOS);
     }
 
     public static function registrarFallo(string $email): void {
-        $db = DB::getConnection();
-        $stmt = $db->prepare("INSERT INTO intentos_login (identidad) VALUES (:identidad)");
-        $stmt->execute([':identidad' => self::identidad($email)]);
-
-        self::limpiezaOportunista();
+        Limite::registrar(self::claveCuenta($email));
+        Limite::registrar(self::claveIp());
     }
 
-    // No hay tarea programada (cron) para purgar filas viejas, así que se
-    // aprovecha cada intento fallido para, ocasionalmente, limpiar registros
-    // que ya no aportan nada (más antiguos que la ventana de bloqueo).
-    private static function limpiezaOportunista(): void {
-        if (random_int(1, 20) !== 1) {
-            return;
-        }
-
-        $db = DB::getConnection();
-        $stmt = $db->prepare("DELETE FROM intentos_login WHERE creado_en < NOW() - INTERVAL '1 day'");
-        $stmt->execute();
-    }
-
-    // Se llama tras un login exitoso para no seguir arrastrando el contador.
+    // Se llama tras un login exitoso para no seguir arrastrando el contador
+    // de esa cuenta. El contador por IP se deja intacto a propósito: si no,
+    // bastaría con una credencial válida para reiniciarlo a voluntad.
     public static function limpiar(string $email): void {
-        $db = DB::getConnection();
-        $stmt = $db->prepare("DELETE FROM intentos_login WHERE identidad = :identidad");
-        $stmt->execute([':identidad' => self::identidad($email)]);
+        Limite::limpiar(self::claveCuenta($email));
     }
 }

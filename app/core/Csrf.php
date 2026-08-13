@@ -21,10 +21,20 @@ class Csrf {
 
     // Verifica el token recibido en la petición contra el de la sesión.
     // Si no coincide, corta la ejecución con 403 (no revela más detalle).
+    //
+    // De paso se comprueba el origen de la petición. Se hace aquí, y no en cada
+    // controlador, porque todas las acciones que modifican datos ya pasan por
+    // este método: así no queda ninguna sin cubrir por olvido.
     public static function verificarOMorir(): void {
+        Origen::verificarOMorir();
+
+        // Se comprueba que sea texto antes de compararlo: enviando
+        // "csrf_token[]=x" el valor llega como array y hash_equals() lanzaría
+        // un TypeError, es decir un error 500 en vez del 403 que toca.
         $recibido = $_POST['csrf_token'] ?? '';
 
-        if (empty($_SESSION[self::SESSION_KEY]) || !hash_equals($_SESSION[self::SESSION_KEY], $recibido)) {
+        if (!is_string($recibido) || empty($_SESSION[self::SESSION_KEY])
+            || !hash_equals($_SESSION[self::SESSION_KEY], $recibido)) {
             http_response_code(403);
             die("Solicitud inválida o expirada. Vuelve a intentarlo.");
         }
