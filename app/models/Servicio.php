@@ -5,7 +5,7 @@ class Servicio {
     public static function obtenerTodos() {
         $db = DB::getConnection();
 
-        $sql = "SELECT * FROM servicios ORDER BY precio ASC";
+        $sql = "SELECT id, nombre, descripcion, precio FROM servicios ORDER BY precio ASC";
         $stmt = $db->query($sql);
         return $stmt->fetchAll();
     }
@@ -13,7 +13,7 @@ class Servicio {
     public static function obtenerPorId($id) {
         $db = DB::getConnection();
 
-        $sql = "SELECT * FROM servicios WHERE id = :id";
+        $sql = "SELECT id, nombre, descripcion, precio FROM servicios WHERE id = :id";
         $stmt = $db->prepare($sql);
         $stmt->execute([':id' => $id]);
         return $stmt->fetch();

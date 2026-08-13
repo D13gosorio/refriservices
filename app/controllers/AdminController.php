@@ -10,16 +10,36 @@ class AdminController {
 
     private function verificarAdmin() {
     // Verifica que exista la sesión
-    if (!isset($_SESSION['usuario_id']) || !isset($_SESSION['usuario_rol'])) {
+    if (!isset($_SESSION['usuario_id'])) {
         header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
         exit;
     }
 
+    // El rol se vuelve a consultar en la base de datos en cada petición al
+    // panel, en vez de confiar en lo que quedó guardado en la sesión al hacer
+    // login. Así, si a una cuenta se le quita el permiso de administrador (o se
+    // elimina), el acceso se corta en la siguiente petición y no cuando al
+    // usuario se le ocurra cerrar sesión.
+    require_once ROOT_PATH . "/app/models/Usuario.php";
+    $usuario = Usuario::buscarPorId($_SESSION['usuario_id']);
+
+    // La cuenta ya no existe: la sesión que la representa tampoco debe seguir.
+    if (!$usuario) {
+        Sesion::cerrar();
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        exit;
+    }
+
+    // Se refresca lo que muestran las vistas para que no quede desfasado.
+    $_SESSION['usuario_rol'] = $usuario['rol'];
+    $_SESSION['usuario_nombre'] = $usuario['nombre'];
+
     // Verifica que tenga rol admin
-    if ($_SESSION['usuario_rol'] !== 'admin') {
-        // Opcional: mandar mensaje de error
+    if ($usuario['rol'] !== 'admin') {
         $_SESSION['error'] = "No tienes permisos para acceder al área de administración.";
-        header("Location: " . BASE_URL);
+        // Con BASE_URL vacía (Vercel) haría falta la barra: "Location:" a secas
+        // es una cabecera sin valor y el navegador no iría a ninguna parte.
+        header("Location: " . BASE_URL . "/");
         exit;
     }
 }

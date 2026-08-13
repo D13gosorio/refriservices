@@ -22,7 +22,7 @@
         <div class="grupo-formulario">
             <label for="nombre">Nombre completo:</label>
             <input type="text" id="nombre" name="nombre"
-                   required placeholder="Tu nombre aquí"
+                   required placeholder="Tu nombre aquí" maxlength="60"
                    pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,60}"
                    title="El nombre solo puede contener letras y espacios (mínimo 3 caracteres)">
         </div>
@@ -31,7 +31,7 @@
         <div class="grupo-formulario">
             <label for="telefono">Teléfono:</label>
             <input type="text" id="telefono" name="telefono"
-                   required placeholder="0000-0000"
+                   required placeholder="0000-0000" maxlength="9"
                    pattern="^[0-9]{4}-[0-9]{4}$"
                    title="El teléfono debe tener el formato 0000-0000">
         </div>
@@ -40,7 +40,7 @@
         <div class="grupo-formulario">
             <label for="direccion">Dirección:</label>
             <input type="text" id="direccion" name="direccion"
-                   required placeholder="Ej: Barrio X, Calle Y, Casa Z"
+                   required placeholder="Ej: Barrio X, Calle Y, Casa Z" maxlength="255"
                    minlength="5"
                    title="La dirección debe contener al menos 5 caracteres">
         </div>
@@ -49,7 +49,7 @@
         <div class="grupo-formulario">
             <label for="email">Correo electrónico:</label>
             <input type="email" id="email" name="email"
-                   required placeholder="ejemplo@correo.com"
+                   required placeholder="ejemplo@correo.com" maxlength="255"
                    pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
                    title="Introduce un correo válido">
         </div>
@@ -60,7 +60,7 @@
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password"
                    required placeholder="********"
-                   minlength="8"
+                   minlength="8" maxlength="72"
                    pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"
                    title="La contraseña debe tener mínimo 8 caracteres e incluir letras y números">
         </div>
@@ -70,7 +70,7 @@
             <label for="password_confirm">Confirmar contraseña:</label>
             <input type="password" id="password_confirm" name="password_confirm"
                    required placeholder="********"
-                   minlength="8"
+                   minlength="8" maxlength="72"
                    pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"
                    title="Debe coincidir con la contraseña anterior">
         </div>

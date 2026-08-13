@@ -16,19 +16,23 @@
         <!-- Nombre -->
         <div class="grupo-formulario">
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <input type="text" id="nombre" name="nombre" maxlength="100" required>
         </div>
 
         <!-- Correo -->
         <div class="grupo-formulario">
             <label for="correo">Correo:</label>
-            <input type="email" id="correo" name="correo" required>
+            <input type="email" id="correo" name="correo" maxlength="255" required>
         </div>
 
-        <!-- Teléfono -->
+        <!-- Teléfono: mismas reglas que valida el servidor, para que el aviso
+             lo dé el navegador antes de enviar y no se pierda lo escrito. -->
         <div class="grupo-formulario">
             <label for="telefono">Teléfono (opcional):</label>
-            <input type="text" id="telefono" name="telefono">
+            <input type="text" id="telefono" name="telefono"
+                   pattern="[0-9+\(\)\s.\-]{6,30}"
+                   title="Entre 6 y 30 caracteres: números, espacios y los signos + - ( ) ."
+                   maxlength="30">
         </div>
 
         <!-- Asunto -->
@@ -46,7 +50,7 @@
         <!-- Mensaje -->
         <div class="grupo-formulario">
             <label for="mensaje">Mensaje:</label>
-            <textarea id="mensaje" name="mensaje" rows="5" required
+            <textarea id="mensaje" name="mensaje" rows="5" maxlength="2000" required
                       placeholder="Escribe aquí tu mensaje..."></textarea>
         </div>
 

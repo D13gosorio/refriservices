@@ -58,6 +58,23 @@
     background-color: #e56c00;
 }
 
+/* "Salir" es un <button> dentro de un formulario POST, no un enlace: así no lo
+   dispara el prefetch del navegador ni una petición forjada desde otro sitio.
+   Estas reglas le quitan la apariencia propia del <button> y le devuelven la
+   tipografía que el enlace heredaba de `.menu ul li a`. */
+.form-salir {
+    display: inline;
+}
+
+.form-salir .boton-login {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1.5rem;
+    transition: 0.2s;
+}
+
 /* ------------------------------
    MENÚ HAMBURGUESA (mobile)
 ------------------------------ */

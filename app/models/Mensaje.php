@@ -16,7 +16,7 @@ class Mensaje {
     public static function obtenerTodos() {
         $db = DB::getConnection();
 
-        $sql = "SELECT * FROM mensajes_contacto ORDER BY id DESC";
+        $sql = "SELECT id, nombre, correo, telefono, asunto, mensaje, fecha FROM mensajes_contacto ORDER BY id DESC";
         $stmt = $db->query($sql);
 
         return $stmt->fetchAll();
