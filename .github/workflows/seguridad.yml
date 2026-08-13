@@ -1,0 +1,66 @@
+name: Seguridad
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  schedule:
+    # Lunes a las 06:00 UTC: hay hallazgos que aparecen porque cambian las
+    # reglas de detección, no porque haya cambiado el código.
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  secretos:
+    name: Búsqueda de secretos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # gitleaks revisa también el historial, no solo los archivos actuales:
+          # una credencial borrada en un commit posterior sigue estando ahí.
+          fetch-depth: 0
+
+      - name: gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  sintaxis:
+    name: Sintaxis PHP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: none
+
+      - name: php -l en todos los archivos
+        run: |
+          find . -type f -name '*.php' -not -path './vendor/*' -print0 \
+            | xargs -0 -n1 -P4 php -l
+
+  dependencias:
+    name: Dependencias
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # El proyecto no usa Composer ni npm: no hay paquetes de terceros que
+      # auditar. Si algún día se añaden, este paso deja de pasar de largo en
+      # silencio y recuerda enchufar la auditoría correspondiente.
+      - name: Avisar si aparecen dependencias sin auditar
+        run: |
+          if [ -f composer.json ]; then
+            echo "::error::Hay composer.json. Añade 'composer audit' a este workflow."
+            exit 1
+          fi
+          if [ -f package.json ]; then
+            echo "::error::Hay package.json. Añade 'npm audit' a este workflow."
+            exit 1
+          fi
+          echo "Sin dependencias de terceros que auditar."
