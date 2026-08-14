@@ -10,7 +10,7 @@
         </div>
 
         <!-- MENU -->
-        <nav class="menu">
+        <nav class="menu" id="menu-principal">
             <ul>
                 <li><a href="<?= BASE_URL ?>/">Inicio</a></li>
                 <li><a href="<?= BASE_URL ?>/?controller=ServicioController&method=index">Servicios</a></li>
@@ -48,11 +48,16 @@
         </nav>
 
         <!-- Ícono hamburguesa (móvil) -->
-        <div class="hamburguesa">
+        <!-- Botón, no un div: así se puede enfocar y activar con el teclado, y
+             aria-expanded le dice a un lector de pantalla si el menú está abierto. -->
+        <button class="hamburguesa" type="button"
+                aria-label="Abrir menú de navegación"
+                aria-expanded="false"
+                aria-controls="menu-principal">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
 
     </div>
 </div>
