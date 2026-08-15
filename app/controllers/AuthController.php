@@ -2,13 +2,42 @@
 
 class AuthController {
 
+    // Vuelve al formulario de acceso con un aviso, conservando el correo ya
+    // escrito. La contraseña no se guarda nunca.
+    private function volverALogin(string $mensaje, string $email = ''): void {
+        $_SESSION['error'] = $mensaje;
+
+        if ($email !== '') {
+            $_SESSION['login_email'] = $email;
+        }
+
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
+        exit;
+    }
+
+    // Vuelve al formulario de registro conservando lo ya escrito y señalando
+    // qué campo hay que corregir. Antes se perdían los cinco campos por
+    // equivocarse en uno solo, y había que teclearlo todo de nuevo.
+    private function volverAlRegistro(string $mensaje, array $datos = [], ?string $campo = null): void {
+        $_SESSION['error'] = $mensaje;
+        $_SESSION['registro_datos'] = $datos;
+
+        if ($campo !== null) {
+            $_SESSION['registro_campo_error'] = $campo;
+        }
+
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
+        exit;
+    }
+
     // =====================================================
     // 1. Mostrar formulario de login
     // =====================================================
     public function login() {
 
-        // CSS específico de esta vista
-        $cssPagina = "login";
+        // Acceso y registro comparten hoja de estilos: son la misma pantalla
+        // con distintos campos.
+        $cssPagina = "autenticacion";
 
         include ROOT_PATH . "/app/views/layout/header.php";
         include ROOT_PATH . "/app/views/public/login.php";
@@ -23,9 +52,7 @@ class AuthController {
 
     // 1. Verificar que venga por POST
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        $_SESSION['error'] = "Acceso no permitido.";
-        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
-        exit;
+        $this->volverALogin("Acceso no permitido.");
     }
 
     Csrf::verificarOMorir();
@@ -36,42 +63,40 @@ class AuthController {
 
     // 3. Validar campos vacíos
     if (empty($email) || empty($password)) {
-        $_SESSION['error'] = "El correo y la contraseña son obligatorios.";
-        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
-        exit;
+        $this->volverALogin("El correo y la contraseña son obligatorios.", $email);
     }
 
     // 4. Validar formato de email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $_SESSION['error'] = "Correo electrónico no válido.";
-        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
-        exit;
+        $this->volverALogin("Correo electrónico no válido.", $email);
     }
 
     // 5. Verificar que no haya demasiados intentos fallidos recientes
     //    para esta combinación de IP + correo (protección anti fuerza bruta)
     if (LoginThrottle::bloqueado($email)) {
-        $_SESSION['error'] = "Demasiados intentos fallidos. Espera unos minutos e inténtalo de nuevo.";
-        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
-        exit;
+        $this->volverALogin("Demasiados intentos fallidos. Espera unos minutos e inténtalo de nuevo.", $email);
     }
 
     // 6. Buscar usuario por email
     $usuario = Usuario::buscarPorEmail($email);
 
-    if (!$usuario) {
-        LoginThrottle::registrarFallo($email);
-        $_SESSION['error'] = "El correo o la contraseña ingresados son incorrectos.";
-        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
-        exit;
+    // 7. Correo inexistente y contraseña incorrecta dan el MISMO mensaje:
+    //    distinguirlos permitiría averiguar qué correos están registrados.
+    //
+    //    Cuando no hay usuario se hace igualmente un hasheo de coste
+    //    equivalente. Sin eso, la respuesta llegaría muy por delante en ese
+    //    caso, y esa diferencia de tiempo delata exactamente lo mismo que el
+    //    mensaje que se acaba de unificar.
+    if ($usuario) {
+        $credencialesValidas = password_verify($password, $usuario['password']);
+    } else {
+        password_hash($password, PASSWORD_DEFAULT);
+        $credencialesValidas = false;
     }
 
-    // 7. Validar contraseña con password_verify()
-    if (!password_verify($password, $usuario['password'])) {
+    if (!$credencialesValidas) {
         LoginThrottle::registrarFallo($email);
-        $_SESSION['error'] = "El correo o la contraseña ingresados son incorrectos.";
-        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
-        exit;
+        $this->volverALogin("El correo o la contraseña ingresados son incorrectos.", $email);
     }
 
     // 8. Iniciar sesión
@@ -104,8 +129,7 @@ class AuthController {
     // =====================================================
     public function registro() {
 
-        // CSS específico de esta vista
-        $cssPagina = "registro";
+        $cssPagina = "autenticacion";
 
         include ROOT_PATH . "/app/views/layout/header.php";
         include ROOT_PATH . "/app/views/public/registro.php";
@@ -130,9 +154,7 @@ class AuthController {
         $claveRegistro = 'registro:' . Limite::ip();
 
         if (Limite::excedido($claveRegistro, 5, 60)) {
-            $_SESSION['error'] = "Se alcanzó el límite de cuentas nuevas desde esta conexión. Inténtalo más tarde.";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
-            exit;
+            $this->volverAlRegistro("Se alcanzó el límite de cuentas nuevas desde esta conexión. Inténtalo más tarde.");
         }
 
         // 2. Recibir los campos
@@ -143,56 +165,68 @@ class AuthController {
         $password = $_POST['password'] ?? '';
         $password_confirm = $_POST ['password_confirm'] ?? '';
 
-        // 3. Hacemos la validación de campos vacíos
-        if (empty($nombre) || empty($telefono) || empty($direccion) || empty($email) || empty($password) || empty($password_confirm)){
-            $_SESSION['error'] = "Todos los campos son obligatorios";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
-            exit;
+        // Lo que se devuelve al formulario si algo falla. Nunca las
+        // contraseñas: se vuelven a escribir siempre.
+        $datos = [
+            'nombre' => $nombre,
+            'telefono' => $telefono,
+            'direccion' => $direccion,
+            'email' => $email,
+        ];
+
+        // 3. Hacemos la validación de campos vacíos, señalando el primero que
+        //    falte para que el formulario pueda marcarlo.
+        foreach (['nombre' => $nombre, 'telefono' => $telefono, 'direccion' => $direccion, 'email' => $email] as $campo => $valor) {
+            if ($valor === '') {
+                $this->volverAlRegistro("Faltan datos por completar.", $datos, $campo);
+            }
+        }
+
+        if ($password === '' || $password_confirm === '') {
+            $this->volverAlRegistro("Escribe la contraseña y su confirmación.", $datos, 'password');
         }
 
         // 4. Validamos el formato del email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $_SESSION['error'] = "El correo electrónico no es válido.";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
-            exit;
+            $this->volverAlRegistro("El correo electrónico no es válido.", $datos, 'email');
         }
 
         // 4.1 Topes de longitud y formato. Los atributos del formulario HTML
         // se saltan con cualquier cliente que no sea un navegador, así que sin
         // esto se pueden enviar campos de megabytes (llenan la tabla) o
         // contraseñas enormes (cada intento cuesta memoria y CPU al hashear).
-        if (mb_strlen($nombre) > 100 || mb_strlen($email) > 255 ||
-            mb_strlen($telefono) > 30 || mb_strlen($direccion) > 255) {
-            $_SESSION['error'] = "Alguno de los datos ingresados es demasiado largo.";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
-            exit;
+        if (mb_strlen($nombre) > 60) {
+            $this->volverAlRegistro("El nombre no puede tener más de 60 caracteres.", $datos, 'nombre');
+        }
+
+        if (mb_strlen($email) > 255) {
+            $this->volverAlRegistro("El correo no puede tener más de 255 caracteres.", $datos, 'email');
+        }
+
+        if (mb_strlen($direccion) > 255) {
+            $this->volverAlRegistro("La dirección no puede tener más de 255 caracteres.", $datos, 'direccion');
         }
 
         if (strlen($password) > 72) {
-            $_SESSION['error'] = "La contraseña no puede tener más de 72 caracteres.";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
-            exit;
+            $this->volverAlRegistro("La contraseña no puede tener más de 72 caracteres.", $datos, 'password');
         }
 
-        if (!preg_match('/^[0-9+()\s.-]{6,30}$/', $telefono)) {
-            $_SESSION['error'] = "El teléfono solo puede tener números, espacios y los signos + - ( ) .";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
-            exit;
+        // Mismo formato que exige el formulario (0000-0000). Si el servidor
+        // aceptara más de lo que la pantalla promete, el aviso que ve el
+        // usuario describiría una regla que no es la que se aplica.
+        if (!preg_match('/^[0-9]{4}-[0-9]{4}$/', $telefono)) {
+            $this->volverAlRegistro("El teléfono debe tener ocho dígitos, con el formato 6031-6975.", $datos, 'telefono');
         }
 
         // 5. Validamos la contraseña
         if ($password !== $password_confirm){
-            $_SESSION['error'] = "Las contraseñas no coinciden.";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
-            exit;
+            $this->volverAlRegistro("Las contraseñas no coinciden.", $datos, 'password');
         }
 
         // La validación del formulario (minlength/pattern) es solo del lado
         // del cliente y se puede saltar fácilmente; se repite aquí.
         if (strlen($password) < 8 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/\d/', $password)) {
-            $_SESSION['error'] = "La contraseña debe tener al menos 8 caracteres e incluir letras y números.";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
-            exit;
+            $this->volverAlRegistro("La contraseña debe tener al menos 8 caracteres e incluir letras y números.", $datos, 'password');
         }
 
         // 6. Incluir modelo
@@ -202,9 +236,7 @@ class AuthController {
         $existe = Usuario::buscarPorEmail($email);
 
         if($existe){
-            $_SESSION['error'] = "Ese correo ya está registrado.";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
-            exit;
+            $this->volverAlRegistro("Ese correo ya está registrado. ¿Quieres iniciar sesión?", $datos, 'email');
         }
 
         // 8. Hashear la contraseña
@@ -224,14 +256,18 @@ class AuthController {
             $creado = false;
         }
 
-        if($creado){
-            Limite::registrar($claveRegistro);
-            $_SESSION['success'] = "Tu cuenta se creó correctamente. Ya puedes iniciar sesión.";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
-        } else {
-            $_SESSION['error'] = "Hubo un error al crear tu cuenta. Intenta nuevamente.";
-            header("Location: " . BASE_URL . "/?controller=AuthController&method=registro");
+        if (!$creado) {
+            $this->volverAlRegistro("Hubo un error al crear tu cuenta. Intenta nuevamente.", $datos);
         }
+
+        Limite::registrar($claveRegistro);
+
+        // El correo se lleva al formulario de acceso ya escrito, para que
+        // entrar por primera vez sea un paso y no dos.
+        $_SESSION['success'] = "Tu cuenta se creó correctamente. Ya puedes iniciar sesión.";
+        $_SESSION['login_email'] = $email;
+
+        header("Location: " . BASE_URL . "/?controller=AuthController&method=login");
         exit;
     }
 

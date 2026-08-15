@@ -1,76 +1,77 @@
 <?php
 // La sesión ya se inicia en config.php antes de renderizar cualquier vista.
+
+// Correo del intento anterior, para no obligar a reescribirlo tras un fallo.
+// La contraseña nunca se recuerda.
+$emailPrevio = $_SESSION['login_email'] ?? '';
+unset($_SESSION['login_email']);
 ?>
 
-<section class="seccion-login">
+<section class="seccion-auth">
 
-    <!-- Título -->
-    <h1 class="titulo-principal texto-centrado">Iniciar Sesión</h1>
+    <h1 class="titulo-principal texto-centrado">Iniciar sesión</h1>
 
-    <!-- Subtítulo -->
     <p class="texto-centrado descripcion-subtitulo">
-        Accede a tu cuenta para solicitar servicios o gestionar información.
+        Accede a tu cuenta para solicitar servicios y seguir tus solicitudes.
     </p>
 
-    <!-- Mensaje de error -->
     <?php if (!empty($_SESSION['error'])): ?>
-        <div class="alerta-error">
+        <!-- role="alert" hace que un lector de pantalla lo anuncie al cargar
+             la página; sin él, el aviso pasa desapercibido. -->
+        <div class="alerta-error" role="alert">
             <?= htmlspecialchars($_SESSION['error']) ?>
         </div>
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
-    <!-- Mensaje de éxito -->
     <?php if (!empty($_SESSION['success'])): ?>
-        <div class="alerta-exito">
+        <div class="alerta-exito" role="status">
             <?= htmlspecialchars($_SESSION['success']) ?>
         </div>
         <?php unset($_SESSION['success']); ?>
     <?php endif; ?>
 
-    <!-- FORMULARIO -->
     <form method="POST"
           action="<?= BASE_URL ?>/?controller=AuthController&method=doLogin"
-          class="formulario-login">
+          class="formulario-auth">
 
         <?= Csrf::field() ?>
 
-        <!-- Email -->
         <div class="grupo-formulario">
-            <label for="email">Correo electrónico:</label>
-
+            <label for="email">Correo electrónico</label>
+            <!-- autocomplete deja que el navegador y el gestor de contraseñas
+                 rellenen el campo; autofocus pone el cursor donde toca. -->
             <input type="email"
                    id="email"
                    name="email"
+                   value="<?= htmlspecialchars($emailPrevio) ?>"
                    required
+                   maxlength="255"
+                   autocomplete="email"
+                   autofocus
                    placeholder="ejemplo@correo.com">
         </div>
 
-        <!-- Contraseña -->
         <div class="grupo-formulario">
-            <label for="password">Contraseña:</label>
-
-            <input type="password"
-                   id="password"
-                   name="password"
-                   required
-                   placeholder="********">
+            <label for="password">Contraseña</label>
+            <div class="campo-password">
+                <input type="password"
+                       id="password"
+                       name="password"
+                       required
+                       autocomplete="current-password"
+                       placeholder="Tu contraseña">
+            </div>
         </div>
 
-        <!-- Botón -->
-        <div class="texto-centrado">
-            <button type="submit" class="boton-naranja">
-                Iniciar Sesión
-            </button>
-        </div>
+        <button type="submit" class="boton-naranja">Iniciar sesión</button>
     </form>
 
-    <!-- Enlace a registro -->
-    <p class="texto-centrado enlace-registro">
+    <p class="enlace-auth">
         ¿No tienes cuenta?
-        <a href="<?= BASE_URL ?>/?controller=AuthController&method=registro" class="enlace-azul">
-            Regístrate aquí
-        </a>
+        <a href="<?= BASE_URL ?>/?controller=AuthController&method=registro">Crea una aquí</a>
     </p>
 
 </section>
+
+<script src="<?= BASE_URL ?>/assets/js/autenticacion.js"></script>
