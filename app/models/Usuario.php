@@ -47,6 +47,19 @@ class Usuario {
         ]);
     }
 
+    // =====================================================
+    // Actualizar el hash de la contraseña
+    // =====================================================
+    // La usa el login para rehacer hashes guardados con un coste antiguo.
+    public static function actualizarPassword($id, string $hash): bool {
+        $db = self::conexion();
+
+        $sql = "UPDATE usuarios SET password = :password WHERE id = :id";
+        $stmt = $db->prepare($sql);
+
+        return $stmt->execute([':password' => $hash, ':id' => $id]);
+    }
+
      // =====================================================
     // Busqueda por ID
     // =====================================================

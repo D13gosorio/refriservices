@@ -8,14 +8,32 @@
 // varios tipos de acción sin crear una tabla por cada uno.
 class Limite {
 
-    // IP del visitante. Detrás del proxy de Vercel la IP real llega en
-    // X-Forwarded-For con el formato "cliente, proxy1, proxy2".
+    // IP del visitante, que es la clave con la que se cuentan los intentos.
+    //
+    // Detrás de un proxy la dirección real llega en X-Forwarded-For, y se toma
+    // la ÚLTIMA de la lista, no la primera. Un proxy AÑADE al final la IP que
+    // acaba de ver, así que todo lo que va delante lo pudo escribir el propio
+    // cliente: leyendo la primera bastaba con mandar una cabecera inventada y
+    // distinta en cada petición para estrenar contador cada vez y dejar sin
+    // efecto los límites de login, registro y contacto.
+    //
+    // Cuando no hay proxy delante la cabecera no existe y se usa REMOTE_ADDR,
+    // que la establece el propio servidor y no se puede falsear.
     public static function ip(): string {
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? 'desconocida';
+        $reenviadas = trim($_SERVER['HTTP_X_FORWARDED_FOR'] ?? '');
 
-        // Se recorta para que una cabecera manipulada de tamaño absurdo no
-        // llegue nunca a la consulta.
-        return substr(trim(explode(',', $ip)[0]), 0, 45);
+        if ($reenviadas !== '') {
+            $partes = explode(',', $reenviadas);
+            $ip = trim((string) end($partes));
+
+            if ($ip !== '') {
+                // Se recorta para que una cabecera manipulada de tamaño
+                // absurdo no llegue nunca a la consulta.
+                return substr($ip, 0, 45);
+            }
+        }
+
+        return substr($_SERVER['REMOTE_ADDR'] ?? 'desconocida', 0, 45);
     }
 
     // Lo que se guarda no es la clave sino su hash, por dos motivos:

@@ -44,7 +44,7 @@ unset($_SESSION['login_email']);
             <input type="email"
                    id="email"
                    name="email"
-                   value="<?= htmlspecialchars($emailPrevio) ?>"
+                   value="<?= htmlspecialchars($emailPrevio, ENT_QUOTES, 'UTF-8') ?>"
                    required
                    maxlength="255"
                    autocomplete="email"

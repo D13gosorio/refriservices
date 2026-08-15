@@ -7,7 +7,10 @@ $campoError = $_SESSION['registro_campo_error'] ?? null;
 unset($_SESSION['registro_datos'], $_SESSION['registro_campo_error']);
 
 // Devuelve el valor anterior de un campo, ya escapado.
-$valor = static fn(string $campo): string => htmlspecialchars($previos[$campo] ?? '');
+// ENT_QUOTES explícito: hasta PHP 8.0 el valor por defecto no escapaba las
+// comillas simples, y ese matiz decide si un valor recordado puede salirse
+// del atributo en el que se imprime.
+$valor = static fn(string $campo): string => htmlspecialchars($previos[$campo] ?? '', ENT_QUOTES, 'UTF-8');
 
 // Marca el campo que provocó el error, para que se vea cuál corregir.
 $marca = static fn(string $campo): string => $campoError === $campo

@@ -2,6 +2,17 @@
 
 class AuthController {
 
+    // Impide que la respuesta se guarde en el disco del navegador, en el
+    // historial o en cualquier intermediario. Estas dos páginas llevan el
+    // correo del usuario y los datos que acaba de escribir, y sin esto quedan
+    // recuperables con el botón "atrás" después de cerrar sesión, o en un
+    // equipo compartido.
+    private function sinCache(): void {
+        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+    }
+
     // Vuelve al formulario de acceso con un aviso, conservando el correo ya
     // escrito. La contraseña no se guarda nunca.
     private function volverALogin(string $mensaje, string $email = ''): void {
@@ -34,6 +45,8 @@ class AuthController {
     // 1. Mostrar formulario de login
     // =====================================================
     public function login() {
+
+        $this->sinCache();
 
         // Acceso y registro comparten hoja de estilos: son la misma pantalla
         // con distintos campos.
@@ -99,13 +112,27 @@ class AuthController {
         $this->volverALogin("El correo o la contraseña ingresados son incorrectos.", $email);
     }
 
-    // 8. Iniciar sesión
+    // 8. Si el hash se guardó con un algoritmo o un coste que ya no es el
+    //    actual, se rehace aprovechando que aquí se tiene la contraseña en
+    //    claro. Es el único momento en que se puede: sin esto, las cuentas
+    //    antiguas se quedarían con el hash débil para siempre.
+    if (password_needs_rehash($usuario['password'], PASSWORD_DEFAULT)) {
+        Usuario::actualizarPassword($usuario['id'], password_hash($password, PASSWORD_DEFAULT));
+    }
+
+    // 9. Iniciar sesión
     LoginThrottle::limpiar($email);
 
     // El id se renueva ANTES de guardar nada: si alguien consiguió que la
     // víctima usara un id conocido, ese id queda descartado y nunca llega a
     // estar asociado a una sesión autenticada (session fixation).
     session_regenerate_id(true);
+
+    // El token CSRF también se renueva. Sobrevive a session_regenerate_id()
+    // porque los datos se copian a la sesión nueva, y un token emitido antes
+    // de autenticarse pudo verlo alguien más (un equipo compartido, por
+    // ejemplo) y seguiría siendo válido ya dentro de la cuenta.
+    Csrf::renovar();
 
     $_SESSION['usuario_id'] = $usuario['id'];
     $_SESSION['usuario_nombre'] = $usuario['nombre'];
@@ -128,6 +155,8 @@ class AuthController {
     // 3. Mostrar formulario de registro
     // =====================================================
     public function registro() {
+
+        $this->sinCache();
 
         $cssPagina = "autenticacion";
 
@@ -224,9 +253,13 @@ class AuthController {
         }
 
         // La validación del formulario (minlength/pattern) es solo del lado
-        // del cliente y se puede saltar fácilmente; se repite aquí.
-        if (strlen($password) < 8 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/\d/', $password)) {
-            $this->volverAlRegistro("La contraseña debe tener al menos 8 caracteres e incluir letras y números.", $datos, 'password');
+        // del cliente y se puede saltar fácilmente; se repite aquí. Además se
+        // descartan las contraseñas que cumplen la regla pero están entre las
+        // primeras que prueba cualquier ataque de diccionario.
+        $motivo = Password::motivoRechazo($password, [$nombre, strstr($email, '@', true)]);
+
+        if ($motivo !== null) {
+            $this->volverAlRegistro($motivo, $datos, 'password');
         }
 
         // 6. Incluir modelo

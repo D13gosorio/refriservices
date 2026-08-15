@@ -133,8 +133,14 @@ por `api/index.php`, salvo `/assets/*`, que se sirve como estático.
   renovación al iniciar sesión y caducidad por inactividad.
 - **Formularios**: token CSRF por sesión (`app/core/Csrf.php`) y validación del
   origen de la petición (`app/core/Origen.php`).
-- **Autenticación**: contraseñas con `password_hash()` y límites de intentos
-  por IP y por cuenta en login, registro y contacto (`app/core/Limite.php`).
+- **Autenticación**: contraseñas con `password_hash()`, rehash automático al
+  entrar si cambia el coste, y rechazo de las contraseñas más usadas o
+  derivadas del nombre o el correo (`app/core/Password.php`). Los límites de
+  intentos se cuentan por IP y por cuenta en login, registro y contacto
+  (`app/core/Limite.php`), tomando la IP del final de `X-Forwarded-For`, que
+  es la única que añade el proxy y no puede escribir el cliente.
+- **Pantallas de acceso**: se sirven con `Cache-Control: no-store`, para que
+  el correo y los datos escritos no queden en el disco del navegador.
 - **Autorización**: el rol se comprueba contra la base de datos en cada
   petición al panel, y cada solicitud se valida contra su propietario.
 - **Entrada y salida**: consultas preparadas, escapado con

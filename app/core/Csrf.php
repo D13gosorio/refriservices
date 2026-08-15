@@ -14,6 +14,12 @@ class Csrf {
         return $_SESSION[self::SESSION_KEY];
     }
 
+    // Descarta el token actual para que el siguiente uso genere uno nuevo.
+    // Se llama al iniciar sesión, cuando cambian los privilegios.
+    public static function renovar(): void {
+        unset($_SESSION[self::SESSION_KEY]);
+    }
+
     // Imprime el <input hidden> listo para incrustar en un <form>.
     public static function field(): string {
         return '<input type="hidden" name="csrf_token" value="' . htmlspecialchars(self::token()) . '">';

@@ -78,6 +78,7 @@ require_once ROOT_PATH . "/app/core/Origen.php";
 require_once ROOT_PATH . "/app/core/Csrf.php";
 require_once ROOT_PATH . "/app/core/Limite.php";
 require_once ROOT_PATH . "/app/core/LoginThrottle.php";
+require_once ROOT_PATH . "/app/core/Password.php";
 
 // mbstring viene de serie en el runtime de Vercel y en XAMPP, pero sigue siendo
 // una extensión opcional. Si faltara, las comprobaciones de longitud del
@@ -86,6 +87,18 @@ require_once ROOT_PATH . "/app/core/LoginThrottle.php";
 if (!function_exists('mb_strlen')) {
     function mb_strlen($cadena, $codificacion = null) {
         return strlen((string) $cadena);
+    }
+}
+
+if (!function_exists('mb_strtolower')) {
+    function mb_strtolower($cadena, $codificacion = null) {
+        return strtolower((string) $cadena);
+    }
+}
+
+if (!function_exists('mb_str_split')) {
+    function mb_str_split($cadena, $longitud = 1, $codificacion = null) {
+        return str_split((string) $cadena, $longitud);
     }
 }
 
